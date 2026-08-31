@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traffy Fondue Exchange API Documentation</title>
-  <meta name="description" content="คู่มือและเอกสารการเชื่อมต่อ Traffy Fondue Exchange API ครบทั้ง 13 Endpoint สำหรับหน่วยงานและนักพัฒนาระบบเพื่อแลกเปลี่ยนข้อมูลปัญหาเมือง">
+  <title>Traffy Fondue Exchange API - Open Data & Integration Portal</title>
+  <meta name="description" content="คู่มือและภาพรวมการเชื่อมต่อระบบ Traffy Fondue Exchange API สำหรับหน่วยงานและนักพัฒนาระบบเพื่อแลกเปลี่ยนข้อมูลปัญหาเมือง">
   <link rel="icon" type="image/webp" href="assets/logo.webp">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a href="#api-reference" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
+  <a href="#quick-reference" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="container nav-wrap">
-      <a href="#" class="brand-logo">
+      <a href="index.html" class="brand-logo" aria-label="Traffy Fondue Exchange API หน้าแรก">
         <img src="assets/logo.webp" alt="Traffy Fondue Logo">
         <div class="brand-text">
           <span class="brand-title">Traffy Fondue</span>
@@ -22,15 +22,18 @@
         </div>
       </a>
       <ul class="nav-links">
-        <li><a href="#overview" class="nav-link">ภาพรวม</a></li>
         <li><a href="#modes" class="nav-link">รูปแบบบริการ</a></li>
         <li><a href="#onboarding" class="nav-link">ขั้นตอนขอสิทธิ์</a></li>
-        <li><a href="#api-reference" class="nav-link">เอกสาร API (ครบ 13 Endpoints)</a></li>
+        <li><a href="#quick-reference" class="nav-link">ตาราง Endpoint</a></li>
+        <li><a href="docs.html" class="nav-link" style="color: var(--brand); font-weight: 700;">📖 คู่มือ API ฉบับเต็ม</a></li>
         <li><a href="#support" class="nav-link">ติดต่อเรา</a></li>
       </ul>
       <div class="header-actions">
-        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary">
-          <span>ขอสิทธิ์ใช้งาน API</span>
+        <a href="docs.html" class="btn btn-secondary" style="font-size: 0.85rem;">
+          <span>API Docs</span>
+        </a>
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary" aria-label="ขอสิทธิ์ใช้งาน API (เปิดในหน้าต่างใหม่)">
+          <span>ขอสิทธิ์ใช้งาน</span>
           <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -51,11 +54,11 @@
         แพลตฟอร์ม API มาตรฐานสำหรับหน่วยงานภาครัฐ อปท. รัฐวิสาหกิจ และผู้พัฒนาระบบภายนอก ในการรับ-ส่งข้อมูลเรื่องแจ้งเหตุ จัดการสถานะ และรับข้อมูลแบบ Real-time
       </p>
       <div class="hero-cta">
-        <a href="#api-reference" class="btn btn-primary btn-lg">
-          <span>ดูเอกสาร API ทั้งหมด (13 Endpoints)</span>
-          <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+        <a href="docs.html" class="btn btn-primary btn-lg">
+          <span>เข้าสู่คู่มือ API Reference ฉบับเต็ม</span>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
           <span>สมัครขอใช้งาน (Google Form)</span>
         </a>
       </div>
@@ -73,8 +76,8 @@
           <span class="stat-label">Bearer Security</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">JSON / REST</span>
-          <span class="stat-label">Standard Specification</span>
+          <span class="stat-num">REST / JSON</span>
+          <span class="stat-label">Standard Format</span>
         </div>
       </div>
     </div>
@@ -86,13 +89,13 @@
       <div class="section-header">
         <span class="section-tag">Integration Modes</span>
         <h2 class="section-title">3 รูปแบบการเชื่อมต่อระบบ</h2>
-        <p class="section-desc">เลือกรูปแบบการเชื่อมต่อที่เหมาะสมกับความต้องการของหน่วยงาน</p>
+        <p class="section-desc">เลือกรูปแบบการเชื่อมต่อที่ตอบโจทย์การทำงานของหน่วยงานท่าน</p>
       </div>
 
       <div class="modes-grid">
         <!-- Mode 1 -->
         <div class="mode-card">
-          <div class="mode-icon-wrap">📤</div>
+          <div class="mode-icon-wrap" aria-hidden="true">📤</div>
           <h3 class="mode-title">1. ส่งข้อมูลเข้า Fondue</h3>
           <p class="mode-desc">
             เชื่อมระบบแจ้งเหตุหรือ Application ของหน่วยงาน เพื่อส่งเรื่องแจ้งใหม่เข้ามาดำเนินการต่อในระบบ Traffy Fondue
@@ -108,7 +111,7 @@
 
         <!-- Mode 2 -->
         <div class="mode-card">
-          <div class="mode-icon-wrap">📥</div>
+          <div class="mode-icon-wrap" aria-hidden="true">📥</div>
           <h3 class="mode-title">2. ขอข้อมูลจาก Fondue</h3>
           <p class="mode-desc">
             ดึงรายการเรื่องแจ้ง พิกัด ภาพถ่าย และข้อมูลโครงสร้างหน่วยงานไปแสดงผลบน Dashboard หรือระบบภายในของท่าน
@@ -124,7 +127,7 @@
 
         <!-- Mode 3 -->
         <div class="mode-card">
-          <div class="mode-icon-wrap">🔔</div>
+          <div class="mode-icon-wrap" aria-hidden="true">🔔</div>
           <h3 class="mode-title">3. Real-time Webhooks</h3>
           <p class="mode-desc">
             ระบบ Traffy Fondue ส่งข้อมูลแจ้งเตือนไปยัง Server ปลายทางของท่านทันทีเมื่อมีเหตุการณ์เกิดขึ้น โดยไม่หักโควต้า
@@ -173,696 +176,147 @@
     </div>
   </section>
 
-  <!-- API REFERENCE SECTION -->
-  <section class="section api-doc-section" id="api-reference">
+  <!-- QUICK REFERENCE TABLE SECTION (COMPACT & CLEAN) -->
+  <section class="section" id="quick-reference">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">API Reference</span>
-        <h2 class="section-title">เอกสารสเปก API ครบทั้ง 13 Endpoints</h2>
+        <span class="section-tag">Quick Reference</span>
+        <h2 class="section-title">ตารางสรุป Endpoint ทั้งหมด</h2>
         <p class="section-desc">Base URL: <code style="font-family: var(--font-mono); background: var(--bg-card); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);">https://publicapi.traffy.in.th/exchange-api</code></p>
       </div>
 
-      <!-- Filter Bar -->
-      <div class="filter-bar">
-        <div class="filter-tabs">
-          <button class="filter-tab active" data-category="all">ทั้งหมด (13+2)</button>
-          <button class="filter-tab" data-category="auth">Authentication (1)</button>
-          <button class="filter-tab" data-category="query">Data Retrieval (7)</button>
-          <button class="filter-tab" data-category="action">Data Submission (5)</button>
-          <button class="filter-tab" data-category="webhook">Real-time Webhook (2)</button>
+      <div class="quick-ref-card">
+        <div class="quick-table-wrap">
+          <table class="quick-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>ชื่อและหน้าที่</th>
+                <th>สิทธิ์การเข้าถึง</th>
+                <th>ดูสเปก</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Auth -->
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-auth/v1</code></td>
+                <td><strong>ขอ JWT Bearer Token</strong> (แลกรับ Token ด้วย User/Pass)</td>
+                <td>User/Pass</td>
+                <td><a href="docs.html#get-auth" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <!-- Query -->
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-issues/v1</code></td>
+                <td><strong>ดึงรายการเรื่องแจ้ง</strong> (พร้อมตัวกรองวันที่, สถานะ, Paging)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#get-issues" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-issue/v1</code></td>
+                <td><strong>ดึงรายละเอียดเชิงลึกของเรื่องแจ้ง</strong> (Timeline, ภาพ, พิกัด)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#get-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/download-issues/v1</code></td>
+                <td><strong>ดาวน์โหลดข้อมูลเป็น CSV</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#download-issues" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/search-org/v1</code></td>
+                <td><strong>ค้นหาหน่วยงานจากชื่อ</strong> (หารหัส org_id)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#search-org" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-org-list/v1</code></td>
+                <td><strong>ขอผังโครงสร้างหน่วยงานในสังกัด</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#get-org-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-type-list/v1</code></td>
+                <td><strong>ขอรายการประเภทปัญหาที่เปิดรับแจ้ง</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#get-type-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/get-status-list/v1</code></td>
+                <td><strong>ขอรายการสถานะที่สามารถใช้งานได้</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#get-status-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <!-- Action -->
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/new-issue/v1</code></td>
+                <td><strong>ส่งเรื่องแจ้งใหม่เข้า Fondue</strong> (พิกัด, รูปภาพ, หมวดหมู่)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#new-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/update-issue/v1</code></td>
+                <td><strong>อัปเดตสถานะเรื่องแจ้ง</strong> (บันทึกงาน, ภาพหลังแก้, ไฟล์แนบ)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#update-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/star/v1</code></td>
+                <td><strong>ให้คะแนนความพึงพอใจ</strong> (1 - 5 ดาว)</td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#star" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/comment/v1</code></td>
+                <td><strong>ส่งความคิดเห็นเพิ่มเติม / SMS แชต</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#comment" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>/join-forward/v1</code></td>
+                <td><strong>เชิญร่วม & ส่งต่อเรื่องแจ้ง</strong></td>
+                <td>Bearer Token</td>
+                <td><a href="docs.html#join-forward" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <!-- Webhook -->
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><code>Client Webhook URL</code></td>
+                <td><strong>Webhook: เมื่อมีเรื่องแจ้งเข้ามาใหม่</strong></td>
+                <td>Non-Quota</td>
+                <td><a href="docs.html#webhook-new-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-patch">PATCH</span></td>
+                <td><code>Client Webhook URL</code></td>
+                <td><strong>Webhook: เมื่อมีการอัปเดตสถานะ</strong></td>
+                <td>Non-Quota</td>
+                <td><a href="docs.html#webhook-status-update" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <label for="apiSearch" class="sr-only">ค้นหา Endpoint</label><input type="search" id="apiSearch" class="search-input" placeholder="ค้นหา Endpoint เช่น get-issues, new-issue, search-org..." aria-label="ค้นหา Endpoint">
+
+        <div style="text-align: center; padding-top: 10px;">
+          <a href="docs.html" class="btn btn-primary btn-lg">
+            <span>เปิดดูคู่มือสเปก API ฉบับเต็ม (พร้อมโค้ดตัวอย่าง)</span>
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-      </div>
-
-      <!-- API Cards Container -->
-      <div class="api-cards-container" id="apiCards" aria-live="polite">
-
-        <!-- ==================== 1. AUTHENTICATION ==================== -->
-        <!-- 1. get-auth -->
-        <article class="api-card" data-category="auth" data-keywords="1 get-auth auth login token jwt authentication credit quota">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-auth/v1</span>
-              <span class="api-card-name">1. ขอ JWT Bearer Token</span>
-            </div>
-            <span class="api-auth-badge">🔑 Auth: User / Pass</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">นำ <code>user</code> และ <code>pass</code> ที่ได้รับทาง Email มาแลกรับ JWT Bearer Token เพื่อใช้เป็น Header ยืนยันตัวตนใน API อื่นๆ ทั้งหมด</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">user</span><span class="param-req">REQ</span></td><td>string</td><td>ชื่อผู้ใช้งานของ Account ที่ได้รับทางอีเมล</td></tr>
-                    <tr><td><span class="param-name">pass</span><span class="param-req">REQ</span></td><td>string</td><td>รหัสผ่านของ Account ที่ได้รับทางอีเมล</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-auth/v1" \
-  -H "Content-Type: application/json" \
-  -d '{"user": "YOUR_USER", "pass": "YOUR_PASS"}'</code></pre>
-                </div>
-              </div>
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">Response (200 OK)</span>
-                </div>
-                <div class="code-content">
-                  <pre><code>{
-  "status": "success",
-  "credit_balance": 820,
-  "quota_limit": 1000,
-  "results": [{
-    "token": "eyJhbGciOiJIUzI1Ni...",
-    "expire_timestamp": "2026-08-31 23:59:59"
-  }]
-}</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- ==================== 2. DATA RETRIEVAL (7 ENDPOINTS) ==================== -->
-        <!-- 2. get-issues -->
-        <article class="api-card" data-category="query" data-keywords="2 get-issues issues list search filter query date range">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-issues/v1</span>
-              <span class="api-card-name">2. ขอรายการเรื่องแจ้งที่หน่วยงานได้รับ</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ดึงรายการเรื่องแจ้งของหน่วยงาน พร้อมตัวกรองตามช่วงวันที่, สถานะ, ประเภทปัญหา, คำค้นหา, และ Pagination</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">start_date</span><span class="param-opt">OPT</span></td><td>string</td><td>วันที่เริ่มต้น YYYY-MM-DD (Default: 3 วันย้อนหลัง)</td></tr>
-                    <tr><td><span class="param-name">end_date</span><span class="param-opt">OPT</span></td><td>string</td><td>วันที่สิ้นสุด YYYY-MM-DD (Default: วันปัจจุบัน)</td></tr>
-                    <tr><td><span class="param-name">state</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>กรองสถานะ เช่น <code>["รอรับเรื่อง", "กำลังดำเนินการ"]</code></td></tr>
-                    <tr><td><span class="param-name">type</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>กรองประเภทปัญหา เช่น <code>["ถนน", "ทางเท้า"]</code></td></tr>
-                    <tr><td><span class="param-name">keyword</span><span class="param-opt">OPT</span></td><td>string</td><td>คำค้นหาในรายละเอียดหรือที่อยู่</td></tr>
-                    <tr><td><span class="param-name">offset</span> / <span class="param-name">limit</span><span class="param-opt">OPT</span></td><td>int</td><td>การแบ่งหน้า (limit ไม่เกิน 1,000)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-issues/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "start_date": "2026-08-01",
-    "end_date": "2026-08-31",
-    "state": ["รอรับเรื่อง", "กำลังดำเนินการ"],
-    "offset": 0,
-    "limit": 20
-  }'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. get-issue -->
-        <article class="api-card" data-category="query" data-keywords="3 get-issue issue detail ticket ticket_id history logs">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-issue/v1</span>
-              <span class="api-card-name">3. ขอรายละเอียดเรื่องแจ้งเฉพาะเคส</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ดึงรายละเอียดเชิงลึก ประวัติการปฏิบัติงาน Timeline พิกัด GPS รูปภาพ และสถานะของเรื่องแจ้งราย `ticket_id`</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span><span class="param-req">REQ*</span></td><td>string</td><td>รหัสเรื่องแจ้ง Fondue (เช่น <code>2026-ABCDEF</code>)</td></tr>
-                    <tr><td><span class="param-name">client_ticket_id</span><span class="param-req">REQ*</span></td><td>string</td><td>หรือรหัสเรื่องแจ้งของระบบภายนอก (*ต้องระบุอย่างใดอย่างหนึ่ง)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-issue/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"ticket_id": "2026-ABCDEF"}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 4. download-issues -->
-        <article class="api-card" data-category="query" data-keywords="4 download-issues csv export download report">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/download-issues/v1</span>
-              <span class="api-card-name">4. ดาวน์โหลดรายการเรื่องแจ้งเป็น CSV</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ส่งออกข้อมูลเรื่องแจ้งของหน่วยงานออกมาเป็นไฟล์ CSV ตามช่วงเวลาและตัวกรองที่กำหนด</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">start_date</span><span class="param-opt">OPT</span></td><td>string</td><td>วันที่เริ่มต้น YYYY-MM-DD</td></tr>
-                    <tr><td><span class="param-name">end_date</span><span class="param-opt">OPT</span></td><td>string</td><td>วันที่สิ้นสุด YYYY-MM-DD</td></tr>
-                    <tr><td><span class="param-name">state</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>กรองสถานะของเรื่องแจ้ง</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/download-issues/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"start_date": "2026-08-01", "end_date": "2026-08-31"}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 5. search-org -->
-        <article class="api-card" data-category="query" data-keywords="5 search-org org organization search find">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/search-org/v1</span>
-              <span class="api-card-name">5. ค้นหาหน่วยงานจากชื่อ</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ค้นหารหัสหน่วยงาน (<code>org_id</code>) และชื่อหน่วยงานจากคำค้นหา เพื่อนำรหัสไปใช้ในการส่งต่อเคสหรือกรองข้อมูล</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">keyword</span><span class="param-req">REQ</span></td><td>string</td><td>คำค้นหาชื่อหน่วยงาน (เช่น <code>บางเขน</code>)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/search-org/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"keyword": "บางเขน"}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 6. get-org-list -->
-        <article class="api-card" data-category="query" data-keywords="6 get-org-list org list structure tree hierarchy">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-org-list/v1</span>
-              <span class="api-card-name">6. ขอผังรายชื่อหน่วยงานในสังกัด</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ดึงผังโครงสร้างรายชื่อหน่วยงานย่อยทั้งหมดที่อยู่ภายใต้การกำกับดูแลของ Account</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">ส่ง JSON Body ว่างเปล่า <code>{}</code> หรือระบุ <code>org_id</code> เจาะจง</p>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-org-list/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 7. get-type-list -->
-        <article class="api-card" data-category="query" data-keywords="7 get-type-list type category problem topic">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-type-list/v1</span>
-              <span class="api-card-name">7. ขอรายการประเภทปัญหาที่เปิดรับแจ้ง</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ดึง Master Data รายการประเภทปัญหาและหมวดหมู่ที่หน่วยงานรับผิดชอบ เพื่อนำ <code>type_id</code> ไปใช้กับ API <code>new-issue</code></p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">ส่ง JSON Body ว่างเปล่า <code>{}</code></p>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-type-list/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 8. get-status-list -->
-        <article class="api-card" data-category="query" data-keywords="8 get-status-list status state workflow master">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/get-status-list/v1</span>
-              <span class="api-card-name">8. ขอรายการสถานะที่สามารถใช้งานได้</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ดึงรายการสถานะของเรื่องแจ้งที่เป็นไปได้ในระบบ (เช่น รอรับเรื่อง, กำลังดำเนินการ, เสร็จสิ้น, ส่งต่อ ฯลฯ)</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">ส่ง JSON Body ว่างเปล่า <code>{}</code></p>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/get-status-list/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- ==================== 3. DATA SUBMISSION (5 ENDPOINTS) ==================== -->
-        <!-- 9. new-issue -->
-        <article class="api-card" data-category="action" data-keywords="9 new-issue create post issue report submit">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/new-issue/v1</span>
-              <span class="api-card-name">9. ส่งเรื่องแจ้งใหม่เข้าสู่ระบบ Fondue</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ส่งเรื่องแจ้งเหตุใหม่จากระบบภายนอกเข้าสู่ Traffy Fondue พร้อมระบุพิกัด GPS, รูปภาพ, หมวดหมู่ปัญหา และที่อยู่</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">description</span><span class="param-req">REQ</span></td><td>string</td><td>ข้อความรายละเอียดปัญหา</td></tr>
-                    <tr><td><span class="param-name">latitude</span> / <span class="param-name">longitude</span><span class="param-req">REQ</span></td><td>number</td><td>พิกัด GPS (WGS84)</td></tr>
-                    <tr><td><span class="param-name">type</span> / <span class="param-name">type_id</span><span class="param-opt">OPT</span></td><td>str / int</td><td>ประเภทปัญหา</td></tr>
-                    <tr><td><span class="param-name">photo</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>Array URL รูปภาพประกอบ</td></tr>
-                    <tr><td><span class="param-name">address</span><span class="param-opt">OPT</span></td><td>string</td><td>ที่อยู่หรือจุดสังเกต</td></tr>
-                    <tr><td><span class="param-name">client_ticket_id</span><span class="param-opt">OPT</span></td><td>string</td><td>รหัสอ้างอิงในระบบของท่าน</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/new-issue/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "description": "พบฝาท่อชำรุด อาจเกิดอันตราย",
-    "latitude": 13.7563,
-    "longitude": 100.5018,
-    "type": "ถนน",
-    "address": "ปากซอยพหลโยธิน 12",
-    "client_ticket_id": "EXT-2026-99"
-  }'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 10. update-issue -->
-        <article class="api-card" data-category="action" data-keywords="10 update-issue update state patch status photo files report">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/update-issue/v1</span>
-              <span class="api-card-name">10. อัปเดต/ปรับสถานะเรื่องแจ้ง</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ปรับปรุงสถานะการดำเนินงานของเรื่องแจ้ง (เช่น กำลังดำเนินการ, เสร็จสิ้น) พร้อมแนบภาพถ่ายผลงาน หรือไฟล์เอกสาร (.pdf, .doc, .xls)</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span><span class="param-req">REQ*</span></td><td>string</td><td>รหัสเรื่องแจ้ง Fondue</td></tr>
-                    <tr><td><span class="param-name">state</span><span class="param-req">REQ</span></td><td>string</td><td>สถานะใหม่ เช่น <code>กำลังดำเนินการ</code>, <code>เสร็จสิ้น</code></td></tr>
-                    <tr><td><span class="param-name">note</span><span class="param-opt">OPT</span></td><td>string</td><td>บันทึกข้อความการดำเนินงาน</td></tr>
-                    <tr><td><span class="param-name">photo</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>Array URL รูปภาพหลังแก้ไข</td></tr>
-                    <tr><td><span class="param-name">files</span><span class="param-opt">OPT</span></td><td>array[str]</td><td>Array URL ไฟล์เอกสารแนบ</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/update-issue/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "ticket_id": "2026-ABCDEF",
-    "state": "เสร็จสิ้น",
-    "note": "เจ้าหน้าที่ซ่อมแซมเสร็จสิ้นแล้ว"
-  }'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 11. star -->
-        <article class="api-card" data-category="action" data-keywords="11 star rating score satisfaction review">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/star/v1</span>
-              <span class="api-card-name">11. ให้คะแนนความพึงพอใจ</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">บันทึกคะแนนดาวประเมินความพึงพอใจการแก้ไขปัญหา (1 - 5 ดาว) หลังจากเคสเสร็จสิ้น</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span><span class="param-req">REQ</span></td><td>string</td><td>รหัสเรื่องแจ้ง Fondue</td></tr>
-                    <tr><td><span class="param-name">star</span><span class="param-req">REQ</span></td><td>integer</td><td>คะแนนความพึงพอใจ (1 ถึง 5)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/star/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"ticket_id": "2026-ABCDEF", "star": 5}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 12. comment -->
-        <article class="api-card" data-category="action" data-keywords="12 comment chat sms feedback message conversation">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/comment/v1</span>
-              <span class="api-card-name">12. ส่งความเห็นเพิ่มเติม / SMS แชต</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ส่งความคิดเห็นหลังการประเมิน หรือส่งข้อความ Chat ไปยังผู้แจ้งผ่านทาง SMS</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span><span class="param-req">REQ</span></td><td>string</td><td>รหัสเรื่องแจ้ง Fondue</td></tr>
-                    <tr><td><span class="param-name">comment</span><span class="param-req">REQ</span></td><td>string</td><td>ข้อความความคิดเห็น / ข้อความสนทนา</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/comment/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"ticket_id": "2026-ABCDEF", "comment": "ขอบคุณสำหรับการแจ้งเหตุครับ"}'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 13. join-forward -->
-        <article class="api-card" data-category="action" data-keywords="13 join-forward forward invite transfer assign">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST</span>
-              <span class="api-endpoint">/join-forward/v1</span>
-              <span class="api-card-name">13. เชิญร่วม & ส่งต่อเรื่องแจ้ง</span>
-            </div>
-            <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">เชิญหน่วยงานอื่นร่วมรับผิดชอบ หรือส่งต่อเรื่องแจ้งไปยังหน่วยงานปลายทางที่รับผิดชอบโดยตรง</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Request Body Parameters</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">message_id</span><span class="param-req">REQ</span></td><td>integer</td><td>รหัสข้อความเรื่องแจ้ง</td></tr>
-                    <tr><td><span class="param-name">origin_group</span><span class="param-req">REQ</span></td><td>integer</td><td>รหัสหน่วยงานต้นทาง (org_id)</td></tr>
-                    <tr><td><span class="param-name">destination_group</span><span class="param-req">REQ</span></td><td>array[int]</td><td>รหัสหน่วยงานปลายทางที่ต้องการส่งต่อ</td></tr>
-                    <tr><td><span class="param-name">scenario</span><span class="param-req">REQ</span></td><td>integer</td><td>1 = เชิญร่วม, 2 = ส่งต่อ</td></tr>
-                    <tr><td><span class="param-name">note</span><span class="param-opt">OPT</span></td><td>string</td><td>ข้อความบันทึกการส่งต่อ</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">cURL Example</span>
-                  <button class="btn-copy" onclick="copyCode(this)">Copy</button>
-                </div>
-                <div class="code-content">
-                  <pre><code>curl -X POST "https://publicapi.traffy.in.th/exchange-api/join-forward/v1" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "message_id": 30314900,
-    "origin_group": 151,
-    "destination_group": [1302],
-    "scenario": 2,
-    "note": "ส่งต่อหน่วยงานที่รับผิดชอบโดยตรง"
-  }'</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- ==================== 4. REAL-TIME WEBHOOKS (2 EVENTS) ==================== -->
-        <!-- 14. Webhook New Issue -->
-        <article class="api-card" data-category="webhook" data-keywords="14 webhook new issue real-time push event post">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-post">POST (Webhook)</span>
-              <span class="api-endpoint">Client Webhook URL</span>
-              <span class="api-card-name">เมื่อมีเรื่องแจ้งเข้ามาใหม่</span>
-            </div>
-            <span class="api-auth-badge" style="background: #E8F5E9; color: #2E7D32;">⚡ Non-Quota</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP POST ทันทีเมื่อมีผู้แจ้งเหตุ</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Payload Parameters Received</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span></td><td>string</td><td>หมายเลขเรื่องแจ้งในระบบ Fondue</td></tr>
-                    <tr><td><span class="param-name">description</span></td><td>string</td><td>ข้อความรายละเอียดปัญหา</td></tr>
-                    <tr><td><span class="param-name">latitude</span> / <span class="param-name">longitude</span></td><td>number</td><td>พิกัด GPS</td></tr>
-                    <tr><td><span class="param-name">photo</span></td><td>array[str]</td><td>ลิงก์ภาพประกอบการแจ้ง</td></tr>
-                    <tr><td><span class="param-name">orgs</span></td><td>array[obj]</td><td>หน่วยงานที่รับผิดชอบ</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">Incoming Payload Sample (POST)</span>
-                </div>
-                <div class="code-content">
-                  <pre><code>{
-  "timestamp": "2026-08-31 10:00:00.000000",
-  "ticket_id": "2026-ABCDEF",
-  "description": "พบฝาท่อชำรุด",
-  "type_id": 12,
-  "type": "ถนน",
-  "photo": ["https://storage.googleapis.com/..."],
-  "latitude": 13.754158,
-  "longitude": 100.5014985,
-  "address": "112 ถ.พหลโยธิน ปทุมธานี",
-  "orgs": [{"org_id": 151, "org": "Traffy Fondue"}]
-}</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 15. Webhook Status Update -->
-        <article class="api-card" data-category="webhook" data-keywords="15 webhook update status patch real-time push event">
-          <div class="api-card-header">
-            <div class="api-card-title-group">
-              <span class="method-badge method-patch">PATCH (Webhook)</span>
-              <span class="api-endpoint">Client Webhook URL</span>
-              <span class="api-card-name">เมื่อมีการอัปเดตสถานะ</span>
-            </div>
-            <span class="api-auth-badge" style="background: #E8F5E9; color: #2E7D32;">⚡ Non-Quota</span>
-          </div>
-          <div class="api-card-body">
-            <div class="api-details-col">
-              <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลการอัปเดตสถานะ บันทึกการปฏิบัติงาน และภาพถ่ายผลงาน แบบ HTTP PATCH ทันทีที่มีการเปลี่ยนสถานะ</p>
-              <h5 style="font-size: 0.88rem; font-weight: 700; color: var(--brand);">Payload Parameters Received</h5>
-              <div class="table-wrap">
-                <table class="param-table">
-                  <thead><tr><th>Parameter</th><th>Type</th><th>คำอธิบาย</th></tr></thead>
-                  <tbody>
-                    <tr><td><span class="param-name">ticket_id</span></td><td>string</td><td>หมายเลขเรื่องแจ้ง Fondue</td></tr>
-                    <tr><td><span class="param-name">status</span></td><td>string</td><td>สถานะที่อัปเดต เช่น <code>เสร็จสิ้น</code></td></tr>
-                    <tr><td><span class="param-name">note</span></td><td>string</td><td>คำอธิบายประกอบการอัปเดต</td></tr>
-                    <tr><td><span class="param-name">photo</span></td><td>array[str]</td><td>ภาพถ่ายหลังการแก้ไข</td></tr>
-                    <tr><td><span class="param-name">org</span></td><td>string</td><td>ชื่อหน่วยงานผู้ดำเนินการ</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="api-code-col">
-              <div class="code-block-wrap">
-                <div class="code-header">
-                  <span class="code-title">Incoming Payload Sample (PATCH)</span>
-                </div>
-                <div class="code-content">
-                  <pre><code>{
-  "timestamp": "2026-08-31 11:30:00.000000",
-  "ticket_id": "2026-ABCDEF",
-  "org": "Traffy @ ITS Lab2",
-  "status": "เสร็จสิ้น",
-  "note": "ได้ทำการแก้ไขเสร็จสิ้นแล้วครับ",
-  "photo": ["https://storage.googleapis.com/..."]
-}</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
       </div>
     </div>
   </section>
@@ -876,10 +330,10 @@
           <p>หากโควต้าประจำเดือนใกล้หมด หรือต้องการปรึกษาการออกแบบและเชื่อมต่อระบบ สามารถติดต่อทีมงาน Traffy Fondue ได้ตลอดเวลาทำการ</p>
         </div>
         <div class="support-actions">
-          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-light btn-lg">
+          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-light btn-lg" aria-label="ติดต่อ LINE Official @fonduehelp (เปิดในหน้าต่างใหม่)">
             <span>LINE: @fonduehelp</span>
           </a>
-          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
             <span>สมัครขอใช้งาน API</span>
           </a>
         </div>
@@ -896,11 +350,10 @@
       <ul class="footer-links">
         <li><a href="https://www.traffy.in.th" target="_blank" rel="noopener" class="footer-link">เว็บไซต์หลัก Traffy</a></li>
         <li><a href="https://github.com/traffy-nectec/exchange-api-doc" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a></li>
-        <li><a href="docs/overview.md" class="footer-link">เอกสารฉบับเต็ม</a></li>
+        <li><a href="docs.html" class="footer-link">คู่มือ API Reference</a></li>
       </ul>
     </div>
   </footer>
 
-  <script src="js/app.js"></script>
 </body>
 </html>
