@@ -14,6 +14,9 @@
 * [รหัสข้อผิดพลาดและการแก้ไข (Error Codes & Troubleshooting)](docs/error-codes.md)
 * [OpenAPI 3.0 Specification (`openapi.yaml`)](openapi.yaml)
 * [ตัวอย่างโค้ดการเชื่อมต่อ (Code Examples)](examples/)
+* [กรอบความรู้เชิงระบบและเป้าหมาย (OKF.md)](OKF.md)
+* [บริบททางเทคนิคและสถาปัตยกรรม (CONTEXT.md)](CONTEXT.md)
+* [เอกสารส่งมอบงานและการต่อยอด (HANDOFF.md)](HANDOFF.md)
 
 ---
 
@@ -69,6 +72,9 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1' \
 ```text
 .
 ├── README.md               # เอกสารหน้าแรกและสรุป Endpoint
+├── OKF.md                  # Objectives, Key Results & System Knowledge Framework
+├── CONTEXT.md              # Technical Context & Integration Architecture
+├── HANDOFF.md              # Handoff Documentation & Next Steps
 ├── openapi.yaml            # OpenAPI 3.0.3 Specification
 ├── docs/                   # เอกสารรายละเอียดแยกตามหมวดหมู่
 │   ├── overview.md         # สรุปภาพรวมและขั้นตอนการสมัคร
