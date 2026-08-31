@@ -11,7 +11,7 @@
 <body>
   <a href="#quick-reference" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
 
-  <!-- HEADER -->
+  <!-- FIXED STICKY HEADER -->
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="brand-logo" aria-label="Traffy Fondue Exchange API หน้าแรก">
@@ -176,143 +176,373 @@
     </div>
   </section>
 
-  <!-- QUICK REFERENCE TABLE SECTION (COMPACT & CLEAN) -->
+  <!-- QUICK REFERENCE SECTION (RESPONSIVE TABLE + MOBILE CARDS) -->
   <section class="section" id="quick-reference">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Quick Reference</span>
         <h2 class="section-title">ตารางสรุป Endpoint ทั้งหมด</h2>
-        <p class="section-desc">Base URL: <code style="font-family: var(--font-mono); background: var(--bg-card); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);">https://publicapi.traffy.in.th/exchange-api</code></p>
+        <p class="section-desc">Base URL: <code style="font-family: var(--font-mono); background: var(--bg-card); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); word-break: break-all;">https://publicapi.traffy.in.th/exchange-api</code></p>
       </div>
 
       <div class="quick-ref-card">
-        <div class="quick-table-wrap">
-          <table class="quick-table">
-            <thead>
-              <tr>
-                <th>Method</th>
-                <th>Endpoint</th>
-                <th>ชื่อและหน้าที่</th>
-                <th>สิทธิ์การเข้าถึง</th>
-                <th>ดูสเปก</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Auth -->
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-auth/v1</code></td>
-                <td><strong>ขอ JWT Bearer Token</strong> (แลกรับ Token ด้วย User/Pass)</td>
-                <td>User/Pass</td>
-                <td><a href="docs.html#get-auth" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <!-- Query -->
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-issues/v1</code></td>
-                <td><strong>ดึงรายการเรื่องแจ้ง</strong> (พร้อมตัวกรองวันที่, สถานะ, Paging)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#get-issues" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-issue/v1</code></td>
-                <td><strong>ดึงรายละเอียดเชิงลึกของเรื่องแจ้ง</strong> (Timeline, ภาพ, พิกัด)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#get-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/download-issues/v1</code></td>
-                <td><strong>ดาวน์โหลดข้อมูลเป็น CSV</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#download-issues" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/search-org/v1</code></td>
-                <td><strong>ค้นหาหน่วยงานจากชื่อ</strong> (หารหัส org_id)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#search-org" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-org-list/v1</code></td>
-                <td><strong>ขอผังโครงสร้างหน่วยงานในสังกัด</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#get-org-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-type-list/v1</code></td>
-                <td><strong>ขอรายการประเภทปัญหาที่เปิดรับแจ้ง</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#get-type-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/get-status-list/v1</code></td>
-                <td><strong>ขอรายการสถานะที่สามารถใช้งานได้</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#get-status-list" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <!-- Action -->
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/new-issue/v1</code></td>
-                <td><strong>ส่งเรื่องแจ้งใหม่เข้า Fondue</strong> (พิกัด, รูปภาพ, หมวดหมู่)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#new-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/update-issue/v1</code></td>
-                <td><strong>อัปเดตสถานะเรื่องแจ้ง</strong> (บันทึกงาน, ภาพหลังแก้, ไฟล์แนบ)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#update-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/star/v1</code></td>
-                <td><strong>ให้คะแนนความพึงพอใจ</strong> (1 - 5 ดาว)</td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#star" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/comment/v1</code></td>
-                <td><strong>ส่งความคิดเห็นเพิ่มเติม / SMS แชต</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#comment" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>/join-forward/v1</code></td>
-                <td><strong>เชิญร่วม & ส่งต่อเรื่องแจ้ง</strong></td>
-                <td>Bearer Token</td>
-                <td><a href="docs.html#join-forward" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <!-- Webhook -->
-              <tr>
-                <td><span class="method-badge method-post">POST</span></td>
-                <td><code>Client Webhook URL</code></td>
-                <td><strong>Webhook: เมื่อมีเรื่องแจ้งเข้ามาใหม่</strong></td>
-                <td>Non-Quota</td>
-                <td><a href="docs.html#webhook-new-issue" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-              <tr>
-                <td><span class="method-badge method-patch">PATCH</span></td>
-                <td><code>Client Webhook URL</code></td>
-                <td><strong>Webhook: เมื่อมีการอัปเดตสถานะ</strong></td>
-                <td>Non-Quota</td>
-                <td><a href="docs.html#webhook-status-update" class="quick-link-btn">ดูรายละเอียด ➔</a></td>
-              </tr>
-            </tbody>
-          </table>
+        
+        <!-- DESKTOP TABLE VIEW (Visible on Desktop >= 769px) -->
+        <div class="quick-table-desktop">
+          <div class="quick-table-wrap">
+            <table class="quick-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Endpoint</th>
+                  <th>ชื่อและหน้าที่</th>
+                  <th>สิทธิ์การเข้าถึง</th>
+                  <th>ดูสเปก</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-auth/v1</code></td>
+                  <td><strong>ขอ JWT Bearer Token</strong> (แลกรับ Token ด้วย User/Pass)</td>
+                  <td>User/Pass</td>
+                  <td><a href="docs.html#get-auth" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-issues/v1</code></td>
+                  <td><strong>ดึงรายการเรื่องแจ้ง</strong> (พร้อมตัวกรองวันที่, สถานะ, Paging)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#get-issues" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-issue/v1</code></td>
+                  <td><strong>ดึงรายละเอียดเชิงลึกของเรื่องแจ้ง</strong> (Timeline, ภาพ, พิกัด)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#get-issue" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/download-issues/v1</code></td>
+                  <td><strong>ดาวน์โหลดข้อมูลเป็น CSV</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#download-issues" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/search-org/v1</code></td>
+                  <td><strong>ค้นหาหน่วยงานจากชื่อ</strong> (หารหัส org_id)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#search-org" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-org-list/v1</code></td>
+                  <td><strong>ขอผังโครงสร้างหน่วยงานในสังกัด</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#get-org-list" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-type-list/v1</code></td>
+                  <td><strong>ขอรายการประเภทปัญหาที่เปิดรับแจ้ง</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#get-type-list" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/get-status-list/v1</code></td>
+                  <td><strong>ขอรายการสถานะที่สามารถใช้งานได้</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#get-status-list" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/new-issue/v1</code></td>
+                  <td><strong>ส่งเรื่องแจ้งใหม่เข้า Fondue</strong> (พิกัด, รูปภาพ, หมวดหมู่)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#new-issue" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/update-issue/v1</code></td>
+                  <td><strong>อัปเดตสถานะเรื่องแจ้ง</strong> (บันทึกงาน, ภาพหลังแก้, ไฟล์แนบ)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#update-issue" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/star/v1</code></td>
+                  <td><strong>ให้คะแนนความพึงพอใจ</strong> (1 - 5 ดาว)</td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#star" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/comment/v1</code></td>
+                  <td><strong>ส่งความคิดเห็นเพิ่มเติม / SMS แชต</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#comment" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>/join-forward/v1</code></td>
+                  <td><strong>เชิญร่วม & ส่งต่อเรื่องแจ้ง</strong></td>
+                  <td>Bearer Token</td>
+                  <td><a href="docs.html#join-forward" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-post">POST</span></td>
+                  <td><code>Client Webhook URL</code></td>
+                  <td><strong>Webhook: เมื่อมีเรื่องแจ้งเข้ามาใหม่</strong></td>
+                  <td>Non-Quota</td>
+                  <td><a href="docs.html#webhook-new-issue" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+                <tr>
+                  <td><span class="method-badge method-patch">PATCH</span></td>
+                  <td><code>Client Webhook URL</code></td>
+                  <td><strong>Webhook: เมื่อมีการอัปเดตสถานะ</strong></td>
+                  <td>Non-Quota</td>
+                  <td><a href="docs.html#webhook-status-update" class="quick-link-btn">ดูสเปก ➔</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div style="text-align: center; padding-top: 10px;">
-          <a href="docs.html" class="btn btn-primary btn-lg">
+        <!-- MOBILE SUMMARY CARDS VIEW (Visible on Mobile <= 768px - ZERO HORIZONTAL SCROLL) -->
+        <div class="quick-cards-mobile">
+          
+          <!-- Item 1 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-auth/v1</code>
+              <span class="quick-item-auth">User/Pass</span>
+            </div>
+            <div class="quick-item-title">1. ขอ JWT Bearer Token</div>
+            <p class="quick-item-desc">แลกรับ Token ด้วย Username และ Password สำหรับใช้ยืนยันตัวตนใน API อื่นๆ</p>
+            <a href="docs.html#get-auth" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-issues/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">2. ขอรายการเรื่องแจ้ง</div>
+            <p class="quick-item-desc">ดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ พร้อมตัวกรองวันที่, สถานะ, และ Pagination</p>
+            <a href="docs.html#get-issues" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-issue/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">3. ขอรายละเอียดรายเคส</div>
+            <p class="quick-item-desc">ดึงรายละเอียดเชิงลึก ประวัติ Timeline พิกัด GPS รูปภาพ ของเรื่องแจ้งรายเคส</p>
+            <a href="docs.html#get-issue" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/download-issues/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">4. ดาวน์โหลดข้อมูลเป็น CSV</div>
+            <p class="quick-item-desc">ส่งออกข้อมูลเรื่องแจ้งของหน่วยงานออกมาเป็นไฟล์ CSV ตามช่วงเวลาที่กำหนด</p>
+            <a href="docs.html#download-issues" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/search-org/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">5. ค้นหาหน่วยงานจากชื่อ</div>
+            <p class="quick-item-desc">ค้นหารหัสหน่วยงาน (org_id) และชื่อหน่วยงานจากคำค้นหา</p>
+            <a href="docs.html#search-org" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-org-list/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">6. ขอผังโครงสร้างหน่วยงานในสังกัด</div>
+            <p class="quick-item-desc">ดึงผังโครงสร้างรายชื่อหน่วยงานย่อยทั้งหมดภายใต้การกำกับดูแล</p>
+            <a href="docs.html#get-org-list" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-type-list/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">7. ขอรายการประเภทปัญหา</div>
+            <p class="quick-item-desc">ดึง Master Data รายการประเภทปัญหาและหมวดหมู่ที่เปิดรับแจ้ง</p>
+            <a href="docs.html#get-type-list" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 8 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/get-status-list/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">8. ขอรายการสถานะที่ใช้งานได้</div>
+            <p class="quick-item-desc">ดึงรายการสถานะของเรื่องแจ้งที่เป็นไปได้ในระบบ</p>
+            <a href="docs.html#get-status-list" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 9 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/new-issue/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">9. ส่งเรื่องแจ้งใหม่เข้า Fondue</div>
+            <p class="quick-item-desc">ส่งเรื่องแจ้งใหม่เข้าสู่ระบบ พร้อมพิกัด GPS รูปภาพ และที่อยู่</p>
+            <a href="docs.html#new-issue" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 10 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/update-issue/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">10. อัปเดตสถานะเรื่องแจ้ง</div>
+            <p class="quick-item-desc">ปรับปรุงสถานะการดำเนินงาน พร้อมแนบรูปผลงานหรือไฟล์เอกสาร</p>
+            <a href="docs.html#update-issue" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 11 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/star/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">11. ประเมินความพึงพอใจ (ดาว)</div>
+            <p class="quick-item-desc">บันทึกคะแนนดาวความพึงพอใจ (1 ถึง 5 ดาว) หลังแก้ไขปัญหาเสร็จสิ้น</p>
+            <a href="docs.html#star" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 12 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/comment/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">12. ส่งความเห็น / SMS แชต</div>
+            <p class="quick-item-desc">ส่งความคิดเห็นหลังการประเมิน หรือส่งข้อความ Chat ถึงผู้แจ้งผ่าน SMS</p>
+            <a href="docs.html#comment" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 13 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">/join-forward/v1</code>
+              <span class="quick-item-auth">Bearer Token</span>
+            </div>
+            <div class="quick-item-title">13. เชิญร่วม & ส่งต่อเรื่องแจ้ง</div>
+            <p class="quick-item-desc">เชิญหน่วยงานร่วมรับผิดชอบ หรือส่งต่อเรื่องแจ้งไปยังหน่วยงานปลายทาง</p>
+            <a href="docs.html#join-forward" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 14 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-post">POST</span>
+              <code class="quick-item-path">Client Webhook</code>
+              <span class="quick-item-auth" style="background: #E8F5E9; color: #2E7D32;">Non-Quota</span>
+            </div>
+            <div class="quick-item-title">14. Webhook: เมื่อมีเคสใหม่</div>
+            <p class="quick-item-desc">Fondue ยิงข้อมูลเคสใหม่ พิกัด GPS รูปภาพ ไปยัง Server ของท่านทันที</p>
+            <a href="docs.html#webhook-new-issue" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Item 15 -->
+          <div class="quick-summary-item">
+            <div class="quick-item-top">
+              <span class="method-badge method-patch">PATCH</span>
+              <code class="quick-item-path">Client Webhook</code>
+              <span class="quick-item-auth" style="background: #E8F5E9; color: #2E7D32;">Non-Quota</span>
+            </div>
+            <div class="quick-item-title">15. Webhook: เมื่ออัปเดตสถานะ</div>
+            <p class="quick-item-desc">Fondue ยิงข้อมูลการเปลี่ยนสถานะและภาพผลงาน ไปยัง Server ของท่านทันที</p>
+            <a href="docs.html#webhook-status-update" class="btn btn-secondary btn-sm quick-item-btn">
+              <span>ดูสเปก API & โค้ดตัวอย่าง</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; padding-top: 16px;">
+          <a href="docs.html" class="btn btn-primary btn-lg" style="width: auto;">
             <span>เปิดดูคู่มือสเปก API ฉบับเต็ม (พร้อมโค้ดตัวอย่าง)</span>
             <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>

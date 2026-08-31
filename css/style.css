@@ -133,13 +133,12 @@ img {
    STICKY HEADER (WORKS 100% RELIABLY)
 ========================================= */
 .site-header {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
-  background: rgba(250, 248, 245, 0.95);
+  z-index: 99999;
+  background: rgba(250, 248, 245, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -147,6 +146,11 @@ img {
   display: flex;
   align-items: center;
   width: 100%;
+  box-shadow: 0 1px 4px rgba(85, 57, 36, 0.04);
+}
+
+body {
+  padding-top: var(--header-height);
 }
 
 .nav-wrap {
@@ -1460,5 +1464,94 @@ pre {
 
   .mode-card, .step-card {
     padding: 16px 12px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE QUICK REFERENCE (TABLE VS CARDS)
+========================================= */
+.quick-table-desktop {
+  display: block;
+  width: 100%;
+}
+
+.quick-cards-mobile {
+  display: none;
+  width: 100%;
+}
+
+.quick-summary-item {
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.quick-summary-item:hover {
+  border-color: var(--brand-border);
+  background: #FFFFFF;
+}
+
+.quick-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quick-item-path {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--brand);
+  font-size: 0.88rem;
+  word-break: break-all;
+}
+
+.quick-item-auth {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--brand);
+  background: var(--brand-subtle);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.quick-item-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.quick-item-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.quick-item-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  min-height: 36px;
+}
+
+@media (max-width: 768px) {
+  .quick-table-desktop {
+    display: none;
+  }
+
+  .quick-cards-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 }
