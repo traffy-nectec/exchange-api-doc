@@ -11,7 +11,7 @@
 <body>
   <a href="#modes" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
 
-  <!-- FIXED HEADER -->
+  <!-- UNIFIED FIXED HEADER -->
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="brand-logo" aria-label="Traffy Fondue Exchange API หน้าแรก">
@@ -22,14 +22,19 @@
         </div>
       </a>
       <ul class="nav-links">
-        <li><a href="#modes" class="nav-link">รูปแบบบริการ</a></li>
-        <li><a href="#onboarding" class="nav-link">ขั้นตอนขอสิทธิ์</a></li>
-        <li><a href="docs.html" class="nav-link" style="color: var(--brand); font-weight: 700;">📖 คู่มือ API ฉบับเต็ม</a></li>
-        <li><a href="#support" class="nav-link">ติดต่อเรา</a></li>
+        <li><a href="index.html" class="nav-link active">หน้าแรก</a></li>
+        <li><a href="index.html#modes" class="nav-link">รูปแบบบริการ</a></li>
+        <li><a href="index.html#onboarding" class="nav-link">ขั้นตอนขอสิทธิ์</a></li>
+        <li><a href="docs.html" class="nav-link">API Reference</a></li>
+        <li><a href="index.html#support" class="nav-link">ติดต่อเรา</a></li>
       </ul>
       <div class="header-actions">
-        <a href="docs.html" class="btn btn-primary" aria-label="เปิดดูคู่มือ API Reference">
-          <span>📖 API Docs</span>
+        <a href="docs.html" class="btn btn-secondary btn-sm" aria-label="เปิดดู API Reference">
+          <span>API Reference</span>
+        </a>
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-sm" aria-label="สมัครขอใช้งาน API (เปิดในหน้าต่างใหม่)">
+          <span>สมัครขอใช้งาน</span>
+          <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -48,15 +53,18 @@
       <p class="hero-desc">
         แพลตฟอร์ม API มาตรฐานสำหรับหน่วยงานภาครัฐ อปท. รัฐวิสาหกิจ และผู้พัฒนาระบบภายนอก ในการรับ-ส่งข้อมูลเรื่องแจ้งเหตุ จัดการสถานะ และรับข้อมูลแบบ Real-time
       </p>
+      
+      <!-- CTA BUTTONS: Primary = สมัครขอใช้งาน, Secondary = API Reference -->
       <div class="hero-cta">
-        <a href="docs.html" class="btn btn-primary btn-lg">
-          <span>เข้าสู่คู่มือ API Reference ฉบับเต็ม</span>
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
+          <span>สมัครขอใช้งาน (Google Form)</span>
           <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
-          <span>สมัครขอใช้งาน (Google Form)</span>
+        <a href="docs.html" class="btn btn-secondary btn-lg" aria-label="เข้าสู่คู่มือ API Reference">
+          <span>เข้าสู่คู่มือ API Reference</span>
         </a>
       </div>
+
       <div class="hero-stats">
         <div class="stat-item">
           <span class="stat-num">13</span>
@@ -171,7 +179,7 @@
     </div>
   </section>
 
-  <!-- API REFERENCE CALLOUT SECTION (REPLACES HEAVY TABLE) -->
+  <!-- API REFERENCE CALLOUT SECTION -->
   <section class="section" id="api-doc-portal" style="background: var(--bg-main);">
     <div class="container">
       <div class="support-card" style="background: linear-gradient(135deg, #FAF8F5 0%, #F5EFEA 100%); border: 2px solid var(--border); color: var(--text-main); box-shadow: var(--shadow-md);">
@@ -183,9 +191,12 @@
           </p>
         </div>
         <div class="support-actions">
-          <a href="docs.html" class="btn btn-primary btn-lg" style="width: auto;">
-            <span>เปิดคู่มือ API Reference (docs.html)</span>
+          <a href="docs.html" class="btn btn-secondary btn-lg" style="width: auto;">
+            <span>เปิดคู่มือ API Reference</span>
             <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="width: auto;" aria-label="สมัครขอใช้งาน API">
+            <span>สมัครขอใช้งาน</span>
           </a>
         </div>
       </div>
@@ -201,11 +212,11 @@
           <p>หากโควต้าประจำเดือนใกล้หมด หรือต้องการปรึกษาการออกแบบและเชื่อมต่อระบบ สามารถติดต่อทีมงาน Traffy Fondue ได้ตลอดเวลาทำการ</p>
         </div>
         <div class="support-actions">
-          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-light btn-lg" aria-label="ติดต่อ LINE Official @fonduehelp (เปิดในหน้าต่างใหม่)">
-            <span>LINE: @fonduehelp</span>
-          </a>
-          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
+          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-light btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
             <span>สมัครขอใช้งาน API</span>
+          </a>
+          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);" aria-label="ติดต่อ LINE Official @fonduehelp (เปิดในหน้าต่างใหม่)">
+            <span>LINE: @fonduehelp</span>
           </a>
         </div>
       </div>
@@ -221,7 +232,7 @@
       <ul class="footer-links">
         <li><a href="https://www.traffy.in.th" target="_blank" rel="noopener" class="footer-link">เว็บไซต์หลัก Traffy</a></li>
         <li><a href="https://github.com/traffy-nectec/exchange-api-doc" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a></li>
-        <li><a href="docs.html" class="footer-link">คู่มือ API Reference</a></li>
+        <li><a href="docs.html" class="footer-link">API Reference</a></li>
       </ul>
     </div>
   </footer>
