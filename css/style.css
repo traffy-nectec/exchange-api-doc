@@ -1555,3 +1555,31 @@ pre {
     gap: 12px;
   }
 }
+
+@media (max-width: 480px) {
+  .site-header {
+    height: 50px;
+  }
+  body {
+    padding-top: 50px;
+  }
+  .site-header .container {
+    padding: 0 10px;
+  }
+  .brand-logo {
+    gap: 6px;
+  }
+  .brand-logo img {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+  }
+  .brand-title {
+    font-size: 0.86rem;
+  }
+  .header-actions .btn {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+    min-height: 30px;
+  }
+}
