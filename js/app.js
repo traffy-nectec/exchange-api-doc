@@ -28,8 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       activeCategory = tab.dataset.category;
       filterCards();
     });

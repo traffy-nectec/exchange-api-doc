@@ -2,11 +2,11 @@
 
 :root {
   --brand: #553924;
-  --brand-hover: #402816;
+  --brand-hover: #372314;
   --brand-light: #734f33;
   --brand-subtle: #F7F3EF;
-  --brand-border: #E8DFD8;
-  --brand-accent: #B87333;
+  --brand-border: #D8CCC3;
+  --brand-accent: #783E0F;
   
   --bg-main: #FAF8F5;
   --bg-card: #FFFFFF;
@@ -15,12 +15,12 @@
   --bg-code: #18120E;
   
   --text-main: #241A14;
-  --text-muted: #6E5E54;
-  --text-light: #9C8C82;
+  --text-muted: #4E4038;
+  --text-light: #5A4D45;
   --text-inverse: #FAF8F5;
   
-  --border: #EADBCE;
-  --border-light: #F0E8E1;
+  --border: #D8CCC3;
+  --border-light: #E8DFD8;
   
   --font-heading: 'Outfit', 'Prompt', sans-serif;
   --font-body: 'Prompt', 'Outfit', sans-serif;
@@ -38,6 +38,47 @@
   
   --container-max: 1200px;
   --header-height: 76px;
+}
+
+/* Accessibility Skip Link */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 16px;
+  background: var(--brand);
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  z-index: 9999;
+  transition: top 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.skip-link:focus {
+  top: 16px;
+  outline: 3px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced Accessible Focus States */
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 *, *::before, *::after {

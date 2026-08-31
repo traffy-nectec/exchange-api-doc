@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a href="#api-reference" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
 
   <!-- HEADER -->
   <header class="site-header">
@@ -30,7 +31,7 @@
       <div class="header-actions">
         <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary">
           <span>ขอสิทธิ์ใช้งาน API</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -52,7 +53,7 @@
       <div class="hero-cta">
         <a href="#api-reference" class="btn btn-primary btn-lg">
           <span>ดูเอกสาร API ทั้งหมด (13 Endpoints)</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
         </a>
         <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">
           <span>สมัครขอใช้งาน (Google Form)</span>
@@ -192,12 +193,12 @@
         </div>
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="apiSearch" class="search-input" placeholder="ค้นหา Endpoint เช่น get-issues, new-issue, search-org...">
+          <label for="apiSearch" class="sr-only">ค้นหา Endpoint</label><input type="search" id="apiSearch" class="search-input" placeholder="ค้นหา Endpoint เช่น get-issues, new-issue, search-org..." aria-label="ค้นหา Endpoint">
         </div>
       </div>
 
       <!-- API Cards Container -->
-      <div class="api-cards-container" id="apiCards">
+      <div class="api-cards-container" id="apiCards" aria-live="polite">
 
         <!-- ==================== 1. AUTHENTICATION ==================== -->
         <!-- 1. get-auth -->
