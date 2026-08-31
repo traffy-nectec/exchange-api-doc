@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: Traffy Fondue Exchange API
+  description: API specification for data exchange and integration with Traffy Fondue platform.
+  version: 1.0.0
+  contact:
+    name: Traffy Fondue Team (NECTEC/NSTDA)
+    url: https://www.traffy.in.th
+servers:
+  - url: https://publicapi.traffy.in.th/exchange-api
+    description: Production Server
+
+paths:
+  /get-auth/v1:
+    post:
+      summary: Obtain JWT Token
+      description: Exchange username and password for a JWT Bearer Token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user
+                - pass
+              properties:
+                user:
+                  type: string
+                  example: "traffy"
+                pass:
+                  type: string
+                  example: "1234"
+      responses:
+        "200":
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /get-issues/v1:
+    post:
+      summary: Get Issues List
+      description: Retrieve list of reported issues for the authenticated organization.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                  example: "2026-08-01"
+                end_date:
+                  type: string
+                  example: "2026-08-31"
+                state:
+                  type: array
+                  items:
+                    type: string
+                  example: ["รอรับเรื่อง", "กำลังดำเนินการ"]
+                offset:
+                  type: integer
+                  example: 0
+                limit:
+                  type: integer
+                  example: 50
+      responses:
+        "200":
+          description: Issues list response
+
+  /get-issue/v1:
+    post:
+      summary: Get Issue Details
+      description: Retrieve detailed information for a specific ticket.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticket_id:
+                  type: string
+                  example: "2026-ABCDEF"
+                client_ticket_id:
+                  type: string
+                  example: "EXT-001"
+      responses:
+        "200":
+          description: Issue detail response
+
+  /new-issue/v1:
+    post:
+      summary: Create New Issue
+      description: Submit a new issue into Traffy Fondue.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - description
+                - latitude
+                - longitude
+              properties:
+                description:
+                  type: string
+                  example: "พบฝาท่อระบายน้ำชำรุด"
+                latitude:
+                  type: number
+                  example: 13.7563
+                longitude:
+                  type: number
+                  example: 100.5018
+                type:
+                  type: string
+                  example: "ถนน"
+                address:
+                  type: string
+                  example: "ถ.พหลโยธิน"
+                photo:
+                  type: array
+                  items:
+                    type: string
+                client_ticket_id:
+                  type: string
+                  example: "EXT-9988"
+      responses:
+        "200":
+          description: Creation result
+
+  /update-issue/v1:
+    post:
+      summary: Update Issue Status
+      description: Update status, progress notes, and after-photos for an issue.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+              properties:
+                ticket_id:
+                  type: string
+                  example: "2026-ABCDEF"
+                client_ticket_id:
+                  type: string
+                state:
+                  type: string
+                  example: "เสร็จสิ้น"
+                note:
+                  type: string
+                  example: "ซ่อมแซมเรียบร้อย"
+                photo:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Update result
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: ""
+        credit_balance:
+          type: integer
+          example: 820
+        quota_limit:
+          type: integer
+          example: 1000
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              token:
+                type: string
+              expire_timestamp:
+                type: string
