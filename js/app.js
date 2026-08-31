@@ -19,12 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Active Sidebar Link Tracking (ScrollSpy)
+  // 2. Mobile Endpoint Dropdown Select Jump
+  const mobileSelect = document.getElementById('mobileEndpointSelect');
+  if (mobileSelect) {
+    mobileSelect.addEventListener('change', (e) => {
+      const targetId = e.target.value;
+      if (targetId) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
+
+  // 3. Active Sidebar Link Tracking (ScrollSpy)
   const sidebarLinks = document.querySelectorAll('.sidebar-link');
   if (sidebarLinks.length > 0) {
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -70% 0px',
+      rootMargin: '-20% 0px -65% 0px',
       threshold: 0
     };
 
@@ -39,17 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
               link.classList.remove('active');
             }
           });
+          if (mobileSelect) {
+            mobileSelect.value = `#${id}`;
+          }
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('.api-card, .docs-endpoint-group').forEach(el => {
+    document.querySelectorAll('.api-card, .docs-section-group').forEach(el => {
       if (el.id) observer.observe(el);
     });
   }
 });
 
-// 3. Global Copy Code Function
+// 4. Global Copy Code Function
 window.copyCode = function(button) {
   const codeBlock = button.closest('.code-block-wrap').querySelector('pre code');
   if (!codeBlock) return;
@@ -65,5 +82,16 @@ window.copyCode = function(button) {
     }, 2000);
   }).catch(err => {
     console.error('Failed to copy: ', err);
+  });
+};
+
+// 5. Copy Plain Text (e.g. Base URL)
+window.copyText = function(text, button) {
+  navigator.clipboard.writeText(text).then(() => {
+    const origText = button.innerText;
+    button.innerText = 'Copied! ✓';
+    setTimeout(() => {
+      button.innerText = origText;
+    }, 2000);
   });
 };
