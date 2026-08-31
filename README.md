@@ -1,5 +1,9 @@
 # Traffy Fondue Exchange API Documentation 📘
 
+[![GitHub Pages](https://img.shields.io/badge/Live_Docs-GitHub_Pages-553924?style=for-the-badge&logo=github)](https://traffy-nectec.github.io/exchange-api-doc/)
+
+🌐 **Live Documentation Website:** [https://traffy-nectec.github.io/exchange-api-doc/](https://traffy-nectec.github.io/exchange-api-doc/)
+
 เอกสารและคู่มือการเชื่อมต่อระบบ **Traffy Fondue Exchange API** สำหรับหน่วยงานภายนอกและนักพัฒนาระบบ (Developers & Integrators) ในการส่งข้อมูลเรื่องแจ้งเหตุ ปัญหาเมือง และติดตามสถานะการแก้ไขปัญหากับแพลตฟอร์ม Traffy Fondue
 
 ---
