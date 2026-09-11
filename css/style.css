@@ -931,6 +931,11 @@ body {
   color: #FFFFFF;
 }
 
+.method-get {
+  background-color: #2D6A4F;
+  color: #FFFFFF;
+}
+
 .api-endpoint {
   font-family: var(--font-mono);
   font-size: 0.94rem;
@@ -987,12 +992,65 @@ body {
   word-break: break-word;
 }
 
+.api-notes {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 8px 0 14px;
+  padding-left: 1.1em;
+}
+
+.api-notes li + li {
+  margin-top: 4px;
+}
+
 .param-title {
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--brand-accent);
+}
+
+.param-section {
+  width: 100%;
+}
+
+summary.param-title {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  user-select: none;
+}
+
+summary.param-title::-webkit-details-marker {
+  display: none;
+}
+
+summary.param-title::before {
+  content: '\25B6';
+  display: inline-block;
+  font-size: 0.6rem;
+  color: var(--text-light);
+  transition: transform 0.15s ease;
+}
+
+.param-section[open] > summary.param-title::before {
+  transform: rotate(90deg);
+}
+
+summary.param-title:hover {
+  color: var(--brand);
+}
+
+summary.param-title:hover::before {
+  color: var(--brand);
+}
+
+.param-section .table-wrap {
+  margin-top: 10px;
 }
 
 .table-wrap {
@@ -1007,9 +1065,58 @@ body {
 
 .param-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 0.8rem;
   text-align: left;
+}
+
+/* Variant A - 3-column output tables: ชื่อ | คำอธิบาย | ตัวอย่าง */
+.param-table:not(:has(thead th:nth-child(4))) th:nth-child(1),
+.param-table:not(:has(thead th:nth-child(4))) td:nth-child(1) {
+  width: 16%;
+}
+
+.param-table:not(:has(thead th:nth-child(4))) th:nth-child(3),
+.param-table:not(:has(thead th:nth-child(4))) td:nth-child(3) {
+  width: 22%;
+}
+
+/* Variant B - 4-column input table (get-auth): ชื่อ | คำอธิบาย | ตัวอย่าง | REQUIRED? */
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(1),
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(1) {
+  width: 16%;
+}
+
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(3),
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(3) {
+  width: 20%;
+}
+
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(4),
+.param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(4) {
+  width: 14%;
+}
+
+/* Variant C - 5-column input tables: Parameter | Type | คำอธิบาย | ตัวอย่าง | REQUIRED? */
+.param-table:has(thead th:nth-child(5)) th:nth-child(1),
+.param-table:has(thead th:nth-child(5)) td:nth-child(1) {
+  width: 14%;
+}
+
+.param-table:has(thead th:nth-child(5)) th:nth-child(2),
+.param-table:has(thead th:nth-child(5)) td:nth-child(2) {
+  width: 11%;
+}
+
+.param-table:has(thead th:nth-child(5)) th:nth-child(4),
+.param-table:has(thead th:nth-child(5)) td:nth-child(4) {
+  width: 16%;
+}
+
+.param-table:has(thead th:nth-child(5)) th:nth-child(5),
+.param-table:has(thead th:nth-child(5)) td:nth-child(5) {
+  width: 14%;
 }
 
 .param-table th {
@@ -1018,7 +1125,7 @@ body {
   font-weight: 600;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-light);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .param-table td {
@@ -1026,6 +1133,7 @@ body {
   border-bottom: 1px solid var(--border-light);
   color: var(--text-main);
   vertical-align: top;
+  overflow-wrap: anywhere;
 }
 
 .param-table tr:last-child td {
@@ -1036,7 +1144,16 @@ body {
   font-family: var(--font-mono);
   font-weight: 600;
   color: var(--brand);
-  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.param-type-inline {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 2px;
 }
 
 .param-req {
