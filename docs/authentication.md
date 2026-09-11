@@ -28,14 +28,14 @@ Content-Type: application/json
 
 | Parameter | Type | Required | Description | Example |
 | :--- | :--- | :---: | :--- | :--- |
-| `user` | string | **REQUIRED** | ชื่อผู้ใช้งานของ Account ที่ได้รับแจ้งทาง Email | `"traffy"` |
-| `pass` | string | **REQUIRED** | รหัสผ่านของ Account ที่ได้รับแจ้งทาง Email | `"1234"` |
+| `user` | string | **REQUIRED** | ชื่อผู้ใช้งานของ Account ที่ได้รับแจ้งทาง Email | `"YOUR_USERNAME"` |
+| `pass` | string | **REQUIRED** | รหัสผ่านของ Account ที่ได้รับแจ้งทาง Email | `"YOUR_PASSWORD"` |
 
 #### Example Request Body
 ```json
 {
-  "user": "traffy",
-  "pass": "1234"
+  "user": "YOUR_USERNAME",
+  "pass": "YOUR_PASSWORD"
 }
 ```
 
@@ -48,10 +48,11 @@ Content-Type: application/json
 | `status` | string | สถานะการทำงาน (`success`, `fail`, `warning`) | `"success"` |
 | `message` | string | ข้อความอธิบายสถานะหรือข้อผิดพลาด | `""` |
 | `exec_time` | string | เวลาที่ใช้ในการประมวลผล | `"0.041s"` |
-| `credit_balance` | integer | จำนวนครั้งการใช้งาน API ที่เหลืออยู่ในเดือนนี้ (-1 = Unlimited) | `820` |
+| `credit_balance` | integer \| null | จำนวนครั้งการใช้งาน API ที่เหลืออยู่ในเดือนนี้ (เป็น `null` หาก Account ไม่ได้กำหนดโควต้าไว้ / ใช้งานไม่จำกัด) | `820` |
 | `quota_limit` | integer | โควต้าการใช้งานทั้งหมดต่อเดือน | `1000` |
 | `permissions` | array[string] | สิทธิ์การเข้าถึงของ Account (`["read", "write"]`) | `["read", "write"]` |
 | `results` | array[object] | ข้อมูล Token ที่ได้ | *ดูตารางด้านล่าง* |
+| `api_log_session_id` | integer | หมายเลข API log session สำหรับใช้ debug การทำงานของ API ร่วมกับทีม Traffy | `2122913957` |
 
 #### ฟิลด์ใน `results`:
 | Parameter | Type | Description | Example |
@@ -76,7 +77,8 @@ Content-Type: application/json
       "token": "abcdefghijklmnopqrstuvwxyz1234567890",
       "expire_timestamp": "2026-08-31 23:59:59"
     }
-  ]
+  ],
+  "api_log_session_id": 2122913957
 }
 ```
 

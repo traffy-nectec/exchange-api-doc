@@ -14,7 +14,7 @@ paths:
   /get-auth/v1:
     post:
       summary: Obtain JWT Token
-      description: Exchange username and password for a JWT Bearer Token.
+      description: Exchange username and password for a JWT Bearer Token. ไม่ต้องใช้ Bearer token ในการเรียก API นี้
       requestBody:
         required: true
         content:
@@ -27,10 +27,10 @@ paths:
               properties:
                 user:
                   type: string
-                  example: "traffy"
+                  example: "YOUR_USERNAME"
                 pass:
                   type: string
-                  example: "1234"
+                  example: "YOUR_PASSWORD"
       responses:
         "200":
           description: Successful authentication
@@ -40,65 +40,185 @@ paths:
                 $ref: "#/components/schemas/AuthResponse"
 
   /get-issues/v1:
-    post:
+    get:
       summary: Get Issues List
-      description: Retrieve list of reported issues for the authenticated organization.
+      description: Retrieve list of reported issues for the authenticated organization. ไม่มี pagination หรือ filter อื่นนอกจากที่ระบุด้านล่าง
       security:
         - BearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                start_date:
-                  type: string
-                  example: "2026-08-01"
-                end_date:
-                  type: string
-                  example: "2026-08-31"
-                state:
-                  type: array
-                  items:
-                    type: string
-                  example: ["รอรับเรื่อง", "กำลังดำเนินการ"]
-                offset:
-                  type: integer
-                  example: 0
-                limit:
-                  type: integer
-                  example: 50
+      parameters:
+        - name: org_id
+          in: query
+          required: false
+          description: รหัสหน่วยงาน คั่นหลายค่าด้วย comma ได้ (default = หน่วยงานของบัญชีที่ใช้ token)
+          schema:
+            type: string
+          example: "151"
+        - name: duration
+          in: query
+          required: false
+          description: ช่วงเวลาของข้อมูลที่ต้องการ
+          schema:
+            type: string
+            enum: ["today", "all"]
+            default: "today"
       responses:
         "200":
           description: Issues list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIssuesResponse"
 
   /get-issue/v1:
-    post:
+    get:
       summary: Get Issue Details
       description: Retrieve detailed information for a specific ticket.
       security:
         - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                ticket_id:
-                  type: string
-                  example: "2026-ABCDEF"
-                client_ticket_id:
-                  type: string
-                  example: "EXT-001"
+      parameters:
+        - name: ticket_id
+          in: query
+          required: true
+          description: รหัส ticket ของเรื่องร้องเรียน (ไม่รองรับ client_ticket_id สำหรับ API นี้)
+          schema:
+            type: string
+          example: "2026-ABCDEF"
       responses:
         "200":
           description: Issue detail response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIssueResponse"
+
+  /download-issues/v1:
+    get:
+      summary: Download Issues as CSV
+      description: ดาวน์โหลดรายการเรื่องร้องเรียนเป็นไฟล์ CSV (คอลัมน์เดียวกับ get-issues.results แต่ไม่มี org_id) หากเกิด error จะได้ JSON error wrapper แทน
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: org_id
+          in: query
+          required: false
+          description: รหัสหน่วยงาน คั่นหลายค่าด้วย comma ได้ (default = หน่วยงานของบัญชีที่ใช้ token)
+          schema:
+            type: string
+          example: "151"
+        - name: duration
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ["today", "all"]
+            default: "today"
+      responses:
+        "200":
+          description: CSV file หรือ JSON error wrapper (กรณี error)
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DownloadIssuesErrorResponse"
+
+  /search-org/v1:
+    get:
+      summary: Search Organizations
+      description: ค้นหาหน่วยงานจากคำค้น
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: text
+          in: query
+          required: true
+          description: คำค้นหาชื่อหน่วยงาน ต้องมีความยาวขั้นต่ำ 3 ตัวอักษร (นับแบบ byte ไม่ใช่จำนวนตัวอักษร)
+          schema:
+            type: string
+          example: "เทศบาล"
+      responses:
+        "200":
+          description: Search result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchOrgResponse"
+
+  /get-org-list/v1:
+    get:
+      summary: Get Organization List
+      description: ดึงรายชื่อหน่วยงาน
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: org_id
+          in: query
+          required: false
+          description: รหัสหน่วยงาน คั่นหลายค่าด้วย comma ได้ (ไม่ระบุ = ทั้งหมด)
+          schema:
+            type: string
+          example: "151"
+      responses:
+        "200":
+          description: Organization list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetOrgListResponse"
+
+  /get-type-list/v1:
+    get:
+      summary: Get Issue Type/Category List
+      description: ดึงรายการประเภท/หมวดหมู่เรื่องร้องเรียน รวมถึงหมวดหมู่ custom ของหน่วยงาน (org_category)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: org_id
+          in: query
+          required: false
+          description: รหัสหน่วยงาน คั่นหลายค่าด้วย comma ได้ (ไม่ระบุ = ทั้งหมด)
+          schema:
+            type: string
+          example: "151"
+      responses:
+        "200":
+          description: Type/category list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTypeListResponse"
+
+  /get-status-list/v1:
+    get:
+      summary: Get Issue Status List
+      description: ดึงรายการสถานะเรื่องร้องเรียน รวมถึงสถานะ custom ของหน่วยงาน (org_status)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: org_id
+          in: query
+          required: false
+          description: รหัสหน่วยงาน (ไม่ระบุ = ทั้งหมด)
+          schema:
+            type: string
+          example: "151"
+      responses:
+        "200":
+          description: Status list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetStatusListResponse"
 
   /new-issue/v1:
     post:
       summary: Create New Issue
-      description: Submit a new issue into Traffy Fondue.
+      description: >-
+        Submit a new issue into Traffy Fondue.
+        สำหรับหมวดหมู่ให้เลือกส่งอย่างใดอย่างหนึ่ง — ทางใหม่: issue_category_id / org_category_id / category_name_th
+        หรือทางเดิม: topic_id / type_id / type_name / topic (ระบบจะ auto-convert เป็นฟิลด์ใหม่ให้อัตโนมัติ)
       security:
         - BearerAuth: []
       requestBody:
@@ -106,42 +226,23 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - description
-                - latitude
-                - longitude
-              properties:
-                description:
-                  type: string
-                  example: "พบฝาท่อระบายน้ำชำรุด"
-                latitude:
-                  type: number
-                  example: 13.7563
-                longitude:
-                  type: number
-                  example: 100.5018
-                type:
-                  type: string
-                  example: "ถนน"
-                address:
-                  type: string
-                  example: "ถ.พหลโยธิน"
-                photo:
-                  type: array
-                  items:
-                    type: string
-                client_ticket_id:
-                  type: string
-                  example: "EXT-9988"
+              $ref: "#/components/schemas/NewIssueRequest"
       responses:
         "200":
           description: Creation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewIssueResponse"
 
   /update-issue/v1:
-    post:
+    patch:
       summary: Update Issue Status
-      description: Update status, progress notes, and after-photos for an issue.
+      description: >-
+        Update status, progress notes, and after-photos for an issue.
+        ต้องระบุ ticket_id หรือ client_ticket_id หรือ message_id อย่างใดอย่างหนึ่ง
+        และต้องระบุสถานะอย่างน้อย 1 ทางจาก: issue_status_id / org_status_id (ต้องไม่เป็น null) / state_name (ใหม่)
+        หรือ status_id / state_id / org_state_id (ทางเดิม, auto-convert ให้)
       security:
         - BearerAuth: []
       requestBody:
@@ -149,28 +250,74 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - state
-              properties:
-                ticket_id:
-                  type: string
-                  example: "2026-ABCDEF"
-                client_ticket_id:
-                  type: string
-                state:
-                  type: string
-                  example: "เสร็จสิ้น"
-                note:
-                  type: string
-                  example: "ซ่อมแซมเรียบร้อย"
-                photo:
-                  type: array
-                  items:
-                    type: string
+              $ref: "#/components/schemas/UpdateIssueRequest"
       responses:
         "200":
           description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateIssueResponse"
+
+  /star/v1:
+    post:
+      summary: Rate an Issue
+      description: ให้คะแนน (ดาว) แก่เรื่องร้องเรียน
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StarRequest"
+      responses:
+        "200":
+          description: Star result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StarResponse"
+
+  /comment/v1:
+    post:
+      summary: Comment on an Issue
+      description: เพิ่มข้อความ/comment บนเรื่องร้องเรียน
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentRequest"
+      responses:
+        "200":
+          description: Comment result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommentResponse"
+
+  /join-forward/v1:
+    post:
+      summary: Join or Forward an Issue
+      description: เชิญหน่วยงานร่วมดำเนินการ (scenario=1) หรือส่งต่อเรื่อง (scenario=2)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JoinForwardRequest"
+      responses:
+        "200":
+          description: Join/forward result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JoinForwardResponse"
 
 components:
   securitySchemes:
@@ -189,18 +336,872 @@ components:
         message:
           type: string
           example: ""
+        exec_time:
+          type: number
+          example: 0.123
         credit_balance:
           type: integer
+          nullable: true
+          description: "null ได้ถ้า unlimited (ไม่ใช่ -1)"
           example: 820
         quota_limit:
           type: integer
           example: 1000
+        permissions:
+          type: array
+          items:
+            type: string
+        results:
+          type: object
+          properties:
+            token:
+              type: string
+            expire_timestamp:
+              type: string
+        api_log_session_id:
+          type: string
+
+    Issue:
+      type: object
+      properties:
+        ticket_id:
+          type: string
+        type:
+          type: string
+        organization:
+          type: string
+        description:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        subdistrict:
+          type: string
+        district:
+          type: string
+        province:
+          type: string
+        timestamp:
+          type: string
+        photo_after:
+          type: array
+          items:
+            type: string
+        timestamp_inprogress:
+          type: string
+          nullable: true
+        timestamp_finished:
+          type: string
+          nullable: true
+        org_finished:
+          type: string
+          nullable: true
+        status:
+          type: string
+        confirmed:
+          type: boolean
+        star:
+          type: integer
+          nullable: true
+        count_reopen:
+          type: integer
+        last_activity:
+          type: string
+
+    GetIssuesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: array
+          items:
+            type: string
+        count:
+          type: integer
+        api_log_session_id:
+          type: string
         results:
           type: array
           items:
+            $ref: "#/components/schemas/Issue"
+
+    IssueOrg:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        org_id:
+          type: string
+        org:
+          type: string
+        type_id:
+          type: string
+        type:
+          type: string
+        type_en:
+          type: string
+        status_id:
+          type: string
+        status:
+          type: string
+        status_type:
+          type: string
+        org_category_id:
+          type: integer
+          nullable: true
+          description: "ใหม่ — null = ใช้หมวดหมู่กลาง"
+        org_status_id:
+          type: integer
+          nullable: true
+          description: "ใหม่ — null = ใช้สถานะกลาง"
+
+    IssueTimelineItem:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status_id:
+          type: string
+        status:
+          type: string
+        org_id:
+          type: string
+        org:
+          type: string
+        note:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+
+    GetIssueResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        ticket_id:
+          type: string
+        api_log_session_id:
+          type: string
+        results:
+          type: object
+          properties:
+            ticket_id:
+              type: string
+            type:
+              type: string
+            organization:
+              type: string
+            description:
+              type: string
+            photo:
+              type: array
+              items:
+                type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            address:
+              type: string
+            subdistrict:
+              type: string
+            district:
+              type: string
+            province:
+              type: string
+            timestamp:
+              type: string
+            status_type:
+              type: string
+            confirmed:
+              type: boolean
+            star:
+              type: integer
+              nullable: true
+            count_reopen:
+              type: integer
+            last_activity:
+              type: string
+            orgs:
+              type: array
+              items:
+                $ref: "#/components/schemas/IssueOrg"
+            timeline:
+              type: array
+              items:
+                $ref: "#/components/schemas/IssueTimelineItem"
+
+    DownloadIssuesErrorResponse:
+      type: object
+      description: JSON wrapper ที่ได้เฉพาะกรณี error (ปกติ endpoint นี้ตอบเป็น CSV)
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: array
+          items:
+            type: string
+        count:
+          type: integer
+        api_log_session_id:
+          type: string
+        results:
+          type: array
+          items: {}
+
+    SearchOrgResult:
+      type: object
+      properties:
+        org_id:
+          type: string
+        name:
+          type: string
+        photo:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        province:
+          type: string
+        is_official:
+          type: boolean
+
+    SearchOrgResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        text:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchOrgResult"
+        api_log_session_id:
+          type: string
+        api_log_session_id_show_joinforward_from_hierarchy:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+
+    OrgListItem:
+      type: object
+      properties:
+        org_id:
+          type: string
+        name:
+          type: string
+        name_en:
+          type: string
+        photo:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        province:
+          type: string
+        is_official:
+          type: boolean
+
+    GetOrgListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: array
+          items:
+            type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrgListItem"
+        api_log_session_id:
+          type: string
+
+    TypeListItem:
+      type: object
+      properties:
+        org_id:
+          type: string
+        topic_id:
+          type: string
+        type_id:
+          type: string
+        type:
+          type: string
+        type_en:
+          type: string
+        photo:
+          type: string
+        index:
+          type: integer
+
+    OrgCategoryItem:
+      type: object
+      description: "ใหม่ — สถานะกลาง+custom ต่อหน่วยงาน"
+      properties:
+        org_id:
+          type: string
+          nullable: true
+          description: "null = หมวดหมู่กลาง"
+        issue_category_id:
+          type: integer
+        org_category_id:
+          type: integer
+          nullable: true
+          description: "null = หมวดหมู่กลาง"
+        name_th:
+          type: string
+        name_en:
+          type: string
+        sort_order:
+          type: integer
+        icon_url:
+          type: string
+        category_group:
+          type: string
+
+    GetTypeListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: array
+          items:
+            type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypeListItem"
+        org_category:
+          type: array
+          description: "ใหม่"
+          items:
+            $ref: "#/components/schemas/OrgCategoryItem"
+        api_log_session_id:
+          type: string
+
+    StatusListItem:
+      type: object
+      properties:
+        org_id:
+          type: string
+        status_id:
+          type: string
+        status:
+          type: string
+        status_type:
+          type: string
+        index:
+          type: integer
+
+    OrgStatusItem:
+      type: object
+      description: "ใหม่ — สถานะกลาง+custom ต่อหน่วยงาน"
+      properties:
+        org_id:
+          type: string
+          nullable: true
+          description: "null = สถานะกลาง"
+        issue_status_id:
+          type: integer
+        org_statuses_id:
+          type: integer
+          nullable: true
+          description: "null = สถานะกลาง"
+        group_name_th:
+          type: string
+        group_name_en:
+          type: string
+        sort_order:
+          type: integer
+        bg_color:
+          type: string
+        text_color:
+          type: string
+        border_color:
+          type: string
+        is_active:
+          type: string
+          description: "\"t\" หรือ \"f\""
+
+    GetStatusListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        source:
+          type: string
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: array
+          items:
+            type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusListItem"
+        org_status:
+          type: array
+          description: "ใหม่"
+          items:
+            $ref: "#/components/schemas/OrgStatusItem"
+        api_log_session_id:
+          type: string
+
+    NewIssueRequest:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        description:
+          type: string
+          description: มี fallback ถ้าไม่ส่งมา (ไม่ error)
+          example: "พบฝาท่อระบายน้ำชำรุด"
+        issue_category_id:
+          type: integer
+          description: "ใหม่ — เลือกหมวดหมู่กลางตรงๆ"
+        org_category_id:
+          type: integer
+          nullable: true
+          description: "ใหม่ — เลือกหมวดหมู่ custom ของหน่วยงานตรงๆ (ส่ง null/\"null\" ได้)"
+        category_name_th:
+          type: string
+          description: "ใหม่ — เลือกหมวดหมู่จากชื่อ"
+        topic_id:
+          type: string
+          description: "ทางเดิม — auto-convert เป็น issue_category_id/org_category_id ให้"
+        type_id:
+          type: string
+          description: ทางเดิม
+        type_name:
+          type: string
+          description: ทางเดิม
+        topic:
+          type: string
+          description: "alias ของ topic_id"
+        photo_base64:
+          type: string
+          description: เลือก 1 กับ photo
+        photo:
+          type: array
+          items:
+            type: string
+          description: เลือก 1 กับ photo_base64
+        latitude:
+          type: number
+          example: 13.7563
+        longitude:
+          type: number
+          example: 100.5018
+        address:
+          type: string
+          example: "ถ.พหลโยธิน"
+        org_id:
+          type: string
+          description: คั่นหลายค่าด้วย comma ได้
+        reporter_name:
+          type: string
+        reporter_phone:
+          type: string
+        reporter_sms:
+          type: string
+        reporter_email:
+          type: string
+        client_user_id:
+          type: string
+        client_ticket_id:
+          type: string
+          example: "EXT-9988"
+        client_timestamp:
+          type: string
+        token_secret_key:
+          type: string
+          description: ทางเลือกสำหรับ auth
+        extra_detail:
+          type: string
+        line_user_id:
+          type: string
+        ai_photo_id:
+          type: string
+        gemini_id:
+          type: string
+
+    NewIssueResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        credit_balance:
+          type: integer
+          nullable: true
+        api_log_session:
+          type: string
+          description: "⚠️ สะกดไม่มี _id ต่างจาก API อื่น"
+        org_id:
+          type: array
+          items:
+            type: string
+        results:
+          type: object
+          properties:
+            ticket_id:
+              type: string
+            password:
+              type: string
+            smsStatus:
+              type: string
+              description: มีเมื่อส่ง SMS สำเร็จเท่านั้น
+            emailStatus:
+              type: string
+              description: มีเมื่อส่งอีเมลสำเร็จเท่านั้น
+            client_ticket_id:
+              type: string
+              description: มีเมื่อ request ส่ง client_ticket_id มาเท่านั้น
+        api_log_session_id_new-issue:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+
+    UpdateIssueRequest:
+      type: object
+      required:
+        - note
+      properties:
+        ticket_id:
+          type: string
+          example: "2026-ABCDEF"
+        client_ticket_id:
+          type: string
+        message_id:
+          type: string
+        org_id:
+          type: string
+        issue_status_id:
+          type: integer
+          description: "ใหม่ — เลือกสถานะกลางตรงๆ"
+        org_status_id:
+          type: integer
+          nullable: true
+          description: "ใหม่ — เลือกสถานะ custom ของหน่วยงานตรงๆ (nullable ผ่าน null/\"\"/\"null\", ต้องไม่เป็น null ถ้าจะใช้ทางนี้)"
+        state_name:
+          type: string
+          description: "ใหม่ — เลือกสถานะจากชื่อ (จับคู่ทั้งชื่อ custom ของหน่วยงานและชื่อกลาง)"
+        status_id:
+          type: string
+          description: ทางเดิม (legacy, auto-convert ให้)
+        state_id:
+          type: string
+          description: "alias ของ status_id (legacy)"
+        org_state_id:
+          type: string
+          description: "alias ของ status_id (legacy)"
+        note:
+          type: string
+          example: "ซ่อมแซมเรียบร้อย"
+        extra_detail:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+          description: array ของ URL string
+        photo_base64:
+          type: string
+        photos:
+          type: array
+          description: "ใหม่ — ทางเลือกแทน photo ให้ระบุ note แยกรายรูปได้"
+          items:
             type: object
             properties:
-              token:
+              uri:
                 type: string
-              expire_timestamp:
+                description: "หรือใช้ url แทน"
+              url:
                 type: string
+              note:
+                type: string
+        noti:
+          type: boolean
+          description: "ใหม่ — shorthand ตั้งค่าให้ทั้ง noti_reporter/noti_staff"
+        noti_reporter:
+          type: boolean
+          default: true
+          description: ใหม่
+        noti_staff:
+          type: boolean
+          default: true
+          description: ใหม่
+        skip_timeline:
+          type: boolean
+          default: false
+          description: ใหม่
+        token_secret_key:
+          type: string
+          description: ทางเลือกสำหรับ auth
+
+    UpdateIssueResponse:
+      type: object
+      description: "ไม่มี status_id/status/status_type ในผลลัพธ์จริง"
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        credit_balance:
+          type: integer
+          nullable: true
+        org_id:
+          type: string
+        api_log_session_id:
+          type: string
+        source:
+          type: string
+        api_log_session_id_update_message:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+        results:
+          type: object
+          properties:
+            smsStatus:
+              type: string
+              description: มีเมื่อแจ้งเตือนสำเร็จเท่านั้น
+            emailStatus:
+              type: string
+              description: มีเมื่อแจ้งเตือนสำเร็จเท่านั้น
+
+    StarRequest:
+      type: object
+      required:
+        - star
+      properties:
+        star:
+          type: integer
+          description: "ควรอยู่ระหว่าง 1-5 (โค้ดไม่ reject ค่า 0)"
+          example: 5
+        ticket_id:
+          type: string
+          example: "2026-ABCDEF"
+        client_ticket_id:
+          type: string
+
+    StarResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        credit_balance:
+          type: integer
+          nullable: true
+        api_log_session_id:
+          type: string
+        api_log_session_id_star:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+
+    CommentRequest:
+      type: object
+      required:
+        - comment
+      properties:
+        comment:
+          type: string
+        ticket_id:
+          type: string
+          example: "2026-ABCDEF"
+        client_ticket_id:
+          type: string
+        comment_type:
+          type: string
+          enum: ["chat", "chat_staff_only", "comment"]
+          default: "chat"
+        base64comment:
+          type: string
+        noti_reporter:
+          type: boolean
+        noti_staff:
+          type: boolean
+
+    CommentResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        credit_balance:
+          type: integer
+          nullable: true
+        api_log_session_id:
+          type: string
+        api_log_session_id_messagecomment:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+
+    JoinForwardRequest:
+      type: object
+      required:
+        - origin_group
+        - scenario
+      properties:
+        ticket_id:
+          type: string
+          example: "2026-ABCDEF"
+        client_ticket_id:
+          type: string
+        message_id:
+          type: string
+        origin_group:
+          type: string
+        destination_group:
+          type: array
+          items:
+            type: string
+        scenario:
+          type: integer
+          enum: [1, 2]
+          description: "1 = เชิญร่วม, 2 = ส่งต่อ"
+        noti:
+          type: boolean
+        noti_staff:
+          type: boolean
+          default: true
+        noti_reporter:
+          type: boolean
+          default: true
+        skip_timeline:
+          type: boolean
+          default: false
+        note:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+        photo_base64:
+          type: string
+        recursive_counter:
+          type: integer
+        timestamp:
+          type: string
+        use_admin:
+          type: boolean
+
+    JoinForwardResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        exec_time:
+          type: number
+        credit_balance:
+          type: integer
+          nullable: true
+        api_log_session_id:
+          type: string
+        api_log_session_id_join_forward:
+          type: string
+          description: มีเมื่อ downstream ส่งมาเท่านั้น
+        results:
+          type: object
+          description: อาจไม่มี key นี้เลยถ้า downstream ไม่ส่งมา (ไม่ใช่แค่ array ว่าง)

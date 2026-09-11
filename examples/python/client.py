@@ -23,20 +23,22 @@ class TraffyExchangeClient:
             "Content-Type": "application/json"
         }
 
-    def get_issues(self, **kwargs) -> Dict[str, Any]:
+    def get_issues(self, org_id: Optional[str] = None, duration: Optional[str] = None, **kwargs) -> Dict[str, Any]:
+        # org_id: comma-list, optional (default = account's org). duration: "today" (default) | "all"
         url = f"{self.base_url}/get-issues/v1"
-        res = requests.post(url, json=kwargs, headers=self._get_headers())
+        params = {**kwargs}
+        if org_id:
+            params["org_id"] = org_id
+        if duration:
+            params["duration"] = duration
+        res = requests.get(url, params=params, headers=self._get_headers())
         res.raise_for_status()
         return res.json()
 
-    def get_issue(self, ticket_id: Optional[str] = None, client_ticket_id: Optional[str] = None) -> Dict[str, Any]:
+    def get_issue(self, ticket_id: str) -> Dict[str, Any]:
+        # ticket_id is REQUIRED — get-issue/v1 does not support client_ticket_id
         url = f"{self.base_url}/get-issue/v1"
-        payload = {}
-        if ticket_id:
-            payload["ticket_id"] = ticket_id
-        if client_ticket_id:
-            payload["client_ticket_id"] = client_ticket_id
-        res = requests.post(url, json=payload, headers=self._get_headers())
+        res = requests.get(url, params={"ticket_id": ticket_id}, headers=self._get_headers())
         res.raise_for_status()
         return res.json()
 
@@ -52,9 +54,13 @@ class TraffyExchangeClient:
         res.raise_for_status()
         return res.json()
 
-    def update_issue(self, state: str, ticket_id: Optional[str] = None, client_ticket_id: Optional[str] = None, note: Optional[str] = None, photo: Optional[List[str]] = None) -> Dict[str, Any]:
+    def update_issue(self, status_id: Optional[int] = None, ticket_id: Optional[str] = None, client_ticket_id: Optional[str] = None, note: Optional[str] = None, photo: Optional[List[str]] = None) -> Dict[str, Any]:
+        # status_id selects the status (legacy alias, auto-converted server-side).
+        # Real alternatives per the API: issue_status_id / org_status_id / state_name.
         url = f"{self.base_url}/update-issue/v1"
-        payload = {"state": state}
+        payload = {}
+        if status_id is not None:
+            payload["status_id"] = status_id
         if ticket_id:
             payload["ticket_id"] = ticket_id
         if client_ticket_id:
@@ -63,6 +69,6 @@ class TraffyExchangeClient:
             payload["note"] = note
         if photo:
             payload["photo"] = photo
-        res = requests.post(url, json=payload, headers=self._get_headers())
+        res = requests.patch(url, json=payload, headers=self._get_headers())
         res.raise_for_status()
         return res.json()
