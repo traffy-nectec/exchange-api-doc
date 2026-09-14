@@ -18,10 +18,14 @@
 
 | ไฟล์ / ไดเรกทอรี | รายละเอียด |
 | :--- | :--- |
+| **`index.html`** | หน้าแรก Landing Page / Developer Portal แนะนำภาพรวมและ Onboarding Flow |
+| **`docs.html`** | Interactive API Documentation แบบละเอียด ครอบคลุม 13 Endpoints + 2 Webhooks พร้อม Search & Filter, Collapsible Schemas, และ Code Copy |
+| **`css/style.css`** | Modern Responsive Design System (Clean UI, Glassmorphism, Theme Variables) |
+| **`js/app.js`** | ฟังก์ชัน Interactive (Live Search, ScrollSpy Navigation, Copy-to-Clipboard) |
 | **`README.md`** | หน้าแรกของ Repository สรุป Quick API Reference, Quickstart, และโครงสร้างโปรเจกต์ |
 | **`OKF.md`** | Objectives, Key Results และ System Knowledge Framework |
 | **`CONTEXT.md`** | สถาปัตยกรรมการเชื่อมต่อ, Data Schemas, และ Security Principles |
-| **`HANDOFF.md`** | เอกสารส่งมอบงานและแนวทางการต่อยอด |
+| **`HANDOFF.md`** | เอกสารส่งมอบงาน บันทึกการปรับปรุง และแนวทางการต่อยอด |
 | **`openapi.yaml`** | สเปกมาตรฐาน OpenAPI 3.0.3 สำหรับนำเข้า Swagger / Postman หรือใช้สร้าง SDK |
 | **`docs/overview.md`** | สรุปภาพรวมและ Onboarding Flow 4 ขั้นตอน (Synchronized จาก Notion) |
 | **`docs/authentication.md`**| รายละเอียดการเรียก `get-auth`, JWT Header, และการจัดการโควต้า |
@@ -33,7 +37,18 @@
 
 ---
 
-## 3. ขั้นตอนการนำไปต่อยอดและพัฒนาต่อ (Next Steps & Recommendations)
+## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
+
+### 🎨 UI/UX Refactoring ของหน้า Interactive Documentation (`docs.html`)
+- **Request Body & Query Parameters:** ปรับเป็น Toggle ที่ **เปิดแสดงไว้เป็นค่าเริ่มต้น (Open by default)** เพื่อให้นักพัฒนาเห็นฟิลด์ที่ต้องส่งได้ทันทีโดยไม่ต้องคลิกเปิด
+- **cURL Example:** เปิดแสดงเป็นค่าเริ่มต้นพร้อมปุ่ม **Copy** เพื่อความสะดวกในการคัดลอกไปทดสอบคำสั่งทันที
+- **Response Example (200 OK):** สลับลำดับมาอยู่ **ก่อนหน้า** JSON Output Parameters และซ่อนไว้ใน Toggle **(Closed by default)** พร้อมปุ่ม **Copy** ในส่วน Header เพื่อให้หน้าเว็บดูสะอาด ไม่รก แต่ยังสามารถเปิดดูและคัดลอก Response ตัวอย่างได้ง่าย
+- **JSON Output Parameters:** จัดวางต่อจาก Response Example ในแบบ Toggle **(Closed by default)**
+- **Webhooks:** ปรับ Incoming Payload ให้เปิดเป็นค่าเริ่มต้น และเพิ่มปุ่ม **Copy** ให้กับ Incoming Payload Sample ทุกตัว
+
+---
+
+## 4. ขั้นตอนการนำไปต่อยอดและพัฒนาต่อ (Next Steps & Recommendations)
 
 1. **Deploy Swagger UI / Redoc Documentation Site:**
    * สามารถใช้ `openapi.yaml` ในการสร้าง Static Docs Site (เช่น ผ่าน GitHub Pages, Redocly, หรือ Docusaurus)
@@ -42,4 +57,4 @@
 3. **Automated SDK Generation:**
    * ใช้ OpenAPI Generator เพื่อคอมไพล์ Client SDK ในภาษาต่างๆ (เช่น Go, Java, C#, PHP) อัตโนมัติใน CI/CD
 4. **การประสานงานการขอสิทธิ์และการแก้ไข:**
-   * สำหรับการเพิ่มฟีเจอร์หรือแก้ไข Endpoint ให้ปรับปรุงทั้งใน Markdown และ `openapi.yaml` ควบคู่กันเสมอ
+   * สำหรับการเพิ่มฟีเจอร์หรือแก้ไข Endpoint ให้ปรับปรุงทั้งใน `docs.html`, Markdown และ `openapi.yaml` ควบคู่กันเสมอ
