@@ -8,8 +8,9 @@
 
 ### 🎯 Objective 1: เอกสาร API มาตรฐานสมบูรณ์แบบ 100% สำหรับหน่วยงานภายนอก (Standardized API Docs)
 - **KR 1.1:** จัดทำและรวบรวม Endpoint ทั้งหมดของ Exchange API ครอบคลุมทั้ง Inbound (ส่งข้อมูลเข้า), Outbound (ดึงข้อมูลออก), และ Real-time Push (Webhooks)
-- **KR 1.2:** แปลงสเปกจาก Google Docs และ Notion มาเป็นเอกสาร Markdown ที่มีโครงสร้างชัดเจน พร้อม Schema, Parameters, Error Codes, และ Example Requests/Responses
-- **KR 1.3:** จัดทำ OpenAPI 3.0.3 Specification (`openapi.yaml`) ที่ผ่านการ Validate สามารถนำไป Import เข้า Swagger UI, Postman หรือใช้สร้าง Client SDK ได้ทันที
+- **KR 1.2:** พัฒนา Interactive Web Portal (`docs.html`, `index.html`) ที่มีระบบ Live Search, Collapsible Sections (เปิด Request/cURL เป็นค่าเริ่มต้น และซ่อน Response/JSON Schema เพื่อความสะอาด), และปุ่มคัดลอกโค้ด
+- **KR 1.3:** แปลงสเปกจาก Google Docs และ Notion มาเป็นเอกสาร Markdown ที่มีโครงสร้างชัดเจน พร้อม Schema, Parameters, Error Codes, และ Example Requests/Responses
+- **KR 1.4:** จัดทำ OpenAPI 3.0.3 Specification (`openapi.yaml`) ที่ผ่านการ Validate สามารถนำไป Import เข้า Swagger UI, Postman หรือใช้สร้าง Client SDK ได้ทันที
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API

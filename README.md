@@ -70,12 +70,18 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_i
 
 ```text
 .
+├── index.html              # หน้าแรก Landing Page / Developer Portal
+├── docs.html               # Interactive API Documentation & Reference
+├── css/                    # Custom CSS Stylesheet (Theme & Layout)
+│   └── style.css
+├── js/                     # Client Script (Search, ScrollSpy, Copy)
+│   └── app.js
 ├── README.md               # เอกสารหน้าแรกและสรุป Endpoint
 ├── OKF.md                  # Objectives, Key Results & System Knowledge Framework
 ├── CONTEXT.md              # Technical Context & Integration Architecture
 ├── HANDOFF.md              # Handoff Documentation & Next Steps
 ├── openapi.yaml            # OpenAPI 3.0.3 Specification
-├── docs/                   # เอกสารรายละเอียดแยกตามหมวดหมู่
+├── docs/                   # เอกสารรายละเอียดแยกตามหมวดหมู่ (Markdown)
 │   ├── overview.md         # สรุปภาพรวมและขั้นตอนการสมัคร
 │   ├── authentication.md   # การยืนยันตัวตนและการขอ Token
 │   ├── query-apis.md       # API ดึงข้อมูล

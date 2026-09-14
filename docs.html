@@ -197,7 +197,7 @@
                     <li>หาก <code>credit_balance</code> ลดลงเร็วผิดปกติ ให้รีบติดต่อทีมงาน Traffy ทันที ที่ LINE <code>@fonduehelp</code> เพื่อตรวจสอบและเปลี่ยนรหัสใหม่</li>
                     <li>JWT token ถูกตั้งเวลาให้หมดอายุ โปรดตรวจสอบจาก <code>expire_timestamp</code> ที่ได้รับมาพร้อมกับ token</li>
                   </ul>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -221,6 +221,28 @@
   }'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.041s",
+  "credit_balance": 820,
+  "quota_limit": 1000,
+  "permissions": [
+    "read",
+    "write"
+  ],
+  "results": {
+    "token": "YOUR_TOKEN",
+    "expire_timestamp": "2031-08-31 23:59:59"
+  },
+  "api_log_session_id": 2122913957
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -241,25 +263,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.041s",
-  "credit_balance": 820,
-  "quota_limit": 1000,
-  "permissions": [
-    "read",
-    "write"
-  ],
-  "results": {
-    "token": "YOUR_TOKEN",
-    "expire_timestamp": "2031-08-31 23:59:59"
-  },
-  "api_log_session_id": 2122913957
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -290,7 +293,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ กรองตามหน่วยงานและช่วงเวลาได้ผ่าน Query String (ไม่มี Pagination หรือตัวกรองคำค้นหา)</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -309,6 +312,48 @@
                     <div class="code-content"><pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_id=151&duration=today' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
+                  <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "14.128s",
+  "source": "h db, db",
+  "credit_balance": null,
+  "org_id": [151],
+  "count": 4367,
+  "api_log_session_id": 2030246239,
+  "results": [
+    {
+      "ticket_id": "2026-B9WGC7",
+      "type": "ทางเท้า",
+      "organization": "Traffy @ ITS Lab2, Accom Park",
+      "description": "(***) ทดสอบแจ้ง",
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg",
+      "latitude": 14.060383,
+      "longitude": 100.596114,
+      "address": "ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",
+      "subdistrict": "คลองหนึ่ง",
+      "district": "คลองหลวง",
+      "province": "ปทุมธานี",
+      "timestamp": "2026-08-20 22:25:37.433959",
+      "photo_after": "https://storage.googleapis.com/traffy_public_bucket/",
+      "timestamp_inprogress": null,
+      "timestamp_finished": null,
+      "org_finished": "Accom Park",
+      "status": "ส่งต่อ(ใหม่)",
+      "confirmed": false,
+      "star": 0,
+      "count_reopen": 0,
+      "last_activity": "2026-09-09 14:38:19.663501"
+    }
+    // ... รวมทั้งหมด 4367 รายการ (org_id=151, duration=all)
+  ]
+}</code></pre></div>
+                    </div>
+                  </details>
                   <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
@@ -345,45 +390,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "14.128s",
-  "source": "h db, db",
-  "credit_balance": null,
-  "org_id": [151],
-  "count": 4367,
-  "api_log_session_id": 2030246239,
-  "results": [
-    {
-      "ticket_id": "2026-B9WGC7",
-      "type": "ทางเท้า",
-      "organization": "Traffy @ ITS Lab2, Accom Park",
-      "description": "(***) ทดสอบแจ้ง",
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg",
-      "latitude": 14.060383,
-      "longitude": 100.596114,
-      "address": "ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",
-      "subdistrict": "คลองหนึ่ง",
-      "district": "คลองหลวง",
-      "province": "ปทุมธานี",
-      "timestamp": "2026-08-20 22:25:37.433959",
-      "photo_after": "https://storage.googleapis.com/traffy_public_bucket/",
-      "timestamp_inprogress": null,
-      "timestamp_finished": null,
-      "org_finished": "Accom Park",
-      "status": "ส่งต่อ(ใหม่)",
-      "confirmed": false,
-      "star": 0,
-      "count_reopen": 0,
-      "last_activity": "2026-09-09 14:38:19.663501"
-    }
-    // ... รวมทั้งหมด 4367 รายการ (org_id=151, duration=all)
-  ]
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -401,7 +407,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ดึงรายละเอียดเชิงลึก ประวัติการปฏิบัติงาน Timeline พิกัด GPS รูปภาพ และสถานะของเรื่องแจ้งราย <code>ticket_id</code> (ไม่รองรับ <code>client_ticket_id</code>)</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -420,55 +426,10 @@
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
                   <details class="param-section">
-                    <summary class="param-title">JSON Output Parameters</summary>
-                    <div class="table-wrap">
-                    <table class="param-table">
-                      <thead><tr><th>ชื่อ</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="param-name">status</span></td><td>ผลการทำงาน: <code>success</code> / <code>fail</code> / <code>warning</code></td><td><code>success</code></td></tr>
-                        <tr><td><span class="param-name">message</span></td><td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td><td><code>""</code></td></tr>
-                        <tr><td><span class="param-name">exec_time</span></td><td>เวลาที่ใช้ประมวลผล (วินาที)</td><td><code>1.193s</code></td></tr>
-                        <tr><td><span class="param-name">source</span></td><td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช</td><td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td></tr>
-                        <tr><td><span class="param-name">credit_balance</span></td><td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">ticket_id</span></td><td>รหัสการแจ้งที่ต้องการดูรายละเอียด</td><td><code>2026-GYDHMT</code></td></tr>
-                        <tr><td><span class="param-name">results</span></td><td>ข้อมูลผลลัพธ์ (object)</td><td><code>(Object)</code></td></tr>
-                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">* ข้อมูลที่อยู่ใน <code>results</code></td></tr>
-                        <tr><td><span class="param-name">ticket_id</span></td><td>หมายเลขของเรื่องแจ้ง</td><td><code>2026-GYDHMT</code></td></tr>
-                        <tr><td><span class="param-name">type</span></td><td>ประเภทปัญหาที่ผู้แจ้งเลือกไว้</td><td><code>อื่นๆ</code></td></tr>
-                        <tr><td><span class="param-name">organization</span></td><td>หน่วยงานที่ร่วมรับผิดชอบ คั่นด้วยลูกน้ำ</td><td><code>Traffy @ ITS Lab2, ทดสอบ toy (2)</code></td></tr>
-                        <tr><td><span class="param-name">description</span></td><td>ข้อความที่ผู้แจ้งพิมพ์มา</td><td><code>ทดสอบแจ้ง ด้วย ssl ใหม่</code></td></tr>
-                        <tr><td><span class="param-name">photo</span></td><td>ภาพที่ผู้แจ้งส่งมา</td><td><code>https://storage.googleapis.com/...</code></td></tr>
-                        <tr><td><span class="param-name">latitude</span> / <span class="param-name">longitude</span></td><td>พิกัด GPS</td><td><code>14.077774</code> / <code>100.60131</code></td></tr>
-                        <tr><td><span class="param-name">address</span> / <span class="param-name">subdistrict</span> / <span class="param-name">district</span> / <span class="param-name">province</span></td><td>ที่อยู่ / ตำบล / อำเภอ / จังหวัด</td><td><code>คลองหนึ่ง</code> / <code>คลองหลวง</code> / <code>ปทุมธานี</code></td></tr>
-                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาที่แจ้ง (UTC+7)</td><td><code>2026-08-27 22:15:33</code></td></tr>
-                        <tr><td><span class="param-name">status_type</span></td><td>สถานะตามที่ผู้แจ้งเห็น: <code>report</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code></td><td><code>inprogress</code></td></tr>
-                        <tr><td><span class="param-name">confirmed</span></td><td>รับรองการแก้ไขแล้วหรือไม่</td><td><code>false</code></td></tr>
-                        <tr><td><span class="param-name">star</span></td><td>ดาวความพึงพอใจ (1-5, <code>null</code> ถ้ายังไม่ได้ให้)</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">count_reopen</span></td><td>จำนวนครั้งที่ถูกเปิดเรื่องใหม่</td><td><code>0</code></td></tr>
-                        <tr><td><span class="param-name">last_activity</span></td><td>วันเวลากิจกรรมล่าสุด (UTC+7)</td><td><code>2026-09-01 16:14:49</code></td></tr>
-                        <tr><td><span class="param-name">orgs</span></td><td>Array สถานะ/ประเภทปัญหาที่แต่ละหน่วยงานได้รับ</td><td><code>(Array)</code></td></tr>
-                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน <code>orgs[]</code></td></tr>
-                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาที่ข้อมูลเข้าหน่วยงาน</td><td><code>2026-08-27 22:15:33</code></td></tr>
-                        <tr><td><span class="param-name">org_id</span> / <span class="param-name">org</span></td><td>รหัสและชื่อหน่วยงาน</td><td><code>151</code> / <code>Traffy @ ITS Lab2</code></td></tr>
-                        <tr><td><span class="param-name">type_id</span> / <span class="param-name">type</span> / <span class="param-name">type_en</span></td><td>รหัสและชื่อประเภทปัญหาที่หน่วยงานได้รับ</td><td><code>620543</code> / <code>อื่นๆ</code> / <code>Other</code></td></tr>
-                        <tr><td><span class="param-name">status_id</span> / <span class="param-name">status</span> / <span class="param-name">status_type</span></td><td>รหัส ชื่อ และประเภทสถานะที่หน่วยงานมองเห็น</td><td><code>105125</code> / <code>กำลังดำเนินการ</code> / <code>inprogress</code></td></tr>
-                        <tr><td><span class="param-name">org_category_id</span></td><td>รหัสหมวดหมู่ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง) <span class="param-opt">NEW</span></td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">org_status_id</span></td><td>รหัสสถานะ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง) <span class="param-opt">NEW</span></td><td><code>1219411</code></td></tr>
-                        <tr><td><span class="param-name">timeline</span></td><td>Array ประวัติการดำเนินการ (ห้ามเผยแพร่สู่สาธารณะ อาจมีข้อมูลผู้แจ้ง)</td><td><code>(Array)</code></td></tr>
-                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">*** ข้อมูลที่อยู่ใน <code>timeline[]</code></td></tr>
-                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาของการอัปเดต</td><td><code>2026-08-27 22:18:06</code></td></tr>
-                        <tr><td><span class="param-name">status_id</span> / <span class="param-name">status</span></td><td>รหัสและชื่อสถานะที่ จนท. กดอัปเดต</td><td><code>106369</code> / <code>จัดทำนโยบาย</code></td></tr>
-                        <tr><td><span class="param-name">org_id</span> / <span class="param-name">org</span></td><td>รหัสและชื่อหน่วยงานที่กดอัปเดต</td><td><code>151</code> / <code>Traffy @ ITS Lab2</code></td></tr>
-                        <tr><td><span class="param-name">note</span></td><td>คำอธิบายประกอบการอัปเดต</td><td><code>ทดสอบ</code></td></tr>
-                        <tr><td><span class="param-name">photo</span></td><td>URL รูปภาพประกอบการอัปเดต</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">api_log_session_id</span></td><td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td><td><code>2077283457</code></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
   "status": "success",
   "message": "",
   "exec_time": "1.193s",
@@ -528,7 +489,55 @@
   },
   "api_log_session_id": 2077283457
 }</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
+                    <summary class="param-title">JSON Output Parameters</summary>
+                    <div class="table-wrap">
+                    <table class="param-table">
+                      <thead><tr><th>ชื่อ</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="param-name">status</span></td><td>ผลการทำงาน: <code>success</code> / <code>fail</code> / <code>warning</code></td><td><code>success</code></td></tr>
+                        <tr><td><span class="param-name">message</span></td><td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td><td><code>""</code></td></tr>
+                        <tr><td><span class="param-name">exec_time</span></td><td>เวลาที่ใช้ประมวลผล (วินาที)</td><td><code>1.193s</code></td></tr>
+                        <tr><td><span class="param-name">source</span></td><td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช</td><td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td></tr>
+                        <tr><td><span class="param-name">credit_balance</span></td><td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">ticket_id</span></td><td>รหัสการแจ้งที่ต้องการดูรายละเอียด</td><td><code>2026-GYDHMT</code></td></tr>
+                        <tr><td><span class="param-name">results</span></td><td>ข้อมูลผลลัพธ์ (object)</td><td><code>(Object)</code></td></tr>
+                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">* ข้อมูลที่อยู่ใน <code>results</code></td></tr>
+                        <tr><td><span class="param-name">ticket_id</span></td><td>หมายเลขของเรื่องแจ้ง</td><td><code>2026-GYDHMT</code></td></tr>
+                        <tr><td><span class="param-name">type</span></td><td>ประเภทปัญหาที่ผู้แจ้งเลือกไว้</td><td><code>อื่นๆ</code></td></tr>
+                        <tr><td><span class="param-name">organization</span></td><td>หน่วยงานที่ร่วมรับผิดชอบ คั่นด้วยลูกน้ำ</td><td><code>Traffy @ ITS Lab2, ทดสอบ toy (2)</code></td></tr>
+                        <tr><td><span class="param-name">description</span></td><td>ข้อความที่ผู้แจ้งพิมพ์มา</td><td><code>ทดสอบแจ้ง ด้วย ssl ใหม่</code></td></tr>
+                        <tr><td><span class="param-name">photo</span></td><td>ภาพที่ผู้แจ้งส่งมา</td><td><code>https://storage.googleapis.com/...</code></td></tr>
+                        <tr><td><span class="param-name">latitude</span> / <span class="param-name">longitude</span></td><td>พิกัด GPS</td><td><code>14.077774</code> / <code>100.60131</code></td></tr>
+                        <tr><td><span class="param-name">address</span> / <span class="param-name">subdistrict</span> / <span class="param-name">district</span> / <span class="param-name">province</span></td><td>ที่อยู่ / ตำบล / อำเภอ / จังหวัด</td><td><code>คลองหนึ่ง</code> / <code>คลองหลวง</code> / <code>ปทุมธานี</code></td></tr>
+                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาที่แจ้ง (UTC+7)</td><td><code>2026-08-27 22:15:33</code></td></tr>
+                        <tr><td><span class="param-name">status_type</span></td><td>สถานะตามที่ผู้แจ้งเห็น: <code>report</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code></td><td><code>inprogress</code></td></tr>
+                        <tr><td><span class="param-name">confirmed</span></td><td>รับรองการแก้ไขแล้วหรือไม่</td><td><code>false</code></td></tr>
+                        <tr><td><span class="param-name">star</span></td><td>ดาวความพึงพอใจ (1-5, <code>null</code> ถ้ายังไม่ได้ให้)</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">count_reopen</span></td><td>จำนวนครั้งที่ถูกเปิดเรื่องใหม่</td><td><code>0</code></td></tr>
+                        <tr><td><span class="param-name">last_activity</span></td><td>วันเวลากิจกรรมล่าสุด (UTC+7)</td><td><code>2026-09-01 16:14:49</code></td></tr>
+                        <tr><td><span class="param-name">orgs</span></td><td>Array สถานะ/ประเภทปัญหาที่แต่ละหน่วยงานได้รับ</td><td><code>(Array)</code></td></tr>
+                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน <code>orgs[]</code></td></tr>
+                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาที่ข้อมูลเข้าหน่วยงาน</td><td><code>2026-08-27 22:15:33</code></td></tr>
+                        <tr><td><span class="param-name">org_id</span> / <span class="param-name">org</span></td><td>รหัสและชื่อหน่วยงาน</td><td><code>151</code> / <code>Traffy @ ITS Lab2</code></td></tr>
+                        <tr><td><span class="param-name">type_id</span> / <span class="param-name">type</span> / <span class="param-name">type_en</span></td><td>รหัสและชื่อประเภทปัญหาที่หน่วยงานได้รับ</td><td><code>620543</code> / <code>อื่นๆ</code> / <code>Other</code></td></tr>
+                        <tr><td><span class="param-name">status_id</span> / <span class="param-name">status</span> / <span class="param-name">status_type</span></td><td>รหัส ชื่อ และประเภทสถานะที่หน่วยงานมองเห็น</td><td><code>105125</code> / <code>กำลังดำเนินการ</code> / <code>inprogress</code></td></tr>
+                        <tr><td><span class="param-name">org_category_id</span></td><td>รหัสหมวดหมู่ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง) <span class="param-opt">NEW</span></td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">org_status_id</span></td><td>รหัสสถานะ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง) <span class="param-opt">NEW</span></td><td><code>1219411</code></td></tr>
+                        <tr><td><span class="param-name">timeline</span></td><td>Array ประวัติการดำเนินการ (ห้ามเผยแพร่สู่สาธารณะ อาจมีข้อมูลผู้แจ้ง)</td><td><code>(Array)</code></td></tr>
+                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">*** ข้อมูลที่อยู่ใน <code>timeline[]</code></td></tr>
+                        <tr><td><span class="param-name">timestamp</span></td><td>วันเวลาของการอัปเดต</td><td><code>2026-08-27 22:18:06</code></td></tr>
+                        <tr><td><span class="param-name">status_id</span> / <span class="param-name">status</span></td><td>รหัสและชื่อสถานะที่ จนท. กดอัปเดต</td><td><code>106369</code> / <code>จัดทำนโยบาย</code></td></tr>
+                        <tr><td><span class="param-name">org_id</span> / <span class="param-name">org</span></td><td>รหัสและชื่อหน่วยงานที่กดอัปเดต</td><td><code>151</code> / <code>Traffy @ ITS Lab2</code></td></tr>
+                        <tr><td><span class="param-name">note</span></td><td>คำอธิบายประกอบการอัปเดต</td><td><code>ทดสอบ</code></td></tr>
+                        <tr><td><span class="param-name">photo</span></td><td>URL รูปภาพประกอบการอัปเดต</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">api_log_session_id</span></td><td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td><td><code>2077283457</code></td></tr>
+                      </tbody>
+                    </table>
                   </div>
+                  </details>
                 </div>
               </div>
             </article>
@@ -546,7 +555,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ส่งออกข้อมูลเรื่องแจ้งของหน่วยงานออกมาเป็นไฟล์ CSV (คอลัมน์เดียวกับ <code>get-issues</code>) ตามหน่วยงานและช่วงเวลาที่กำหนด เรียงจากแจ้ง/อัปเดตล่าสุดก่อน เหมาะสำหรับการทำรายงานหรือวิเคราะห์ข้อมูลภายนอก</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -567,6 +576,29 @@
   --output export_issues.csv</code></pre></div>
                   </div>
                   <p style="font-size:0.8rem;color:var(--text-muted);margin:2px 0 8px;">⚠️ API นี้คืนค่าเป็น <strong>ไฟล์ CSV ดิบ</strong> (<code>Content-Type: application/csv</code>) เมื่อสำเร็จ ไม่ใช่ JSON — คอลัมน์เหมือนกับ <code>results[]</code> ของ <a href="#get-issues">get-issues</a> ทุกประการ กรณีเกิดข้อผิดพลาดเท่านั้นที่จะได้ JSON กลับมาแทน</p>
+                  <details class="param-section">
+                    <summary class="param-title">Response Example (CSV / Error JSON)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK) — CSV</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>ticket_id,type,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,status,confirmed,star,count_reopen,last_activity
+2026-B9WGC7,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
+// ... รวมทั้งหมด 4367 แถว (org_id=151, duration=all)</code></pre></div>
+                    </div>
+                    <div class="code-block-wrap" style="margin-top:8px;">
+                      <div class="code-header"><span class="code-title">Response (Error) — JSON</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "fail",
+  "message": "org_id is not specified | ไม่ได้ระบุ org_id",
+  "exec_time": "0",
+  "source": "",
+  "credit_balance": null,
+  "org_id": null,
+  "count": 0,
+  "api_log_session_id": 1234567890,
+  "results": []
+}</code></pre></div>
+                    </div>
+                  </details>
                   <details class="param-section">
                     <summary class="param-title">CSV Output Columns</summary>
                     <div class="table-wrap">
@@ -592,26 +624,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK) — CSV</span></div>
-                    <div class="code-content"><pre><code>ticket_id,type,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,status,confirmed,star,count_reopen,last_activity
-2026-B9WGC7,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
-// ... รวมทั้งหมด 4367 แถว (org_id=151, duration=all)</code></pre></div>
-                  </div>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (Error) — JSON</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "fail",
-  "message": "org_id is not specified | ไม่ได้ระบุ org_id",
-  "exec_time": "0",
-  "source": "",
-  "credit_balance": null,
-  "org_id": null,
-  "count": 0,
-  "api_log_session_id": 1234567890,
-  "results": []
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -632,7 +644,7 @@
                   <ul class="api-notes">
                     <li>⚠️ API นี้จะคืนผลลัพธ์เฉพาะหน่วยงานที่อยู่ใน join-forward hierarchy ของ <code>new_issue_org</code> ที่ผูกกับ API key เท่านั้น หาก account ยังไม่ได้ตั้งค่า <code>new_issue_org</code> ไว้ ผลลัพธ์อาจได้ <code>count: 0</code> แม้ชื่อหน่วยงานที่ค้นหาจะมีอยู่จริงในระบบก็ตาม (สังเกตพฤติกรรมนี้ในบัญชีทดสอบที่ยังไม่ได้ตั้งค่า <code>new_issue_org</code>) — หากพบพฤติกรรมนี้ ให้ติดต่อทีมงาน Traffy เพื่อตรวจสอบการตั้งค่า <code>new_issue_org</code> ของ account</li>
                   </ul>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -650,6 +662,24 @@
                     <div class="code-content"><pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/search-org/v1?text=Traffy*' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
+                  <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "1.372s",
+  "source": "db",
+  "credit_balance": null,
+  "text": "Traffy*",
+  "count": 0,
+  "results": [],
+  "api_log_session_id": 1085634030,
+  "api_log_session_id_show_joinforward_from_hierarchy": 689953440
+}</code></pre></div>
+                    </div>
+                  </details>
                   <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
@@ -677,21 +707,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "1.372s",
-  "source": "db",
-  "credit_balance": null,
-  "text": "Traffy*",
-  "count": 0,
-  "results": [],
-  "api_log_session_id": 1085634030,
-  "api_log_session_id_show_joinforward_from_hierarchy": 689953440
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -709,7 +724,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ดึงผังโครงสร้างรายชื่อหน่วยงานย่อยทั้งหมดที่อยู่ภายใต้การกำกับดูแลของ Account</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -727,6 +742,35 @@
                     <div class="code-content"><pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-org-list/v1?org_id=151' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
+                  <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.943s",
+  "source": "db",
+  "credit_balance": null,
+  "org_id": "151",
+  "count": 1,
+  "results": [
+    {
+      "org_id": 151,
+      "name": "Traffy @ ITS Lab2",
+      "name_en": "Traffy @ ITS Lab2",
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2022-01/998ce45a17d6fd64b0e35f7fb65c778a63397777.jpg",
+      "latitude": 14.077786,
+      "longitude": 100.601313,
+      "address": "112 อุทยานวิทยาศาสตร์ ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120 ประเทศไทย",
+      "province": "ปทุมธานี",
+      "is_official": true
+    }
+  ],
+  "api_log_session_id": 1800786405
+}</code></pre></div>
+                    </div>
+                  </details>
                   <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
@@ -753,32 +797,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.943s",
-  "source": "db",
-  "credit_balance": null,
-  "org_id": "151",
-  "count": 1,
-  "results": [
-    {
-      "org_id": 151,
-      "name": "Traffy @ ITS Lab2",
-      "name_en": "Traffy @ ITS Lab2",
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2022-01/998ce45a17d6fd64b0e35f7fb65c778a63397777.jpg",
-      "latitude": 14.077786,
-      "longitude": 100.601313,
-      "address": "112 อุทยานวิทยาศาสตร์ ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120 ประเทศไทย",
-      "province": "ปทุมธานี",
-      "is_official": true
-    }
-  ],
-  "api_log_session_id": 1800786405
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -796,7 +814,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ดึง Master Data รายการประเภทปัญหาและหมวดหมู่ที่หน่วยงานรับผิดชอบ เพื่อนำ <code>type_id</code> หรือชื่อประเภทไปใช้กับ API <code>new-issue</code> พร้อม <code>org_category</code> ซึ่งรวมหมวดหมู่กลางและหมวดหมู่ custom ของหน่วยงาน</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -814,6 +832,37 @@
                     <div class="code-content"><pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-type-list/v1?org_id=151' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
+                  <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "1.179s",
+  "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
+  "credit_balance": null,
+  "org_id": [151],
+  "count": 34,
+  "results": [
+    {"org_id": 151, "topic_id": 78, "type_id": 196886, "type": "น้ำท่วม", "type_en": "Flood", "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png", "index": 4}
+  ],
+  "org_category": [
+    {
+      "org_id": 151,
+      "issue_category_id": 6,
+      "org_category_id": 166551,
+      "name_th": "ฟิวเพิ่มประเภท",
+      "name_en": "Fewjatest",
+      "sort_order": 10,
+      "icon_url": "attachment/2018-03/s-1520325589.18.png",
+      "category_group": null
+    }
+  ],
+  "api_log_session_id": 424355237
+}</code></pre></div>
+                    </div>
+                  </details>
                   <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
@@ -849,34 +898,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "1.179s",
-  "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-  "credit_balance": null,
-  "org_id": [151],
-  "count": 34,
-  "results": [
-    {"org_id": 151, "topic_id": 78, "type_id": 196886, "type": "น้ำท่วม", "type_en": "Flood", "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png", "index": 4}
-  ],
-  "org_category": [
-    {
-      "org_id": 151,
-      "issue_category_id": 6,
-      "org_category_id": 166551,
-      "name_th": "ฟิวเพิ่มประเภท",
-      "name_en": "Fewjatest",
-      "sort_order": 10,
-      "icon_url": "attachment/2018-03/s-1520325589.18.png",
-      "category_group": null
-    }
-  ],
-  "api_log_session_id": 424355237
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -894,7 +915,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ดึงรายการสถานะของเรื่องแจ้งที่เป็นไปได้ในระบบ (เช่น รอรับเรื่อง, กำลังดำเนินการ, เสร็จสิ้น, ส่งต่อ ฯลฯ) พร้อม <code>org_status</code> ซึ่งรวมสถานะกลางและสถานะ custom ของหน่วยงาน</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -913,41 +934,10 @@
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre></div>
                   </div>
                   <details class="param-section">
-                    <summary class="param-title">JSON Output Parameters</summary>
-                    <div class="table-wrap">
-                    <table class="param-table">
-                      <thead><tr><th>ชื่อ</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="param-name">status</span></td><td>ผลการทำงาน: <code>success</code> / <code>fail</code> / <code>warning</code></td><td><code>success</code></td></tr>
-                        <tr><td><span class="param-name">message</span></td><td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td><td><code>""</code></td></tr>
-                        <tr><td><span class="param-name">exec_time</span></td><td>เวลาที่ใช้ประมวลผล (วินาที)</td><td><code>1.121s</code></td></tr>
-                        <tr><td><span class="param-name">source</span></td><td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช</td><td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td></tr>
-                        <tr><td><span class="param-name">credit_balance</span></td><td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">org_id</span></td><td>Array หมายเลขหน่วยงานที่ใช้ค้นหา</td><td><code>[151]</code></td></tr>
-                        <tr><td><span class="param-name">count</span></td><td>จำนวนผลลัพธ์ใน <code>results</code></td><td><code>20</code></td></tr>
-                        <tr><td><span class="param-name">org_status</span></td><td>Array สถานะกลาง + สถานะ custom ของหน่วยงาน <span class="param-opt">NEW</span></td><td><code>(Array)</code></td></tr>
-                        <tr><td><span class="param-name">api_log_session_id</span></td><td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td><td><code>1841962945</code></td></tr>
-                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">* ข้อมูลที่อยู่ใน <code>results[]</code></td></tr>
-                        <tr><td><span class="param-name">org_id</span></td><td>หมายเลขหน่วยงาน</td><td><code>151</code></td></tr>
-                        <tr><td><span class="param-name">status_id</span></td><td>หมายเลขสถานะ (ระบบเดิม)</td><td><code>81</code></td></tr>
-                        <tr><td><span class="param-name">status</span></td><td>ชื่อสถานะ</td><td><code>รอรับเรื่อง</code></td></tr>
-                        <tr><td><span class="param-name">status_type</span></td><td>ประเภทของสถานะ: <code>start</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code></td><td><code>start</code></td></tr>
-                        <tr><td><span class="param-name">index</span></td><td>ลำดับการเรียงลำดับ</td><td><code>1</code></td></tr>
-                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน <code>org_status[]</code></td></tr>
-                        <tr><td><span class="param-name">org_id</span></td><td>หมายเลขหน่วยงาน (<code>null</code> = สถานะกลาง ยังไม่ถูกปรับแต่ง)</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">issue_status_id</span></td><td>รหัสสถานะกลางของระบบ</td><td><code>1</code></td></tr>
-                        <tr><td><span class="param-name">org_statuses_id</span></td><td>รหัสสถานะ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง)</td><td><code>null</code></td></tr>
-                        <tr><td><span class="param-name">group_name_th</span> / <span class="param-name">group_name_en</span></td><td>ชื่อสถานะ (ไทย/อังกฤษ — อังกฤษอาจเป็น <code>null</code>)</td><td><code>รอรับเรื่อง</code> / <code>Open</code></td></tr>
-                        <tr><td><span class="param-name">sort_order</span></td><td>ลำดับการเรียง</td><td><code>1</code></td></tr>
-                        <tr><td><span class="param-name">bg_color</span> / <span class="param-name">text_color</span> / <span class="param-name">border_color</span></td><td>สีพื้นหลัง/ตัวอักษร/ขอบ (hex code)</td><td><code>#f98a89</code> / <code>#000</code> / <code>#ef5d4a</code></td></tr>
-                        <tr><td><span class="param-name">is_active</span></td><td>เปิดใช้งานอยู่หรือไม่ (string ตามรูปแบบ PostgreSQL boolean) — query ของ endpoint นี้กรองเฉพาะสถานะที่ active เท่านั้น จึงมีค่าเป็น <code>"t"</code> เสมอ</td><td><code>"t"</code></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
   "status": "success",
   "message": "",
   "exec_time": "1.121s",
@@ -987,7 +977,41 @@
   ],
   "api_log_session_id": 1841962945
 }</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
+                    <summary class="param-title">JSON Output Parameters</summary>
+                    <div class="table-wrap">
+                    <table class="param-table">
+                      <thead><tr><th>ชื่อ</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="param-name">status</span></td><td>ผลการทำงาน: <code>success</code> / <code>fail</code> / <code>warning</code></td><td><code>success</code></td></tr>
+                        <tr><td><span class="param-name">message</span></td><td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td><td><code>""</code></td></tr>
+                        <tr><td><span class="param-name">exec_time</span></td><td>เวลาที่ใช้ประมวลผล (วินาที)</td><td><code>1.121s</code></td></tr>
+                        <tr><td><span class="param-name">source</span></td><td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช</td><td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td></tr>
+                        <tr><td><span class="param-name">credit_balance</span></td><td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">org_id</span></td><td>Array หมายเลขหน่วยงานที่ใช้ค้นหา</td><td><code>[151]</code></td></tr>
+                        <tr><td><span class="param-name">count</span></td><td>จำนวนผลลัพธ์ใน <code>results</code></td><td><code>20</code></td></tr>
+                        <tr><td><span class="param-name">org_status</span></td><td>Array สถานะกลาง + สถานะ custom ของหน่วยงาน <span class="param-opt">NEW</span></td><td><code>(Array)</code></td></tr>
+                        <tr><td><span class="param-name">api_log_session_id</span></td><td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td><td><code>1841962945</code></td></tr>
+                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">* ข้อมูลที่อยู่ใน <code>results[]</code></td></tr>
+                        <tr><td><span class="param-name">org_id</span></td><td>หมายเลขหน่วยงาน</td><td><code>151</code></td></tr>
+                        <tr><td><span class="param-name">status_id</span></td><td>หมายเลขสถานะ (ระบบเดิม)</td><td><code>81</code></td></tr>
+                        <tr><td><span class="param-name">status</span></td><td>ชื่อสถานะ</td><td><code>รอรับเรื่อง</code></td></tr>
+                        <tr><td><span class="param-name">status_type</span></td><td>ประเภทของสถานะ: <code>start</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code></td><td><code>start</code></td></tr>
+                        <tr><td><span class="param-name">index</span></td><td>ลำดับการเรียงลำดับ</td><td><code>1</code></td></tr>
+                        <tr><td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน <code>org_status[]</code></td></tr>
+                        <tr><td><span class="param-name">org_id</span></td><td>หมายเลขหน่วยงาน (<code>null</code> = สถานะกลาง ยังไม่ถูกปรับแต่ง)</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">issue_status_id</span></td><td>รหัสสถานะกลางของระบบ</td><td><code>1</code></td></tr>
+                        <tr><td><span class="param-name">org_statuses_id</span></td><td>รหัสสถานะ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง)</td><td><code>null</code></td></tr>
+                        <tr><td><span class="param-name">group_name_th</span> / <span class="param-name">group_name_en</span></td><td>ชื่อสถานะ (ไทย/อังกฤษ — อังกฤษอาจเป็น <code>null</code>)</td><td><code>รอรับเรื่อง</code> / <code>Open</code></td></tr>
+                        <tr><td><span class="param-name">sort_order</span></td><td>ลำดับการเรียง</td><td><code>1</code></td></tr>
+                        <tr><td><span class="param-name">bg_color</span> / <span class="param-name">text_color</span> / <span class="param-name">border_color</span></td><td>สีพื้นหลัง/ตัวอักษร/ขอบ (hex code)</td><td><code>#f98a89</code> / <code>#000</code> / <code>#ef5d4a</code></td></tr>
+                        <tr><td><span class="param-name">is_active</span></td><td>เปิดใช้งานอยู่หรือไม่ (string ตามรูปแบบ PostgreSQL boolean) — query ของ endpoint นี้กรองเฉพาะสถานะที่ active เท่านั้น จึงมีค่าเป็น <code>"t"</code> เสมอ</td><td><code>"t"</code></td></tr>
+                      </tbody>
+                    </table>
                   </div>
+                  </details>
                 </div>
               </div>
             </article>
@@ -1018,7 +1042,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ส่งเรื่องแจ้งเหตุใหม่จากระบบภายนอกเข้าสู่ระบบ Fondue พร้อมระบุพิกัด GPS, รูปภาพ, หมวดหมู่ปัญหา และที่อยู่ — เลือกระบุหมวดหมู่ได้ 1 ทาง (ตัวใหม่หรือตัวเดิม อย่างใดอย่างหนึ่ง ระบบจะแปลงตัวเดิมให้อัตโนมัติ)</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1062,6 +1086,26 @@
   }'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.31s",
+  "credit_balance": 819,
+  "api_log_session": 1234567890,
+  "api_log_session_id_new-issue": 987654321,
+  "org_id": [151],
+  "results": {
+    "ticket_id": "2026-ABCDEF",
+    "password": "5529",
+    "smsStatus": "Y"
+  }
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1085,23 +1129,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.31s",
-  "credit_balance": 819,
-  "api_log_session": 1234567890,
-  "api_log_session_id_new-issue": 987654321,
-  "org_id": [151],
-  "results": {
-    "ticket_id": "2026-ABCDEF",
-    "password": "5529",
-    "smsStatus": "Y"
-  }
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -1119,7 +1146,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ปรับปรุงสถานะการดำเนินงานของเรื่องแจ้ง พร้อมแนบภาพถ่ายผลงานและควบคุมการแจ้งเตือนผู้แจ้ง/เจ้าหน้าที่ — เลือกระบุสถานะได้ 1 ทาง (ตัวใหม่หรือตัวเดิม อย่างใดอย่างหนึ่ง ระบบจะแปลงตัวเดิมให้อัตโนมัติ)</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1161,6 +1188,25 @@
   }'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.22s",
+  "credit_balance": 819,
+  "org_id": 151,
+  "source": "h db",
+  "api_log_session_id": 1234567890,
+  "api_log_session_id_update_message": 987654321,
+  "results": {
+    "smsStatus": "Y"
+  }
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1182,22 +1228,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.22s",
-  "credit_balance": 819,
-  "org_id": 151,
-  "source": "h db",
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_update_message": 987654321,
-  "results": {
-    "smsStatus": "Y"
-  }
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -1215,7 +1245,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">บันทึกคะแนนดาวประเมินความพึงพอใจการแก้ไขปัญหา (1 ถึง 5 ดาว)</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1237,6 +1267,20 @@
   -d '{"ticket_id": "2026-ABCDEF", "star": 5}'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.04s",
+  "credit_balance": 819,
+  "api_log_session_id": 1234567890,
+  "api_log_session_id_star": 987654321
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1252,17 +1296,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.04s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_star": 987654321
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -1280,7 +1313,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ส่งความคิดเห็นหลังการประเมิน หรือส่งข้อความแชตไปยังผู้แจ้ง</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1305,6 +1338,20 @@
   -d '{"ticket_id": "2026-ABCDEF", "comment": "ขอบคุณสำหรับการแจ้งเหตุครับ", "comment_type": "comment"}'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.10s",
+  "credit_balance": 819,
+  "api_log_session_id": 1234567890,
+  "api_log_session_id_messagecomment": 987654321
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1320,17 +1367,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.10s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_messagecomment": 987654321
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -1348,7 +1384,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">เชิญหน่วยงานอื่นร่วมรับผิดชอบ หรือส่งต่อเรื่องแจ้งไปยังหน่วยงานปลายทางที่รับผิดชอบโดยตรง</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Request Body (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1385,6 +1421,20 @@
   }'</code></pre></div>
                   </div>
                   <details class="param-section">
+                    <summary class="param-title">Response Example (200 OK)</summary>
+                    <div class="code-block-wrap">
+                      <div class="code-header"><span class="code-title">Response (200 OK)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-content"><pre><code>{
+  "status": "success",
+  "message": "",
+  "exec_time": "0.18s",
+  "credit_balance": 819,
+  "api_log_session_id": 1234567890,
+  "api_log_session_id_join_forward": 987654321
+}</code></pre></div>
+                    </div>
+                  </details>
+                  <details class="param-section">
                     <summary class="param-title">JSON Output Parameters</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1401,17 +1451,6 @@
                     </table>
                   </div>
                   </details>
-                  <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response (200 OK)</span></div>
-                    <div class="code-content"><pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.18s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_join_forward": 987654321
-}</code></pre></div>
-                  </div>
                 </div>
               </div>
             </article>
@@ -1442,7 +1481,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP POST ทันทีเมื่อมีผู้แจ้งเหตุ</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1460,7 +1499,7 @@
                 </div>
                 <div class="api-code-col">
                   <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Incoming Payload Sample (POST)</span></div>
+                    <div class="code-header"><span class="code-title">Incoming Payload Sample (POST)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content"><pre><code>{
   "timestamp": "2026-08-31 10:00:00.000000",
   "ticket_id": "2026-ABCDEF",
@@ -1491,7 +1530,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลการอัปเดตสถานะ บันทึกการปฏิบัติงาน และภาพถ่ายผลงาน แบบ HTTP PATCH ทันทีที่มีการเปลี่ยนสถานะ</p>
-                  <details class="param-section">
+                  <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
                     <table class="param-table">
@@ -1509,7 +1548,7 @@
                 </div>
                 <div class="api-code-col">
                   <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Incoming Payload Sample (PATCH)</span></div>
+                    <div class="code-header"><span class="code-title">Incoming Payload Sample (PATCH)</span><button class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content"><pre><code>{
   "timestamp": "2026-08-31 11:30:00.000000",
   "ticket_id": "2026-ABCDEF",
