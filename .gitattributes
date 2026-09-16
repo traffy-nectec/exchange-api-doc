@@ -1,0 +1,13 @@
+# Enforce LF line endings across all platforms (Windows / Linux / macOS)
+* text=auto eol=lf
+
+# Explicitly ensure code and documentation use LF
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
