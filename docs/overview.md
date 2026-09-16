@@ -13,12 +13,12 @@
 * [`new-issue`](action-apis.md#api-new-issue-v1): ส่งเรื่องแจ้งใหม่เข้าสู่ระบบ Fondue
 * [`update-issue`](action-apis.md#api-update-issue-v1): อัปเดต/ปรับสถานะเรื่องแจ้ง (รับเรื่อง, กำลังทำ, เสร็จสิ้น ฯลฯ)
 * [`star`](action-apis.md#api-star-v1): บันทึกคะแนนความพึงพอใจของผู้แจ้ง (1-5 ดาว)
-* [`comment`](action-apis.md#api-comment-v1): ส่งความเห็นเพิ่มเติมหรือข้อความสนทนากับผู้แจ้ง (ส่ง SMS)
+* [`comment`](action-apis.md#api-comment-v1): ส่งความเห็นเพิ่มเติมหรือข้อความสนทนากับผู้แจ้ง (ถ้าผู้แจ้งมีช่องทางให้ติดต่อกลับได้)
 * [`join-forward`](action-apis.md#api-join-forward-v1): เชิญหน่วยงานอื่นร่วมรับผิดชอบ หรือส่งต่อเรื่องแจ้ง
 
 ### 📥 2. ขอข้อมูลจาก Traffy Fondue (Data Retrieval)
 ใช้สำหรับดึงข้อมูลเรื่องแจ้งและข้อมูลระบบไปแสดงผลหรือประมวลผลต่อในระบบของหน่วยงาน
-* [`get-issues`](query-apis.md#api-get-issues-v1): ดูรายการเรื่องแจ้งของหน่วยงาน พร้อมระบบตัวกรองและการแบ่งหน้า
+* [`get-issues`](query-apis.md#api-get-issues-v1): ดูรายการเรื่องแจ้งของหน่วยงาน พร้อมระบบตัวกรอง
 * [`download-issues`](query-apis.md#api-download-issues-v1): ดาวน์โหลดข้อมูลเรื่องแจ้งเป็นไฟล์ CSV
 * [`get-issue`](query-apis.md#api-get-issue-v1): ดูรายละเอียดเชิงลึกและประวัติการดำเนินงานของเรื่องแจ้งตาม `ticket_id`
 * [`search-org`](query-apis.md#api-search-org-v1): ค้นหาหน่วยงานอื่นจากชื่อ
@@ -38,15 +38,15 @@
 ```mermaid
 flowchart LR
     A["1. กรอกฟอร์มขอใช้งาน\n(Google Form)"] --> B["2. รับ Credential ทาง Email\n(User, Pass, Quota, PDF)"]
-    B --> C["3. ขอรับ Token\n(POST get-auth)"]
-    C --> D["4. เรียกใช้งาน API ต่างๆ\n(Authorization: Bearer <token>)"]
+    B --> C["3. เรียกใช้งาน API ขอ Token ด้วย credential ที่ได้จากข้อ 2\n(POST get-auth)"]
+    C --> D["4. เรียกใช้งาน API ต่างๆ ด้วย token ที่ได้จากข้อ 3\n(Authorization: Bearer <token>)"]
 ```
 
 1. **1️⃣ กรอกแบบฟอร์มสมัครใช้งาน:**
    * กรอกข้อมูลหน่วยงานและผู้ประสานงานที่ [Google Form ขอใช้งาน Exchange API](https://forms.gle/bvFEhjPHSmU1x7wP7)
 2. **2️⃣ รับข้อมูลทางอีเมล:**
    * ทีมงานจะจัดส่งข้อมูลการเข้าถึงทางอีเมล ได้แก่:
-     * เอกสาร Traffy Fondue Exchange API Document (PDF)
+     * เอกสาร Traffy Fondue Exchange API Document
      * `Username`
      * `Password`
      * โควต้าการใช้งานต่อเดือน (`quota_limit`)

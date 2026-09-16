@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Traffy Fondue Exchange API - Open Data & Integration Portal</title>
-  <meta name="description" content="คู่มือและภาพรวมการเชื่อมต่อระบบ Traffy Fondue Exchange API สำหรับหน่วยงานและนักพัฒนาระบบเพื่อแลกเปลี่ยนข้อมูลปัญหาเมือง">
+  <meta name="description"
+    content="คู่มือและภาพรวมการเชื่อมต่อระบบ Traffy Fondue Exchange API สำหรับหน่วยงานและนักพัฒนาระบบเพื่อแลกเปลี่ยนข้อมูลปัญหาเมือง">
   <link rel="icon" type="image/webp" href="assets/logo.webp">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <a href="#modes" class="skip-link">ข้ามไปยังเนื้อหาหลัก (Skip to Content)</a>
 
@@ -31,9 +34,13 @@
         <a href="docs.html" class="btn btn-secondary btn-sm" aria-label="เปิดดู API Reference">
           <span>คู่มือ API</span>
         </a>
-        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-sm" aria-label="สมัครขอใช้งาน API (เปิดในหน้าต่างใหม่)">
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-sm"
+          aria-label="สมัครขอใช้งาน API (เปิดในหน้าต่างใหม่)">
           <span>สมัครขอใช้งาน</span>
-          <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
         </a>
       </div>
     </div>
@@ -50,14 +57,19 @@
         เชื่อมต่อและแลกเปลี่ยนข้อมูลปัญหาเมือง <span>อย่างไร้รอยต่อ</span>
       </h1>
       <p class="hero-desc">
-        แพลตฟอร์ม API มาตรฐานสำหรับหน่วยงานภาครัฐ อปท. รัฐวิสาหกิจ และผู้พัฒนาระบบภายนอก ในการรับ-ส่งข้อมูลเรื่องแจ้งเหตุ จัดการสถานะ และรับข้อมูลแบบ Real-time
+        แพลตฟอร์ม API มาตรฐานสำหรับหน่วยงานภาครัฐ อปท. รัฐวิสาหกิจ และผู้พัฒนาระบบภายนอก
+        ในการรับ-ส่งข้อมูลเรื่องแจ้งเหตุ จัดการสถานะ และรับข้อมูลแบบ Real-time
       </p>
-      
+
       <!-- CTA BUTTONS: Primary = สมัครขอใช้งาน, Secondary = API Reference -->
       <div class="hero-cta">
-        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
+        <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg"
+          aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
           <span>สมัครขอใช้งาน (Google Form)</span>
-          <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
         </a>
         <a href="docs.html" class="btn btn-secondary btn-lg" aria-label="เข้าสู่คู่มือ API Reference">
           <span>เข้าสู่คู่มือ API</span>
@@ -132,7 +144,8 @@
           <div class="mode-icon-wrap" aria-hidden="true">🔔</div>
           <h3 class="mode-title">3. Real-time Webhooks</h3>
           <p class="mode-desc">
-            ระบบ Traffy Fondue ส่งข้อมูลแจ้งเตือนไปยัง Server ปลายทางของท่านทันทีเมื่อมีเหตุการณ์เกิดขึ้น โดยไม่หักโควต้า
+            ระบบ Traffy Fondue ส่งข้อมูลแจ้งเตือนไปยัง Server ปลายทางของท่านทันทีเมื่อมีเหตุการณ์เกิดขึ้น
+            โดยไม่หักโควต้า
           </p>
           <ul class="mode-list">
             <li class="mode-list-item"><code>POST (New Issue)</code> แจ้งเตือนเมื่อมีเคสใหม่เข้ามา</li>
@@ -145,7 +158,8 @@
   </section>
 
   <!-- ONBOARDING SECTION -->
-  <section class="section" id="onboarding" style="background: var(--bg-card-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <section class="section" id="onboarding"
+    style="background: var(--bg-card-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Getting Started</span>
@@ -162,7 +176,7 @@
         <div class="step-card">
           <div class="step-badge">2</div>
           <h4 class="step-title">รับข้อมูลทางอีเมล</h4>
-          <p class="step-desc">ทีมงานจะส่ง Username, Password, โควต้าการใช้งาน และเอกสาร PDF ให้ทางอีเมลที่ระบุ</p>
+          <p class="step-desc">ทีมงานจะส่ง Username, Password, โควต้าการใช้งาน และเอกสารการใช้งาน ให้ทางอีเมลที่ระบุ</p>
         </div>
         <div class="step-card">
           <div class="step-badge">3</div>
@@ -172,7 +186,8 @@
         <div class="step-card">
           <div class="step-badge">4</div>
           <h4 class="step-title">เริ่มเชื่อมต่อ API</h4>
-          <p class="step-desc">นำ Token ที่ได้รับใส่ใน Header <code>Authorization: Bearer</code> แล้วเรียกใช้ API ที่ต้องการได้ทันที</p>
+          <p class="step-desc">นำ Token ที่ได้รับใส่ใน Header <code>Authorization: Bearer</code> แล้วเรียกใช้ API
+            ที่ต้องการได้ทันที</p>
         </div>
       </div>
     </div>
@@ -181,20 +196,29 @@
   <!-- API REFERENCE CALLOUT SECTION -->
   <section class="section" id="api-doc-portal" style="background: var(--bg-main);">
     <div class="container">
-      <div class="support-card" style="background: linear-gradient(135deg, #FAF8F5 0%, #F5EFEA 100%); border: 2px solid var(--border); color: var(--text-main); box-shadow: var(--shadow-md);">
+      <div class="support-card"
+        style="background: linear-gradient(135deg, #FAF8F5 0%, #F5EFEA 100%); border: 2px solid var(--border); color: var(--text-main); box-shadow: var(--shadow-md);">
         <div class="support-info">
-          <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--brand-accent); letter-spacing: 0.08em; display: block; margin-bottom: 6px;">Developer Documentation</span>
+          <span
+            style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--brand-accent); letter-spacing: 0.08em; display: block; margin-bottom: 6px;">Developer
+            Documentation</span>
           <h3 style="color: var(--brand); font-size: 1.75rem;">คู่มือการเชื่อมต่อ API ฉบับเต็ม</h3>
           <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            รวมเอกสารสเปกครบทั้ง <strong>13 Core Endpoints</strong> และ <strong>2 Real-time Webhooks</strong> พร้อมประเภทตัวแปร (Data Types), ตัวอย่างคำสั่ง cURL, ตัวอย่าง JSON Response, รหัส Error Codes และ OpenAPI Spec (.yaml)
+            รวมเอกสารสเปกครบทั้ง <strong>13 Core Endpoints</strong> และ <strong>2 Real-time Webhooks</strong>
+            พร้อมประเภทตัวแปร (Data Types), ตัวอย่างคำสั่ง cURL, ตัวอย่าง JSON Response, รหัส Error Codes และ OpenAPI
+            Spec (.yaml)
           </p>
         </div>
         <div class="support-actions">
           <a href="docs.html" class="btn btn-secondary btn-lg" style="width: auto;">
             <span>เปิดคู่มือ API</span>
-            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </a>
-          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="width: auto;" aria-label="สมัครขอใช้งาน API">
+          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-primary btn-lg"
+            style="width: auto;" aria-label="สมัครขอใช้งาน API">
             <span>สมัครขอใช้งาน</span>
           </a>
         </div>
@@ -208,13 +232,17 @@
       <div class="support-card">
         <div class="support-info">
           <h3>ต้องการความช่วยเหลือหรือขอเพิ่มโควต้า?</h3>
-          <p>หากโควต้าประจำเดือนใกล้หมด หรือต้องการปรึกษาการออกแบบและเชื่อมต่อระบบ สามารถติดต่อทีมงาน Traffy Fondue ได้ตลอดเวลาทำการ</p>
+          <p>หากโควต้าประจำเดือนใกล้หมด หรือต้องการปรึกษาการออกแบบและเชื่อมต่อระบบ สามารถติดต่อทีมงาน Traffy Fondue
+            ได้ตลอดเวลาทำการ</p>
         </div>
         <div class="support-actions">
-          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-light btn-lg" aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
+          <a href="https://forms.gle/bvFEhjPHSmU1x7wP7" target="_blank" rel="noopener" class="btn btn-light btn-lg"
+            aria-label="สมัครขอใช้งาน Google Form (เปิดในหน้าต่างใหม่)">
             <span>สมัครขอใช้งาน API</span>
           </a>
-          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);" aria-label="ติดต่อ LINE Official @fonduehelp (เปิดในหน้าต่างใหม่)">
+          <a href="https://line.me/R/ti/p/%40155yjrwo" target="_blank" rel="noopener" class="btn btn-secondary btn-lg"
+            style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);"
+            aria-label="ติดต่อ LINE Official @fonduehelp (เปิดในหน้าต่างใหม่)">
             <span>LINE: @fonduehelp</span>
           </a>
         </div>
@@ -229,12 +257,15 @@
         <p>© 2026 Traffy Fondue Platform. NECTEC / NSTDA. All rights reserved.</p>
       </div>
       <ul class="footer-links">
-        <li><a href="https://www.traffy.in.th" target="_blank" rel="noopener" class="footer-link">เว็บไซต์หลัก Traffy</a></li>
-        <li><a href="https://github.com/traffy-nectec/exchange-api-doc" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a></li>
+        <li><a href="https://www.traffy.in.th" target="_blank" rel="noopener" class="footer-link">เว็บไซต์หลัก
+            Traffy</a></li>
+        <li><a href="https://github.com/traffy-nectec/exchange-api-doc" target="_blank" rel="noopener"
+            class="footer-link">GitHub Repository</a></li>
         <li><a href="docs.html" class="footer-link">API Reference</a></li>
       </ul>
     </div>
   </footer>
 
 </body>
+
 </html>

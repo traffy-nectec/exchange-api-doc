@@ -45,6 +45,9 @@
 - **Response Example (200 OK):** สลับลำดับมาอยู่ **ก่อนหน้า** JSON Output Parameters และซ่อนไว้ใน Toggle **(Closed by default)** พร้อมปุ่ม **Copy** ในส่วน Header เพื่อให้หน้าเว็บดูสะอาด ไม่รก แต่ยังสามารถเปิดดูและคัดลอก Response ตัวอย่างได้ง่าย
 - **JSON Output Parameters:** จัดวางต่อจาก Response Example ในแบบ Toggle **(Closed by default)**
 - **Webhooks:** ปรับ Incoming Payload ให้เปิดเป็นค่าเริ่มต้น และเพิ่มปุ่ม **Copy** ให้กับ Incoming Payload Sample ทุกตัว
+- **Sidebar Group Navigation (หมวด 1-5):** ปรับหัวข้อตัวเลขหมวดหมู่ 1, 2, 3, 4, 5 ที่แถบเมนูด้านซ้ายและเมนูมือถือ ให้เป็นลิงก์ Anchor (`<a href="#sec-...">`) พร้อมเอฟเฟกต์ Hover และกำหนด `scroll-margin-top` เพื่อให้คลิกแล้ว Scroll ไปยังหัวข้อหมวดหมู่นั้นๆ ได้อย่างราบรื่นและแม่นยำ ไม่ถูก Header ทับ
+- **Fluid Full-Width Layout:** ขยาย Container ให้เป็น 100% Full-Width รองรับหน้าจอทุกขนาด (ตั้งแต่โน้ตบุ๊ก, Full HD ไปจนถึงจอ 2K/4K) ตารางพารามิเตอร์มีพื้นที่กว้างขวาง อ่านง่าย ไม่ถูกบีบ
+- **Mobile Sticky Nav Clearance & Table Scroll:** ปรับ `scroll-margin-top` บน Mobile/Tablet ให้คำนวณเผื่อทั้ง Fixed Header และ Sticky Dropdown Bar (ข้ามไปแล้วไม่โดนเมนูบังหัวข้อการ์ด) พร้อมเพิ่ม `min-width` ให้ตารางเลื่อนแนวนอนได้ ไม่บีบตัวอักษรแตกแถว
 
 ---
 
