@@ -36,7 +36,8 @@
   --shadow-lg: 0 20px 50px rgba(85, 57, 36, 0.11);
   --shadow-card: 0 1px 3px rgba(85, 57, 36, 0.05), 0 10px 24px -6px rgba(85, 57, 36, 0.04);
   
-  --container-max: 1200px;
+  --container-max: 100%;
+  --container-docs-max: 100%;
   --header-height: 70px;
 }
 
@@ -601,18 +602,23 @@ body {
 /* =========================================
    DEDICATED DOCS PORTAL (docs.html)
 ========================================= */
+.docs-page .container {
+  max-width: var(--container-docs-max);
+  padding: 0 32px;
+}
+
 .docs-wrapper {
-  padding: 24px 20px 60px;
+  padding: 24px 32px 60px;
   width: 100%;
-  max-width: var(--container-max);
+  max-width: var(--container-docs-max);
   margin: 0 auto;
   box-sizing: border-box;
 }
 
 .docs-layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr); /* minmax(0, 1fr) is critical to prevent blowout */
-  gap: 28px;
+  grid-template-columns: 270px minmax(0, 1fr); /* minmax(0, 1fr) is critical to prevent blowout */
+  gap: 32px;
   align-items: start;
   width: 100%;
   box-sizing: border-box;
@@ -691,9 +697,19 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--brand-accent);
-  padding: 0 6px;
+  padding: 4px 6px;
   margin-bottom: 4px;
   display: block;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+a.sidebar-group-title:hover {
+  color: var(--brand);
+  background: var(--brand-subtle);
+  transform: translateX(2px);
 }
 
 .sidebar-links {
@@ -825,6 +841,7 @@ body {
   margin-bottom: 40px;
   width: 100%;
   box-sizing: border-box;
+  scroll-margin-top: 90px;
 }
 
 .docs-group-header {
@@ -968,10 +985,10 @@ body {
 }
 
 .api-card-body {
-  padding: 20px;
+  padding: 22px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 24px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -979,23 +996,23 @@ body {
 .api-details-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
 }
 
 .api-desc {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--text-main);
-  line-height: 1.55;
+  line-height: 1.6;
   word-break: break-word;
 }
 
 .api-notes {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--text-muted);
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 8px 0 14px;
   padding-left: 1.1em;
 }
@@ -1005,7 +1022,7 @@ body {
 }
 
 .param-title {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1071,41 +1088,41 @@ summary.param-title:hover::before {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   text-align: left;
 }
 
 /* Variant A - 3-column output tables: ชื่อ | คำอธิบาย | ตัวอย่าง */
 .param-table:not(:has(thead th:nth-child(4))) th:nth-child(1),
 .param-table:not(:has(thead th:nth-child(4))) td:nth-child(1) {
-  width: 16%;
+  width: 20%;
 }
 
 .param-table:not(:has(thead th:nth-child(4))) th:nth-child(3),
 .param-table:not(:has(thead th:nth-child(4))) td:nth-child(3) {
-  width: 22%;
+  width: 25%;
 }
 
 /* Variant B - 4-column input table (get-auth): ชื่อ | คำอธิบาย | ตัวอย่าง | REQUIRED? */
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(1),
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(1) {
-  width: 16%;
+  width: 18%;
 }
 
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(3),
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(3) {
-  width: 20%;
+  width: 22%;
 }
 
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) th:nth-child(4),
 .param-table:has(thead th:nth-child(4)):not(:has(thead th:nth-child(5))) td:nth-child(4) {
-  width: 14%;
+  width: 13%;
 }
 
 /* Variant C - 5-column input tables: Parameter | Type | คำอธิบาย | ตัวอย่าง | REQUIRED? */
 .param-table:has(thead th:nth-child(5)) th:nth-child(1),
 .param-table:has(thead th:nth-child(5)) td:nth-child(1) {
-  width: 14%;
+  width: 17%;
 }
 
 .param-table:has(thead th:nth-child(5)) th:nth-child(2),
@@ -1115,17 +1132,17 @@ summary.param-title:hover::before {
 
 .param-table:has(thead th:nth-child(5)) th:nth-child(4),
 .param-table:has(thead th:nth-child(5)) td:nth-child(4) {
-  width: 16%;
+  width: 18%;
 }
 
 .param-table:has(thead th:nth-child(5)) th:nth-child(5),
 .param-table:has(thead th:nth-child(5)) td:nth-child(5) {
-  width: 14%;
+  width: 12%;
 }
 
 .param-table th {
   background: var(--bg-card-alt);
-  padding: 7px 10px;
+  padding: 8px 12px;
   font-weight: 600;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-light);
@@ -1133,11 +1150,12 @@ summary.param-title:hover::before {
 }
 
 .param-table td {
-  padding: 7px 10px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--border-light);
   color: var(--text-main);
   vertical-align: top;
   overflow-wrap: anywhere;
+  line-height: 1.5;
 }
 
 .param-table tr:last-child td {
@@ -1347,6 +1365,12 @@ pre {
     width: 100%;
   }
 
+  /* Ensure card headings and sections clear both fixed header + sticky dropdown on mobile */
+  .api-card,
+  .docs-section-group {
+    scroll-margin-top: calc(var(--header-height) + 68px);
+  }
+
   .docs-wrapper {
     padding: 16px 12px 60px;
   }
@@ -1358,6 +1382,11 @@ pre {
 
   .api-details-col {
     margin-bottom: 14px;
+  }
+
+  /* Prevent table columns from being crushed on mobile screens */
+  .param-table {
+    min-width: 540px;
   }
 }
 
