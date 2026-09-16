@@ -48,7 +48,8 @@
 ```
 
 ### 2.2 มาตรฐานความถูกต้องของข้อมูล (Data Validation Principles)
-1. **HTTP Method:** Endpoint ทั้งหมดของ Exchange API ใช้ `POST` Method พร้อมส่ง Payload ในรูปแบบ JSON Body (`Content-Type: application/json`)
+1. **HTTP Method:** Endpoint ทั้งหมดของ Exchange API ใช้ `POST` Method (และ `update-issue` ใช้ `PATCH`) พร้อมส่ง Payload ในรูปแบบ JSON Body (`Content-Type: application/json`)
 2. **Timezone:** ข้อมูลวันเวลาในระบบใช้เวลามาตรฐานประเทศไทย (UTC+7 / `Asia/Bangkok`) รูปแบบ `YYYY-MM-DD HH:MM:SS` หรือ ISO 8601
 3. **Geo-coordinates:** พิกัดตำแหน่งใช้ระบบพิกัด WGS84 (Latitude, Longitude เป็นเลขทศนิยม)
 4. **Token Expiry:** JWT Token มีอายุการใช้งานจำกัด และจะระบุ `expire_timestamp` มาพร้อมกับ Response ของ `get-auth`
+5. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop

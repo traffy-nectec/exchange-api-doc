@@ -3187,6 +3187,7 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
+                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3274,6 +3275,7 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลการอัปเดตสถานะ บันทึกการปฏิบัติงาน และภาพถ่ายผลงาน แบบ
                     HTTP PATCH ทันทีที่มีการเปลี่ยนสถานะ</p>
+                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">

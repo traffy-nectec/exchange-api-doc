@@ -9,7 +9,8 @@ Traffy Fondue สามารถส่งข้อมูลแจ้งเตื
 
 ## 1. เมื่อมีเรื่องแจ้งเข้ามาใหม่ (New Issue Event)
 
-เมื่อมีเรื่องแจ้งใหม่ส่งเข้ามายังหน่วยงานของท่านในระบบ Fondue ทางระบบจะยิง HTTP `POST` Request ไปยัง URL ที่ท่านลงทะเบียนไว้
+เมื่อมีเรื่องแจ้งใหม่ส่งเข้ามายังหน่วยงานของท่านในระบบ Fondue ทางระบบจะยิง HTTP `POST` Request ไปยัง URL ที่ท่านลงทะเบียนไว้  
+<span style="color: red;">**หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue เพื่อป้องกันการเกิด loop**</span>
 
 ### Webhook Payload (`POST`)
 
@@ -53,7 +54,8 @@ Traffy Fondue สามารถส่งข้อมูลแจ้งเตื
 
 ## 2. เมื่อมีการอัปเดตสถานะ (Status Update Event)
 
-เมื่อเจ้าหน้าที่ในระบบ Fondue มีการปรับเปลี่ยนสถานะเคส ระบบจะยิง HTTP `PATCH` Request ไปยัง URL ปลายทางของท่าน
+เมื่อเจ้าหน้าที่ในระบบ Fondue มีการปรับเปลี่ยนสถานะเคส ระบบจะยิง HTTP `PATCH` Request ไปยัง URL ปลายทางของท่าน  
+<span style="color: red;">**หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue เพื่อป้องกันการเกิด loop**</span>
 
 ### Webhook Payload (`PATCH`)
 
