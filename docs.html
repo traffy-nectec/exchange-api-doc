@@ -78,6 +78,7 @@
           <option value="#sec-webhook">📌 4. Real-time Webhooks (Fondue ส่งข้อมูลออกไปแบบ real-time)</option>
           <option value="#webhook-new-issue">POST Webhook - เมื่อมีเคสเข้ามาใหม่</option>
           <option value="#webhook-status-update">PATCH Webhook - เมื่อเคสมีการอัปเดตสถานะ</option>
+          <option value="#webhook-chat">POST Webhook - เมื่อมีการแสดงความคิดเห็นหรือแชท</option>
         </optgroup>
         <optgroup label="5. Troubleshooting">
           <option value="#sec-error">📌 5. Troubleshooting (รหัสข้อผิดพลาด)</option>
@@ -156,13 +157,15 @@
 
           <!-- Group 4 -->
           <div class="sidebar-group">
-            <a href="#sec-webhook" class="sidebar-group-title">4. Webhooks (2)</a>
+            <a href="#sec-webhook" class="sidebar-group-title">4. Webhooks (3)</a>
             <ul class="sidebar-links">
               <li><a href="#webhook-new-issue" class="sidebar-link"><span class="link-name">รับเคสใหม่</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
               <li><a href="#webhook-status-update" class="sidebar-link"><span
                     class="link-name">รับอัปเดตสถานะ</span><span
                     class="method-badge method-patch badge-mini">PATCH</span></a></li>
+              <li><a href="#webhook-chat" class="sidebar-link"><span class="link-name">แชทและความคิดเห็น</span><span
+                    class="method-badge method-post badge-mini">POST</span></a></li>
             </ul>
           </div>
 
@@ -3187,7 +3190,10 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
-                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue เพื่อป้องกันการเกิด loop</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue
+                    เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3275,7 +3281,10 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลการอัปเดตสถานะ บันทึกการปฏิบัติงาน และภาพถ่ายผลงาน แบบ
                     HTTP PATCH ทันทีที่มีการเปลี่ยนสถานะ</p>
-                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue เพื่อป้องกันการเกิด loop</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue
+                    เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3336,6 +3345,115 @@
   "status": "เสร็จสิ้น",
   "note": "ได้ทำการแก้ไขเสร็จสิ้นแล้วครับ",
   "photo": ["https://storage.googleapis.com/..."]
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- webhook chat -->
+            <article class="api-card" id="webhook-chat" data-keywords="webhook chat comment rating event post">
+              <div class="api-card-header">
+                <div class="api-card-title-group">
+                  <span class="method-badge method-post">POST (Webhook)</span>
+                  <span class="api-endpoint">Client Webhook URL</span>
+                  <span class="api-card-name">เมื่อมีการแสดงความคิดเห็นหรือแชท</span>
+                </div>
+                <span class="api-auth-badge" style="background: #E8F5E9; color: #2E7D32;">⚡ Non-Quota</span>
+              </div>
+              <div class="api-card-body">
+                <div class="api-details-col">
+                  <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลความคิดเห็น แชท หรือการให้คะแนนแบบ HTTP POST
+                    ทันทีที่มีเหตุการณ์เกิดขึ้น</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งการแสดงความคิดเห็นที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API
+                    messagecomment เพื่อป้องกันการเกิด loop</p>
+                  <details class="param-section" open>
+                    <summary class="param-title">Incoming Payload (JSON)</summary>
+                    <div class="table-wrap">
+                      <table class="param-table">
+                        <thead>
+                          <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>คำอธิบาย</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><span class="param-name">event</span></td>
+                            <td>string</td>
+                            <td>ประเภทของเหตุการณ์ เช่น <code>chat</code>, <code>rating</code>, <code>comment</code>,
+                              <code>chat_staff_only</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">message_comment_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสความคิดเห็นในระบบ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">message_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสข้อความในระบบ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">ticket_id</span></td>
+                            <td>string</td>
+                            <td>หมายเลขเรื่องแจ้ง Fondue</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">comment</span></td>
+                            <td>string</td>
+                            <td>ข้อความแสดงความคิดเห็น</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">timestamp</span></td>
+                            <td>string</td>
+                            <td>วันเวลาที่มีการแสดงความคิดเห็น</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_org_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงานผู้ส่ง (ถ้ามี)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_org</span></td>
+                            <td>string</td>
+                            <td>ชื่อหน่วยงานผู้ส่ง (ถ้ามี)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_user_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสผู้ใช้งานผู้ส่ง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_username</span></td>
+                            <td>string</td>
+                            <td>ชื่อผู้ใช้งานผู้ส่ง</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                </div>
+                <div class="api-code-col">
+                  <div class="code-block-wrap">
+                    <div class="code-header"><span class="code-title">Incoming Payload Sample (POST)</span><button
+                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-content">
+                      <pre><code>{
+  "event": "chat",
+  "message_comment_id": 2115334,
+  "message_id": 2040189,
+  "ticket_id": "2026-MRFY4M",
+  "comment": "test",
+  "timestamp": "2026-09-17 15:13:57.662001",
+  "sender_org_id": 151,
+  "sender_org": "Traffy @ ITS Lab2",
+  "sender_user_id": 4006,
+  "sender_username": "SuperToy Noppadol"
 }</code></pre>
                     </div>
                   </div>
