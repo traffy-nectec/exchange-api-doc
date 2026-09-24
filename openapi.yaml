@@ -997,7 +997,9 @@ components:
             type: string
           description: array ของ URL string
         photo_base64:
-          type: string
+          type: array
+          items:
+            type: string
         photos:
           type: array
           description: "ใหม่ — ทางเลือกแทน photo ให้ระบุ note แยกรายรูปได้"
@@ -1076,6 +1078,12 @@ components:
           example: "2026-ABCDEF"
         client_ticket_id:
           type: string
+        noti_reporter:
+          type: boolean
+          default: true
+        noti_staff:
+          type: boolean
+          default: true
 
     StarResponse:
       type: object
