@@ -78,6 +78,7 @@
           <option value="#sec-webhook">📌 4. Real-time Webhooks (Fondue ส่งข้อมูลออกไปแบบ real-time)</option>
           <option value="#webhook-new-issue">POST Webhook - เมื่อมีเคสเข้ามาใหม่</option>
           <option value="#webhook-status-update">PATCH Webhook - เมื่อเคสมีการอัปเดตสถานะ</option>
+          <option value="#webhook-chat">POST Webhook - เมื่อมีการแสดงความคิดเห็นหรือแชท</option>
         </optgroup>
         <optgroup label="5. Troubleshooting">
           <option value="#sec-error">📌 5. Troubleshooting (รหัสข้อผิดพลาด)</option>
@@ -160,13 +161,15 @@
 
           <!-- Group 4 -->
           <div class="sidebar-group">
-            <a href="#sec-webhook" class="sidebar-group-title">4. Webhooks (2)</a>
+            <a href="#sec-webhook" class="sidebar-group-title">4. Webhooks (3)</a>
             <ul class="sidebar-links">
               <li><a href="#webhook-new-issue" class="sidebar-link"><span class="link-name">รับเคสใหม่</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
               <li><a href="#webhook-status-update" class="sidebar-link"><span
                     class="link-name">รับอัปเดตสถานะ</span><span
                     class="method-badge method-patch badge-mini">PATCH</span></a></li>
+              <li><a href="#webhook-chat" class="sidebar-link"><span class="link-name">แชทและความคิดเห็น</span><span
+                    class="method-badge method-post badge-mini">POST</span></a></li>
             </ul>
           </div>
 
@@ -530,29 +533,33 @@
   "api_log_session_id": 2030246239,
   "results": [
     {
-      "ticket_id": "2026-B9WGC7",
-      "type": "ทางเท้า",
-      "organization": "Traffy @ ITS Lab2, Accom Park",
-      "description": "(***) ทดสอบแจ้ง",
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg",
-      "latitude": 14.060383,
-      "longitude": 100.596114,
-      "address": "ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",
-      "subdistrict": "คลองหนึ่ง",
-      "district": "คลองหลวง",
-      "province": "ปทุมธานี",
-      "timestamp": "2026-08-20 22:25:37.433959",
+      "ticket_id": "2026-GM6GX7",
+      "type": "ทุจริต",
+      "type_reporter": "ทางเท้า",
+      "organization": "Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue",
+      "description": "ทดสอบ flex 2026-06-26 (2)",
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg",
+      "latitude": 13.196399,
+      "longitude": 100.936022,
+      "address": "ตำบลบางพระ อำเภอศรีราชา จังหวัดชลบุรี",
+      "subdistrict": "บางพระ",
+      "district": "ศรีราชา",
+      "province": "ชลบุรี",
+      "timestamp": "2026-06-26 00:56:33.222981",
       "photo_after": "https://storage.googleapis.com/traffy_public_bucket/",
-      "timestamp_inprogress": null,
-      "timestamp_finished": null,
-      "org_finished": "Accom Park",
-      "status": "ส่งต่อ(ใหม่)",
+      "timestamp_inprogress": "2026-06-26 15:56:48.166621",
+      "timestamp_finished": "2026-07-01 02:48:34.224461",
+      "org_finished": "Traffy @ ITS Lab2",
+      "is_follow": false,
+      "is_forward": false,
+      "status": "ของบประมาณ",
+      "status_latest": "ของบประมาณ",
       "confirmed": false,
       "star": 0,
       "count_reopen": 0,
-      "last_activity": "2026-09-09 14:38:19.663501"
+      "last_activity": "2026-09-23 17:13:37.632132"
     }
-    // ... รวมทั้งหมด 4367 รายการ (org_id=151, duration=all)
+    // ... ข้อมูลเรื่องแจ้งอื่นๆ รวมทั้งหมด 4388 รายการ
   ]
 }</code></pre>
                       </div>
@@ -629,7 +636,12 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">type</span></td>
-                            <td>ประเภทปัญหาที่ผู้แจ้งเลือกไว้</td>
+                            <td>ประเภทปัญหาที่เจ้าหน้าที่แก้ไข (ถ้ามี)</td>
+                            <td><code>ทุจริต</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">type_reporter</span></td>
+                            <td>ประเภทปัญหาที่ผู้แจ้งระบุ</td>
                             <td><code>ทางเท้า</code></td>
                           </tr>
                           <tr>
@@ -684,7 +696,22 @@
                           <tr>
                             <td><span class="param-name">status</span></td>
                             <td>สถานะปัจจุบันของเรื่องแจ้ง (ชื่อสถานะที่หน่วยงานตั้ง)</td>
-                            <td><code>ส่งต่อ(ใหม่)</code></td>
+                            <td><code>ของบประมาณ</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_latest</span></td>
+                            <td>สถานะล่าสุดในระบบ</td>
+                            <td><code>ของบประมาณ</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span></td>
+                            <td>มีการติดตามเรื่องหรือไม่</td>
+                            <td><code>false</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_forward</span></td>
+                            <td>มีการส่งต่อเรื่องหรือไม่</td>
+                            <td><code>false</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">confirmed</span></td>
@@ -720,7 +747,7 @@
               <div class="api-card-header">
                 <div class="api-card-title-group">
                   <span class="method-badge method-get">GET</span>
-                  <span class="api-endpoint">/get-issue/v1</span>
+                  <span class="api-endpoint">/get-issue/v2</span>
                   <span class="api-card-name">3. ขอรายละเอียดรายเคส</span>
                 </div>
                 <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
@@ -760,7 +787,7 @@
                     <div class="code-header"><span class="code-title">cURL Example</span><button class="btn-copy"
                         onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
-                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-issue/v1?ticket_id=2026-GYDHMT' \
+                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-issue/v2?ticket_id=2026-GM6GX7' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre>
                     </div>
                   </div>
@@ -773,62 +800,71 @@
                         <pre><code>{
   "status": "success",
   "message": "",
-  "exec_time": "1.193s",
-  "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
+  "exec_time": "1.374s",
+  "source": "h db, db",
   "credit_balance": null,
-  "ticket_id": "2026-GYDHMT",
+  "ticket_id": "2026-GM6GX7",
   "results": {
-    "ticket_id": "2026-GYDHMT",
-    "type": "อื่นๆ",
-    "organization": "Traffy @ ITS Lab2, ทดสอบ toy (2)",
-    "description": "ทดสอบแจ้ง ด้วย ssl ใหม่",
-    "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/2d85cd26729c8bff06e30718d2629e5f.jpeg",
-    "latitude": 14.077774,
-    "longitude": 100.60131,
-    "address": "ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",
-    "subdistrict": "คลองหนึ่ง",
-    "district": "คลองหลวง",
-    "province": "ปทุมธานี",
-    "timestamp": "2026-08-27 22:15:33.416627",
+    "ticket_id": "2026-GM6GX7",
+    "type": "ทางเท้า",
+    "organization": "Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue",
+    "description": "ทดสอบ flex 2026-06-26 (2)",
+    "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg",
+    "latitude": 13.196399,
+    "longitude": 100.936022,
+    "address": "ตำบลบางพระ อำเภอศรีราชา จังหวัดชลบุรี",
+    "subdistrict": "บางพระ",
+    "district": "ศรีราชา",
+    "province": "ชลบุรี",
+    "timestamp": "2026-06-26 00:56:33.222981",
+    "status_th_latest": "ของบประมาณ",
     "status_type": "inprogress",
     "confirmed": false,
-    "star": null,
+    "star": 0,
     "count_reopen": 0,
-    "last_activity": "2026-09-01 16:14:49.465362",
+    "last_activity": "2026-09-23 17:13:37.632132",
     "orgs": [
       {
-        "timestamp": "2026-08-27 22:15:33.416627",
+        "timestamp": "2026-06-26 00:56:33.222981",
         "org_id": 151,
-        "org": "Traffy @ ITS Lab2",
-        "type_id": 620543,
-        "type": "อื่นๆ",
-        "type_en": "Other",
-        "status_id": 105125,
-        "status": "กำลังดำเนินการ",
-        "status_type": "inprogress",
+        "name": "Traffy @ ITS Lab2",
+        "type": "ทุจริต",
+        "type_en": "Corruption",
+        "issue_category_id": 74,
         "org_category_id": null,
-        "org_status_id": 1219411
-      },
-      {
-        "timestamp": "2026-08-27 22:15:33.416627",
-        "org_id": 26683,
-        "org": "ทดสอบ toy (2)",
-        "type_id": 620543,
-        "type": "อื่นๆ",
-        "type_en": "Other",
-        "status_id": 105125,
-        "status": "กำลังดำเนินการ",
-        "status_type": "inprogress",
-        "org_category_id": null,
-        "org_status_id": null
+        "status": "ของบประมาณ",
+        "status_en": "In Progress",
+        "is_follow": false,
+        "is_forward": false,
+        "issue_status_id": 2,
+        "org_status_id": 1219415,
+        "status_type": "inprogress"
       }
+      // ... หน่วยงานอื่นๆ ที่ร่วมรับผิดชอบ
     ],
     "timeline": [
-      {"timestamp": "2026-08-27 22:15:33.416627", "status_id": null, "status": "รอรับเรื่อง", "org_id": null, "org": null, "note": "ทดสอบแจ้ง ด้วย ssl ใหม่", "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/2d85cd26729c8bff06e30718d2629e5f.jpeg"},
-      {"timestamp": "2026-08-27 22:18:06.282372", "status_id": 106369, "status": "จัดทำนโยบาย", "org_id": 151, "org": "Traffy @ ITS Lab2", "note": "ทดสอบ", "photo": null}
+      {
+        "timestamp": "2026-06-26 00:56:33.222981",
+        "status_id": null,
+        "status": "รอรับเรื่อง",
+        "org_id": null,
+        "org": null,
+        "note": "ทดสอบ flex 2026-06-26 (2)",
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg"
+      },
+      {
+        "timestamp": "2026-06-26 14:30:47.063075",
+        "status_id": 81,
+        "status": "รอรับเรื่อง",
+        "org_id": 151,
+        "org": "Traffy @ ITS Lab2",
+        "note": "Traffy @ ITS Lab2 เปลี่ยนประเภทเป็น ต้นไม้",
+        "photo": null
+      }
+      // ... ประวัติการดำเนินการอื่นๆ
     ]
   },
-  "api_log_session_id": 2077283457
+  "api_log_session_id": 430149014
 }</code></pre>
                       </div>
                     </div>
@@ -931,6 +967,11 @@
                             <td><code>2026-08-27 22:15:33</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">status_th_latest</span></td>
+                            <td>สถานะล่าสุดของระบบ (ภาษาไทย)</td>
+                            <td><code>ของบประมาณ</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">status_type</span></td>
                             <td>สถานะตามที่ผู้แจ้งเห็น:
                               <code>report</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code>
@@ -973,22 +1014,30 @@
                             <td><code>2026-08-27 22:15:33</code></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">org_id</span> / <span class="param-name">org</span></td>
+                            <td><span class="param-name">org_id</span> / <span class="param-name">name</span></td>
                             <td>รหัสและชื่อหน่วยงาน</td>
                             <td><code>151</code> / <code>Traffy @ ITS Lab2</code></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">type_id</span> / <span class="param-name">type</span> / <span
-                                class="param-name">type_en</span></td>
+                            <td><span class="param-name">issue_category_id</span> / <span class="param-name">type</span>
+                              / <span class="param-name">type_en</span></td>
                             <td>รหัสและชื่อประเภทปัญหาที่หน่วยงานได้รับ</td>
-                            <td><code>620543</code> / <code>อื่นๆ</code> / <code>Other</code></td>
+                            <td><code>74</code> / <code>ทุจริต</code> / <code>Corruption</code></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">status_id</span> / <span class="param-name">status</span> /
+                            <td><span class="param-name">issue_status_id</span> / <span class="param-name">status</span>
+                              / <span class="param-name">status_en</span> /
                               <span class="param-name">status_type</span>
                             </td>
                             <td>รหัส ชื่อ และประเภทสถานะที่หน่วยงานมองเห็น</td>
-                            <td><code>105125</code> / <code>กำลังดำเนินการ</code> / <code>inprogress</code></td>
+                            <td><code>2</code> / <code>ของบประมาณ</code> / <code>In Progress</code> /
+                              <code>inprogress</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span> / <span class="param-name">is_forward</span>
+                            </td>
+                            <td>มีการติดตาม หรือมีการส่งต่อเรื่องหรือไม่</td>
+                            <td><code>false</code> / <code>false</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">org_category_id</span></td>
@@ -1160,8 +1209,8 @@
                           class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>ticket_id,type,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,status,confirmed,star,count_reopen,last_activity
-2026-B9WGC7,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
-// ... รวมทั้งหมด 4367 แถว (org_id=151, duration=all)</code></pre>
+2026-GM6GX7,ทุจริต,"Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue","ทดสอบ flex 2026-06-26 (2)",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg,13.196399,100.936022,"ตำบลบางพระ อำเภอศรีราชา จังหวัดชลบุรี",บางพระ,ศรีราชา,ชลบุรี,"2026-06-26 00:56:33.222981",https://storage.googleapis.com/traffy_public_bucket/,"2026-06-26 15:56:48.166621","2026-07-01 02:48:34.224461","Traffy @ ITS Lab2",ของบประมาณ,false,0,0,"2026-09-23 17:13:37.632132"
+// ... รวมทั้งหมด 4388 แถว (org_id=151, duration=all)</code></pre>
                       </div>
                     </div>
                     <div class="code-block-wrap" style="margin-top:8px;">
@@ -1201,8 +1250,8 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">type</span></td>
-                            <td>ประเภทปัญหาที่ผู้แจ้งเลือกไว้</td>
-                            <td><code>ทางเท้า</code></td>
+                            <td>ประเภทปัญหาที่เจ้าหน้าที่เปลี่ยนใหม่ (ถ้ามี)</td>
+                            <td><code>ทุจริต</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">organization</span></td>
@@ -1252,8 +1301,9 @@
                             <td><span class="param-name">status</span></td>
                             <td>สถานะปัจจุบันของเรื่องแจ้ง (แต่ละหน่วยงานอาจเห็น status ไม่เหมือนกัน
                               แม้เป็นเรื่องแจ้งเดียวกัน)</td>
-                            <td><code>ส่งต่อ(ใหม่)</code></td>
+                            <td><code>ของบประมาณ</code></td>
                           </tr>
+
                           <tr>
                             <td><span class="param-name">confirmed</span></td>
                             <td>รับรองการแก้ไขแล้วหรือไม่ (ว่าง = false)</td>
@@ -1488,7 +1538,9 @@
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ดึงผังโครงสร้างรายชื่อหน่วยงานย่อยทั้งหมดที่อยู่ภายใต้การกำกับดูแลของ Account</p>
+                  <p class="api-desc">ดึงข้อมูลและรายชื่อหน่วยงานทั้งหมดที่ Account ปัจจุบันมีสิทธิ์เข้าถึง (อ้างอิงจาก
+                    <code>get_issue_org</code> ของ Token) หรือใช้สำหรับดึงข้อมูลพิกัด/ที่อยู่ของหน่วยงานตาม
+                    <code>org_id</code> ที่ระบุ</p>
                   <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
@@ -1829,6 +1881,11 @@
                             <td>ลำดับการเรียงลำดับ</td>
                             <td><code>1</code></td>
                           </tr>
+                          <tr>
+                            <td><span class="param-name">api_log_session_id</span></td>
+                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
+                            <td><code>424355237</code></td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -2030,6 +2087,11 @@
                             <td>สถานะการเปิดใช้งาน คืนค่าเป็น Boolean (<code>true</code> / <code>false</code>)</td>
                             <td><code>true</code></td>
                           </tr>
+                          <tr>
+                            <td><span class="param-name">api_log_session_id</span></td>
+                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
+                            <td><code>1789698051</code></td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -2154,6 +2216,13 @@
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">subdistrict</span> / <span class="param-name">district</span> / <span class="param-name">province</span></td>
+                            <td>string</td>
+                            <td>ตำบล, อำเภอ, จังหวัด (หากไม่ส่งมาระบบจะทำ Reverse-Geocoding จากพิกัด GPS ให้อัตโนมัติ)</td>
+                            <td><code>บางขุนพรหม</code> / <code>พระนคร</code> / <code>กรุงเทพมหานคร</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">org_id</span></td>
                             <td>int / string / array[int]</td>
                             <td>รหัสหน่วยงาน — ส่งเป็นตัวเลขเดี่ยว, string คั่นด้วย comma, หรือ array ก็ได้</td>
@@ -2246,15 +2315,16 @@
                         <pre><code>{
   "status": "success",
   "message": "",
-  "exec_time": "0.31s",
-  "credit_balance": 819,
-  "api_log_session": 1234567890,
-  "api_log_session_id_new-issue": 987654321,
-  "org_id": [151],
+  "exec_time": "13.982s",
+  "credit_balance": null,
+  "api_log_session": 1869101365,
+  "org_id": [
+    151
+  ],
+  "api_log_session_id_new-issue": 926966040,
   "results": {
-    "ticket_id": "2026-ABCDEF",
-    "password": "5529",
-    "smsStatus": "Y"
+    "ticket_id": "2026-AV6R7J",
+    "password": "5188"
   }
 }</code></pre>
                       </div>
@@ -2295,19 +2365,7 @@
                             <td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td>
                             <td><code>819</code></td>
                           </tr>
-                          <tr>
-                            <td><span class="param-name">api_log_session</span></td>
-                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy (สังเกตว่าไม่มี <code>_id</code>
-                              ต่อท้าย ต่างจาก API อื่นๆ)</td>
-                            <td><code>1234567890</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">api_log_session_id_new-issue</span></td>
-                            <td>API log session ของการเรียก internal API <code>new-issue/v2</code>
-                              ที่ทำงานจริงเบื้องหลัง — ปรากฏเมื่อ response จาก internal API มี api_log_session_id
-                              ส่งกลับมา (ไม่ว่าการเรียกนั้นจะสำเร็จหรือ error)</td>
-                            <td><code>987654321</code></td>
-                          </tr>
+
                           <tr>
                             <td><span class="param-name">org_id</span></td>
                             <td>รหัสหน่วยงานที่รับเรื่อง (Array of int)</td>
@@ -2350,6 +2408,19 @@
                             <td>สถานะการส่งอีเมลแจ้งผู้แจ้ง ค่า <code>"Y"</code> เท่านั้น — <b>ปรากฏเฉพาะเมื่อส่ง
                                 <code>reporter_email</code> มา</b></td>
                             <td><code>Y</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">api_log_session</span></td>
+                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy (สังเกตว่าไม่มี <code>_id</code>
+                              ต่อท้าย ต่างจาก API อื่นๆ)</td>
+                            <td><code>1234567890</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">api_log_session_id_new-issue</span></td>
+                            <td>API log session ของการเรียก internal API <code>new-issue/v2</code>
+                              ที่ทำงานจริงเบื้องหลัง — ปรากฏเมื่อ response จาก internal API มี api_log_session_id
+                              ส่งกลับมา (ไม่ว่าการเรียกนั้นจะสำเร็จหรือ error)</td>
+                            <td><code>987654321</code></td>
                           </tr>
                         </tbody>
                       </table>
@@ -2548,12 +2619,9 @@
   "exec_time": "0.22s",
   "credit_balance": 819,
   "org_id": 151,
-  "source": "h db",
   "api_log_session_id": 1234567890,
-  "api_log_session_id_update_message": 987654321,
-  "results": {
-    "smsStatus": "Y"
-  }
+  "source": "h db",
+  "api_log_session_id_update_message": 987654321
 }</code></pre>
                       </div>
                     </div>
@@ -2596,17 +2664,17 @@
                             <td><code>151</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">api_log_session_id</span></td>
+                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
+                            <td><code>1234567890</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">source</span></td>
                             <td>แหล่งข้อมูลของ org hierarchy lookup — <code>h db</code> เมื่อดึงสดจากฐานข้อมูล หรือ
                               <code>h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช —
                               ปรากฏเฉพาะเมื่อ account ตั้งค่า <code>get_issue_org</code> ไว้เท่านั้น
                             </td>
                             <td><code>h db</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">api_log_session_id</span></td>
-                            <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
-                            <td><code>1234567890</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">api_log_session_id_update_message</span></td>
@@ -2691,6 +2759,19 @@
                             <td>ระบุอย่างใดอย่างหนึ่ง</td>
                             <td><code>2026-GYDHMT</code></td>
                             <td><span class="param-req">REQUIRED</span>*</td>
+                          <tr>
+                            <td><span class="param-name">noti_reporter</span></td>
+                            <td>boolean</td>
+                            <td>แจ้งเตือนไปยังผู้แจ้งเรื่องหรือไม่ (ค่าเริ่มต้น: <code>true</code>)</td>
+                            <td><code>true</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">noti_staff</span></td>
+                            <td>boolean</td>
+                            <td>แจ้งเตือนไปยังเจ้าหน้าที่หรือไม่ (ค่าเริ่มต้น: <code>true</code>)</td>
+                            <td><code>false</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
                       </table>
@@ -3070,10 +3151,11 @@
                         <pre><code>{
   "status": "success",
   "message": "",
-  "exec_time": "0.18s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_join_forward": 987654321
+  "exec_time": "4.114s",
+  "credit_balance": null,
+  "api_log_session_id": 894425742,
+  "api_log_session_id_join_forward": 137118659,
+  "results": []
 }</code></pre>
                       </div>
                     </div>
@@ -3113,6 +3195,12 @@
                             <td><code>819</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">results</span></td>
+                            <td>ส่งผ่านมาจาก internal API <code>join_forward</code> โดยตรง (ไม่มีสัญญา (contract)
+                              ที่ตายตัวเปิดเผยต่อสาธารณะ) — <b>ไม่ปรากฏ key นี้เสมอไป</b></td>
+                            <td><code>(Object, ไม่แน่นอน)</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">api_log_session_id</span></td>
                             <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
                             <td><code>1234567890</code></td>
@@ -3122,12 +3210,6 @@
                             <td>API log session ของการเรียก internal API <code>join_forward</code>
                               ที่ทำงานจริงเบื้องหลัง (มีประโยชน์เวลาแจ้งทีม Traffy ตรวจสอบปัญหา)</td>
                             <td><code>987654321</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">results</span></td>
-                            <td>ส่งผ่านมาจาก internal API <code>join_forward</code> โดยตรง (ไม่มีสัญญา (contract)
-                              ที่ตายตัวเปิดเผยต่อสาธารณะ) — <b>ไม่ปรากฏ key นี้เสมอไป</b></td>
-                            <td><code>(Object, ไม่แน่นอน)</code></td>
                           </tr>
                         </tbody>
                       </table>
@@ -3166,7 +3248,10 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
-                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue เพื่อป้องกันการเกิด loop</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งเรื่องแจ้งใหม่ที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue
+                    เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3254,7 +3339,10 @@
                 <div class="api-details-col">
                   <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลการอัปเดตสถานะ บันทึกการปฏิบัติงาน และภาพถ่ายผลงาน แบบ
                     HTTP PATCH ทันทีที่มีการเปลี่ยนสถานะ</p>
-                  <p style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue เพื่อป้องกันการเกิด loop</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งการอัปเดตที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue
+                    เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3315,6 +3403,116 @@
   "status": "เสร็จสิ้น",
   "note": "ได้ทำการแก้ไขเสร็จสิ้นแล้วครับ",
   "photo": ["https://storage.googleapis.com/..."]
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- webhook chat -->
+            <article class="api-card" id="webhook-chat" data-keywords="webhook chat comment rating event post">
+              <div class="api-card-header">
+                <div class="api-card-title-group">
+                  <span class="method-badge method-post">POST (Webhook)</span>
+                  <span class="api-endpoint">Client Webhook URL</span>
+                  <span class="api-card-name">เมื่อมีการแสดงความคิดเห็นหรือแชท</span>
+                </div>
+                <span class="api-auth-badge" style="background: #E8F5E9; color: #2E7D32;">⚡ Non-Quota</span>
+              </div>
+              <div class="api-card-body">
+                <div class="api-details-col">
+                  <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลความคิดเห็น แชท หรือการให้คะแนนแบบ HTTP POST
+                    ทันทีที่มีเหตุการณ์เกิดขึ้น</p>
+                  <p
+                    style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
+                    หมายเหตุ: ห้ามส่งการแสดงความคิดเห็นที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API
+                    messagecomment เพื่อป้องกันการเกิด loop</p>
+                  <details class="param-section" open>
+                    <summary class="param-title">Incoming Payload (JSON)</summary>
+                    <div class="table-wrap">
+                      <table class="param-table">
+                        <thead>
+                          <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>คำอธิบาย</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><span class="param-name">event</span></td>
+                            <td>string</td>
+                            <td>ประเภทของเหตุการณ์ เช่น <code>chat</code>, <code>rating</code>, <code>comment</code>,
+                              <code>chat_staff_only</code>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">message_comment_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสความคิดเห็นในระบบ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">message_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสข้อความในระบบ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">ticket_id</span></td>
+                            <td>string</td>
+                            <td>หมายเลขเรื่องแจ้ง Fondue</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">comment</span></td>
+                            <td>string</td>
+                            <td>ข้อความแสดงความคิดเห็น</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">timestamp</span></td>
+                            <td>string</td>
+                            <td>วันเวลาที่มีการแสดงความคิดเห็น</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_org_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงานผู้ส่ง (ถ้ามี)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_org</span></td>
+                            <td>string</td>
+                            <td>ชื่อหน่วยงานผู้ส่ง (ถ้ามี)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_user_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสผู้ใช้งานผู้ส่ง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">sender_username</span></td>
+                            <td>string</td>
+                            <td>ชื่อผู้ใช้งานผู้ส่ง</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                </div>
+                <div class="api-code-col">
+                  <div class="code-block-wrap">
+                    <div class="code-header"><span class="code-title">Incoming Payload Sample (POST)</span><button
+                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-content">
+                      <pre><code>{
+  "event": "chat",
+  "message_comment_id": 2115334,
+  "message_id": 2040189,
+  "ticket_id": "2026-MRFY4M",
+  "comment": "test",
+  "timestamp": "2026-09-17 15:13:57.662001",
+  "sender_org_id": 151,
+  "sender_org": "Traffy @ ITS Lab2",
+  "sender_user_id": 4006,
+  "sender_username": "SuperToy Noppadol"
 }</code></pre>
                     </div>
                   </div>
