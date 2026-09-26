@@ -39,6 +39,23 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 🚀 Exchange API (v2) Release (Version: 2026-09-26)
+- **`GET /exchange-api/get-issues/v2` & `GET /exchange-api/download-issues/v2`:**
+  - **ปรับปรุง Parameter `duration`:** `today` *(Default - ย้อนหลัง 1 วัน)*, `3days` / `3day` *(ย้อนหลัง 3 วัน)*, `all` *(ดึงทั้งหมด สูงสุด 5,000 รายการ)*
+  - **เพิ่ม Parameter Filter หมวดหมู่/ประเภทเรื่อง:** `type_name_th` (รองรับ alias: `type_name`, `category_name_th`, `category_name`), `issue_category_id`, `org_category_id` *(โดย `type_name_th` มีความสำคัญสูงสุดและไม่สนใจ category ID อื่นหากระบุ)*
+  - **เพิ่ม Parameter Filter ติดตาม/ส่งต่อ:** `is_follow` (Boolean - ติดตามเรื่อง), `is_forward` (Boolean - ส่งต่อเรื่อง)
+- **`GET /exchange-api/get-type-list/v2`:**
+  - `org_id` parameter รับเป็น Integer เดี่ยวเท่านั้น (ไม่รองรับ Comma-separated)
+  - นำฟิลด์ `org_id` ออกจากแต่ละ Object ใน `results`, รวมหมวดหมู่กลางและเฉพาะหน่วยงานไว้ใน `results[]` (6 ฟิลด์: `type`, `type_en`, `issue_category_id`, `org_category_id`, `photo`, `index`), กรองเฉพาะ `is_active = true`
+- **`GET /exchange-api/get-status-list/v2`:**
+  - `org_id` parameter รับเป็น Integer เดี่ยวเท่านั้น
+  - เปลี่ยนชื่อฟิลด์เป็น `status` และ `status_en`, เพิ่มฟิลด์ `status_type`, ปรับ `is_active` เป็น Boolean (`true`/`false`), นำฟิลด์ `org_id` ออกจากแต่ละ Object ใน `results`, กรองเฉพาะ `is_active = true`
+- **Synchronized Documentation & Code Examples:**
+  - อัปเดต OpenAPI 3.0.3 spec (`openapi.yaml`)
+  - อัปเดต Interactive Web Portal (`docs.html`)
+  - อัปเดต Markdown Documentation (`docs/query-apis.md`, `README.md`, `OKF.md`, `docs/overview.md`)
+  - อัปเดต Script และ Client Examples (`examples/curl/get_issues.sh`, `examples/nodejs/client.js`, `examples/python/client.py`)
+
 ### ⚠️ Webhook Loop Prevention Warning (`docs/webhooks.md`, `docs.html`)
 - **Loop Prevention Notes:** เพิ่มข้อความเน้นตัวหนาสีแดงเตือนห้ามส่งข้อมูลจาก Webhook วนกลับเข้ามาที่ API `new-issue` และ `update-issue` เพื่อป้องกัน Infinite Data Loop
 - **System Framework & Architecture:** บันทึกข้อกำหนด Webhook Loop Prevention ลงใน `OKF.md` และ `CONTEXT.md`

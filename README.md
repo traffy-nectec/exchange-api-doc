@@ -31,13 +31,13 @@
 | Endpoint | Method | Authentication | คำอธิบาย |
 | :--- | :---: | :---: | :--- |
 | [`/get-auth/v1`](docs/authentication.md) | `POST` | User/Pass | ขอรับ JWT Bearer Token |
-| [`/get-issues/v1`](docs/query-apis.md#1-api-get-issues-ขอรายการเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายการเรื่องแจ้งของหน่วยงาน (org_id, duration) |
+| [`/get-issues/v2`](docs/query-apis.md#1-api-get-issues-ขอรายการเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายการเรื่องแจ้งของหน่วยงาน (org_id, duration, filters) |
 | [`/get-issue/v1`](docs/query-apis.md#2-api-get-issue-ขอรายละเอียดเชิงลึกของเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายละเอียดเชิงลึกของเรื่องแจ้งราย `ticket_id` |
-| [`/download-issues/v1`](docs/query-apis.md#3-api-download-issues-ดาวน์โหลดไฟล์-csv) | `GET` | Bearer Token | ส่งออกข้อมูลเรื่องแจ้งเป็นไฟล์ CSV |
+| [`/download-issues/v2`](docs/query-apis.md#3-api-download-issues-ดาวน์โหลดไฟล์-csv) | `GET` | Bearer Token | ส่งออกข้อมูลเรื่องแจ้งเป็นไฟล์ CSV |
 | [`/search-org/v1`](docs/query-apis.md#4-api-search-org-ค้นหาหน่วยงาน) | `GET` | Bearer Token | ค้นหารหัสหน่วยงาน (`org_id`) จากชื่อ |
 | [`/get-org-list/v1`](docs/query-apis.md#5-api-get-org-list-ขอโครงสร้างหน่วยงานในสังกัด) | `GET` | Bearer Token | ดึงผังรายชื่อหน่วยงานในสังกัด |
-| [`/get-type-list/v1`](docs/query-apis.md#6-api-get-type-list-ขอรายการประเภทปัญหา) | `GET` | Bearer Token | ดึงประเภทปัญหาที่เปิดรับเรื่อง (รวม custom category ต่อหน่วยงาน) |
-| [`/get-status-list/v1`](docs/query-apis.md#7-api-get-status-list-ขอรายการสถานะ) | `GET` | Bearer Token | ดึงรายการสถานะของเรื่องแจ้ง (รวม custom status ต่อหน่วยงาน) |
+| [`/get-type-list/v2`](docs/query-apis.md#6-api-get-type-list-ขอรายการประเภทปัญหา) | `GET` | Bearer Token | ดึงประเภทปัญหาที่เปิดรับเรื่อง (รวม custom category ต่อหน่วยงาน) |
+| [`/get-status-list/v2`](docs/query-apis.md#7-api-get-status-list-ขอรายการสถานะ) | `GET` | Bearer Token | ดึงรายการสถานะของเรื่องแจ้ง (รวม custom status ต่อหน่วยงาน) |
 | [`/new-issue/v1`](docs/action-apis.md#1-api-new-issue-ส่งเรื่องแจ้งใหม่) | `POST` | Bearer Token | ส่งเรื่องแจ้งใหม่เข้าสู่ระบบ Fondue |
 | [`/update-issue/v1`](docs/action-apis.md#2-api-update-issue-อัปเดตสถานะเรื่องแจ้ง) | `PATCH` | Bearer Token | ปรับปรุงสถานะเรื่องแจ้ง พร้อมรูปภาพ/ไฟล์แนบ |
 | [`/star/v1`](docs/action-apis.md#3-api-star-ประเมินความพึงพอใจ) | `POST` | Bearer Token | ประเมินคะแนนความพึงพอใจ (1-5 ดาว) |
@@ -60,7 +60,7 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-auth/v1' \
 
 ### 2. ดึงรายการเรื่องแจ้งล่าสุด
 ```bash
-curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_id=YOUR_ORG_ID&duration=today' \
+curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_id=YOUR_ORG_ID&duration=today' \
 --header 'Authorization: Bearer YOUR_JWT_TOKEN'
 ```
 
@@ -96,8 +96,17 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_i
 
 ---
 
+## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
+
+### 2026-09-26
+- เปลี่ยนไปใช้ API `get-type-list/v2` และ `get-status-list/v2`
+- ปรับปรุง API `get-issues` และ `download-issues` ให้รองรับ parameter `type_name_th` (และ alias), `issue_category_id`, `org_category_id`, `is_follow`, `is_forward` และ เพิ่มตัวเลือก `3days` สำหรับ parameter `duration`
+
+---
+
 ## 📞 ติดต่อและขอรับการสนับสนุน
 
 * **สมัครใช้งาน Exchange API:** [แบบฟอร์มขอใช้งาน](https://forms.gle/bvFEhjPHSmU1x7wP7)
 * **ขอเพิ่มโควต้า / ปรึกษาเชิงเทคนิค:** LINE Official: **[@fonduehelp](https://line.me/R/ti/p/%40155yjrwo)**
 * **เว็บไซต์หลัก:** [https://www.traffy.in.th](https://www.traffy.in.th)
+

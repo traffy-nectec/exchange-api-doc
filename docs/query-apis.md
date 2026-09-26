@@ -8,11 +8,11 @@
 
 ## 1. API `get-issues` (ขอรายการเรื่องแจ้ง)
 
-ใช้สำหรับดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ กรองตามหน่วยงาน (`org_id`) และช่วงเวลา (`duration`) เท่านั้น — **ไม่รองรับ** การกรองตามวันที่แบบกำหนดเอง สถานะ ประเภทปัญหา คำค้นหา หรือการแบ่งหน้า (Pagination)
+ใช้สำหรับดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ กรองตามหน่วยงาน (`org_id`), ช่วงเวลา (`duration`), หมวดหมู่/ประเภทเรื่อง (`type_name_th`, `issue_category_id`, `org_category_id`), และสถานะการติดตาม/ส่งต่อ (`is_follow`, `is_forward`)
 
 ### Endpoint URL
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_id={org_id}&duration={duration}
+GET https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_id={org_id}&duration={duration}
 Authorization: Bearer <token>
 ```
 
@@ -21,11 +21,18 @@ Authorization: Bearer <token>
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
 | `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส | `151` หรือ `151,1302` (Default: หน่วยงานของ account) |
-| `duration` | string | OPTIONAL | ช่วงเวลาของข้อมูล — `today` หรือ `all` | `"today"` (Default) |
+| `duration` | string | OPTIONAL | ช่วงเวลาของข้อมูล:<br>• `today` (Default): ดึงเฉพาะเคสที่มีความเคลื่อนไหวล่าสุด (`last_activity`) ย้อนหลัง 1 วัน (`INTERVAL '1 day'`)<br>• `3days` (หรือ `3day`): ดึงเฉพาะเคสที่มีความเคลื่อนไหวล่าสุดย้อนหลัง 3 วัน (`INTERVAL '3 day'`)<br>• `all`: ดึงข้อมูลทั้งหมดโดยไม่จำกัดช่วงเวลา (จำกัดผลลัพธ์สูงสุดที่ 5,000 รายการ) | `"today"` (Default) |
+| `type_name_th` | string | OPTIONAL | ชื่อประเภทเรื่องภาษาไทย (หรือภาษาอังกฤษ) โดยจะ Filter ตรงกับชื่อกลางหรือชื่อเฉพาะของหน่วยงาน *(รองรับ alias: `type_name`, `category_name_th`, `category_name`)* | `"ถนน"` |
+| `issue_category_id` | integer | OPTIONAL | รหัสประเภทเรื่องกลาง (`ta.issue_category_id`) | `1` |
+| `org_category_id` | integer | OPTIONAL | รหัสประเภทเรื่องเฉพาะของหน่วยงาน (`ta.local_category_id`) | `10` |
+| `is_follow` | boolean | OPTIONAL | กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (`voice_message.is_follow = true/false`) | `true` |
+| `is_forward` | boolean | OPTIONAL | กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (`app_data.ticket_assignments.is_forward = true/false`) | `false` |
+
+> **เงื่อนไขสำคัญ:** ทุกตัวเป็น **Optional** (ไม่ระบุก็ได้) หากมีการระบุ `type_name_th` ระบบจะให้ความสำคัญสูงสุดและ**ไม่สนใจ** `issue_category_id` กับ `org_category_id`
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_id=151&duration=today
+GET https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_id=151&duration=today
 Authorization: Bearer <token>
 ```
 
@@ -246,11 +253,11 @@ Authorization: Bearer <token>
 
 ## 3. API `download-issues` (ดาวน์โหลดไฟล์ CSV)
 
-ใช้สำหรับ Export ข้อมูลเรื่องแจ้งเป็นไฟล์ CSV กรองตามหน่วยงาน (`org_id`) และช่วงเวลา (`duration`) เหมือนกับ `get-issues`
+ใช้สำหรับ Export ข้อมูลเรื่องแจ้งเป็นไฟล์ CSV กรองตามหน่วยงาน (`org_id`), ช่วงเวลา (`duration`), หมวดหมู่/ประเภทเรื่อง (`type_name_th`, `issue_category_id`, `org_category_id`), และสถานะการติดตาม/ส่งต่อ (`is_follow`, `is_forward`) เหมือนกับ `get-issues`
 
 ### Endpoint URL
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/download-issues/v1?org_id={org_id}&duration={duration}
+GET https://publicapi.traffy.in.th/exchange-api/download-issues/v2?org_id={org_id}&duration={duration}
 Authorization: Bearer <token>
 ```
 
@@ -258,12 +265,19 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส | `151` (Default: หน่วยงานของ account) |
-| `duration` | string | OPTIONAL | ช่วงเวลาของข้อมูล — `today` หรือ `all` | `"today"` (Default) |
+| `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส | `151` หรือ `151,1302` (Default: หน่วยงานของ account) |
+| `duration` | string | OPTIONAL | ช่วงเวลาของข้อมูล:<br>• `today` (Default): ดึงเฉพาะเคสที่มีความเคลื่อนไหวล่าสุด (`last_activity`) ย้อนหลัง 1 วัน (`INTERVAL '1 day'`)<br>• `3days` (หรือ `3day`): ดึงเฉพาะเคสที่มีความเคลื่อนไหวล่าสุดย้อนหลัง 3 วัน (`INTERVAL '3 day'`)<br>• `all`: ดึงข้อมูลทั้งหมดโดยไม่จำกัดช่วงเวลา (จำกัดผลลัพธ์สูงสุดที่ 5,000 รายการ) | `"today"` (Default) |
+| `type_name_th` | string | OPTIONAL | ชื่อประเภทเรื่องภาษาไทย (หรือภาษาอังกฤษ) โดยจะ Filter ตรงกับชื่อกลางหรือชื่อเฉพาะของหน่วยงาน *(รองรับ alias: `type_name`, `category_name_th`, `category_name`)* | `"ถนน"` |
+| `issue_category_id` | integer | OPTIONAL | รหัสประเภทเรื่องกลาง (`ta.issue_category_id`) | `1` |
+| `org_category_id` | integer | OPTIONAL | รหัสประเภทเรื่องเฉพาะของหน่วยงาน (`ta.local_category_id`) | `10` |
+| `is_follow` | boolean | OPTIONAL | กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (`voice_message.is_follow = true/false`) | `true` |
+| `is_forward` | boolean | OPTIONAL | กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (`app_data.ticket_assignments.is_forward = true/false`) | `false` |
+
+> **เงื่อนไขสำคัญ:** ทุกตัวเป็น **Optional** (ไม่ระบุก็ได้) หากมีการระบุ `type_name_th` ระบบจะให้ความสำคัญสูงสุดและ**ไม่สนใจ** `issue_category_id` กับ `org_category_id`
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/download-issues/v1?org_id=151&duration=all
+GET https://publicapi.traffy.in.th/exchange-api/download-issues/v2?org_id=151&duration=all
 Authorization: Bearer <token>
 ```
 
@@ -424,11 +438,11 @@ Authorization: Bearer <token>
 
 ## 6. API `get-type-list` (ขอรายการประเภทปัญหา)
 
-ดึง Master Data รายการประเภทปัญหาที่หน่วยงานรับผิดชอบ พร้อมรายการหมวดหมู่กลางและหมวดหมู่แบบ custom ของหน่วยงาน (`org_category`)
+ดึง Master Data รายการประเภทปัญหาที่หน่วยงานรับผิดชอบ (กรองเฉพาะประเภทเรื่องที่เปิดใช้งาน `is_active = true` และตัดประเภทเรื่องกลางที่หน่วยงานปิดการใช้งานออก)
 
 ### Endpoint URL
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-type-list/v1?org_id={org_id}
+GET https://publicapi.traffy.in.th/exchange-api/get-type-list/v2?org_id={org_id}
 Authorization: Bearer <token>
 ```
 
@@ -436,11 +450,11 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส | `151,1302` (Default: หน่วยงานของ account) |
+| `org_id` | integer | OPTIONAL | รหัสหน่วยงาน **รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น** (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token | `123` |
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-type-list/v1?org_id=151
+GET https://publicapi.traffy.in.th/exchange-api/get-type-list/v2?org_id=123
 Authorization: Bearer <token>
 ```
 
@@ -451,100 +465,59 @@ Authorization: Bearer <token>
 | Field | Type | Description |
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
-| `message` | string | รายละเอียดข้อผิดพลาด |
+| `org_id` | integer | รหัสหน่วยงาน |
+| `count` | integer | จำนวนรายการประเภทปัญหาที่พบ |
+| `results` | array[object] | รายการประเภทปัญหา (ดูฟิลด์ด้านล่าง) |
+| `message` | string | รายละเอียดข้อผิดพลาด (ถ้ามี) |
 | `exec_time` | string | เวลาประมวลผล |
 | `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
-| `org_id` | array | รายการรหัสหน่วยงานที่ใช้ค้นหา |
-| `count` | integer | จำนวนรายการประเภทปัญหาที่พบ |
-| `results` | array[object] | รายการประเภทปัญหา (ดูฟิลด์ด้านล่าง) |
-| `org_category` | array[object] | รายการหมวดหมู่กลาง + หมวดหมู่ custom ของหน่วยงาน (ดูฟิลด์ด้านล่าง) |
 | `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 
 #### ฟิลด์ใน `results`:
-* `org_id`: รหัสหน่วยงาน
-* `topic_id` / `type_id`: รหัสหมวดหมู่ / ประเภทปัญหา
-* `type` / `type_en`: ชื่อประเภทปัญหา (ไทย/อังกฤษ)
-* `photo`: รูปไอคอนประเภทปัญหา
+* `type`: ชื่อประเภทเรื่องภาษาไทย (เช่น `"ถนน"`)
+* `type_en`: ชื่อประเภทเรื่องภาษาอังกฤษ (เช่น `"Road"`)
+* `issue_category_id`: รหัสประเภทเรื่องกลาง (`integer`)
+* `org_category_id`: รหัสประเภทเรื่องเฉพาะของหน่วยงาน (`integer | null`)
+* `photo`: ลิงก์รูปภาพไอคอน
 * `index`: ลำดับการแสดงผล
 
-#### ฟิลด์ใน `org_category` (ใหม่):
-* `org_id`: รหัสหน่วยงาน (`null` = หมวดหมู่กลาง)
-* `issue_category_id`: รหัสหมวดหมู่กลาง
-* `org_category_id`: รหัสหมวดหมู่ custom ของหน่วยงาน (`null` = ใช้หมวดหมู่กลาง)
-* `name_th` / `name_en`: ชื่อหมวดหมู่ (ไทย/อังกฤษ)
-* `sort_order`: ลำดับการแสดงผล
-* `icon_url`: ลิงก์ไอคอน
-* `category_group`: กลุ่มของหมวดหมู่
-
-#### Example Response (ผลจริงจากการทดสอบ org_id=151, ตัดให้เหลือ 2 รายการต่อ array จาก count จริง 34 / org_category 37 รายการ)
+#### Example Response
 ```json
 {
-    "status": "success",
-    "message": "",
-    "exec_time": "1.179s",
-    "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-    "credit_balance": null,
-    "org_id": [151],
-    "count": 34,
-    "results": [
-        {
-            "org_id": 151,
-            "topic_id": 78,
-            "type_id": 196886,
-            "type": "น้ำท่วม",
-            "type_en": "Flood",
-            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png",
-            "index": 4
-        },
-        {
-            "org_id": 151,
-            "topic_id": 5,
-            "type_id": 24181,
-            "type": "ความสะอาด",
-            "type_en": "Cleanliness",
-            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2018-03/s-1520325639.52.png",
-            "index": 6
-        },
-        { "...": "ตัดรายการที่เหลือ" }
-    ],
-    "org_category": [
-        {
-            "org_id": 151,
-            "issue_category_id": 6,
-            "org_category_id": 166551,
-            "name_th": "ฟิวเพิ่มประเภท",
-            "name_en": "Fewjatest",
-            "sort_order": 10,
-            "icon_url": "attachment/2018-03/s-1520325589.18.png",
-            "category_group": null
-        },
-        {
-            "org_id": 151,
-            "issue_category_id": 12,
-            "org_category_id": 133481,
-            "name_th": "ความปลอดภัย",
-            "name_en": "Safety",
-            "sort_order": 999,
-            "icon_url": "attachment/2018-04/s-1524623011.7.png",
-            "category_group": null
-        },
-        { "...": "ตัดรายการที่เหลือ" }
-    ],
-    "api_log_session_id": 424355237
+  "status": "success",
+  "org_id": 123,
+  "count": 2,
+  "results": [
+    {
+      "type": "ถนน",
+      "type_en": "Road",
+      "issue_category_id": 1,
+      "org_category_id": null,
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/icon/road.png",
+      "index": 1
+    },
+    {
+      "type": "ถนนเฉพาะหน่วยงาน",
+      "type_en": "Local Road",
+      "issue_category_id": 1,
+      "org_category_id": 10,
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/icon/road.png",
+      "index": 2
+    }
+  ]
 }
 ```
-*(หมายเหตุ: `"ฟิวเพิ่มประเภท"/"Fewjatest"` เป็นชื่อหมวดหมู่ custom จริงที่หน่วยงาน org 151 ตั้งไว้เองตอนทดสอบระบบ — เป็นผลจริงจาก production ไม่ใช่ตัวอย่างที่แต่งขึ้น)*
 
 ---
 
 ## 7. API `get-status-list` (ขอรายการสถานะ)
 
-ดึงรายการสถานะกลางที่สามารถใช้งานได้ในการปรับปรุงเรื่องแจ้ง พร้อมรายการสถานะแบบ custom ของหน่วยงาน (`org_status`)
+ดึงรายการสถานะของเรื่องแจ้งที่หน่วยงานสามารถใช้งานได้ (กรองเฉพาะสถานะที่เปิดใช้งาน `is_active = true` และตัดสถานะกลางที่หน่วยงานปิดการใช้งานออก)
 
 ### Endpoint URL
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-status-list/v1?org_id={org_id}
+GET https://publicapi.traffy.in.th/exchange-api/get-status-list/v2?org_id={org_id}
 Authorization: Bearer <token>
 ```
 
@@ -552,11 +525,11 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล | `151` (Default: หน่วยงานของ account) |
+| `org_id` | integer | OPTIONAL | รหัสหน่วยงาน **รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น** (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token | `123` |
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-status-list/v1?org_id=151
+GET https://publicapi.traffy.in.th/exchange-api/get-status-list/v2?org_id=123
 Authorization: Bearer <token>
 ```
 
@@ -567,86 +540,58 @@ Authorization: Bearer <token>
 | Field | Type | Description |
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
-| `message` | string | รายละเอียดข้อผิดพลาด |
+| `org_id` | integer | รหัสหน่วยงาน |
+| `count` | integer | จำนวนสถานะที่พบ |
+| `results` | array[object] | รายการสถานะที่ใช้งานได้ (ดูฟิลด์ด้านล่าง) |
+| `message` | string | รายละเอียดข้อผิดพลาด (ถ้ามี) |
 | `exec_time` | string | เวลาประมวลผล |
 | `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
-| `org_id` | array | รายการรหัสหน่วยงานที่ใช้ค้นหา |
-| `count` | integer | จำนวนสถานะที่พบ |
-| `results` | array[object] | รายการสถานะกลาง (ดูฟิลด์ด้านล่าง) |
-| `org_status` | array[object] | รายการสถานะกลาง + สถานะ custom ของหน่วยงาน (ดูฟิลด์ด้านล่าง) |
 | `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 
 #### ฟิลด์ใน `results`:
-* `org_id`: รหัสหน่วยงาน
-* `status_id`: รหัสสถานะ
-* `status`: ชื่อสถานะ
-* `status_type`: ประเภทของสถานะ
-* `index`: ลำดับการแสดงผล
+* `issue_status_id`: รหัสสถานะกลาง (`integer`)
+* `org_statuses_id`: รหัสสถานะเฉพาะของหน่วยงาน (`integer | null`)
+* `status`: ชื่อสถานะภาษาไทย (เดิม `group_name_th` / `local_status_name_th`)
+* `status_en`: ชื่อสถานะภาษาอังกฤษ (เดิม `group_name_en` / `local_status_name_en`) (`string | null`)
+* `status_type`: ประเภทสถานะ ดึงมาจาก `legacy_state_type` ของ `issue_statuses` เช่น `waiting`, `inprogress`, `finish` (`string | null`)
+* `sort_order`: ลำดับการแสดงผล (`integer`)
+* `bg_color`: สีพื้นหลัง (`string`)
+* `text_color`: สีตัวอักษร (`string`)
+* `border_color`: สีขอบ (`string`)
+* `is_active`: สถานะการเปิดใช้งาน คืนค่าเป็น Boolean (`true` / `false`)
 
-#### ฟิลด์ใน `org_status` (ใหม่):
-* `org_id`: รหัสหน่วยงาน (`null` = สถานะกลาง)
-* `issue_status_id`: รหัสสถานะกลาง
-* `org_statuses_id`: รหัสสถานะ custom ของหน่วยงาน (`null` = ใช้สถานะกลาง)
-* `group_name_th` / `group_name_en`: ชื่อกลุ่มสถานะ (ไทย/อังกฤษ)
-* `sort_order`: ลำดับการแสดงผล
-* `bg_color` / `text_color` / `border_color`: สีพื้นหลัง/ตัวอักษร/ขอบ สำหรับแสดงผล
-* `is_active`: เปิดใช้งานอยู่หรือไม่ (string `"t"`/`"f"`)
-
-#### Example Response (ผลจริงจากการทดสอบ org_id=151, ตัดให้เหลือ 2 รายการต่อ array จาก count จริง 20 / org_status 17 รายการ)
+#### Example Response
 ```json
 {
-    "status": "success",
-    "message": "",
-    "exec_time": "1.121s",
-    "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-    "credit_balance": null,
-    "org_id": [151],
-    "count": 20,
-    "results": [
-        {
-            "org_id": 151,
-            "status_id": 81,
-            "status": "รอรับเรื่อง",
-            "status_type": "start",
-            "index": 1
-        },
-        {
-            "org_id": 151,
-            "status_id": 192003,
-            "status": "รับเรื่อง",
-            "status_type": "inprogress",
-            "index": 2
-        },
-        { "...": "ตัดรายการที่เหลือ" }
-    ],
-    "org_status": [
-        {
-            "org_id": null,
-            "issue_status_id": 1,
-            "org_statuses_id": null,
-            "group_name_th": "รอรับเรื่อง",
-            "group_name_en": "Open",
-            "sort_order": 1,
-            "bg_color": "#f98a89",
-            "text_color": "#000",
-            "border_color": "#ef5d4a",
-            "is_active": "t"
-        },
-        {
-            "org_id": null,
-            "issue_status_id": 2,
-            "org_statuses_id": null,
-            "group_name_th": "กำลังดำเนินการ",
-            "group_name_en": "In Progress",
-            "sort_order": 2,
-            "bg_color": "#ffeca0",
-            "text_color": "#92400E",
-            "border_color": "#f4bf00",
-            "is_active": "t"
-        },
-        { "...": "ตัดรายการที่เหลือ" }
-    ],
-    "api_log_session_id": 1841962945
+  "status": "success",
+  "org_id": 123,
+  "count": 2,
+  "results": [
+    {
+      "issue_status_id": 1,
+      "org_statuses_id": null,
+      "status": "รอรับเรื่อง",
+      "status_en": "Pending",
+      "status_type": "waiting",
+      "sort_order": 1,
+      "bg_color": "#FFA500",
+      "text_color": "#FFFFFF",
+      "border_color": "#FFA500",
+      "is_active": true
+    },
+    {
+      "issue_status_id": 2,
+      "org_statuses_id": 15,
+      "status": "กำลังดำเนินการ",
+      "status_en": "In Progress",
+      "status_type": "inprogress",
+      "sort_order": 2,
+      "bg_color": "#0000FF",
+      "text_color": "#FFFFFF",
+      "border_color": "#0000FF",
+      "is_active": true
+    }
+  ]
 }
 ```

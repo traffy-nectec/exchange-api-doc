@@ -27,10 +27,10 @@ class TraffyExchangeClient {
     };
   }
 
-  // params: { org_id, duration ("today" | "all") } — all optional query string params
+  // params: { org_id, duration ("today" | "3days" | "all"), type_name_th, issue_category_id, org_category_id, is_follow, is_forward }
   async getIssues(params = {}) {
     const query = new URLSearchParams(params).toString();
-    const res = await fetch(`${this.baseUrl}/get-issues/v1${query ? `?${query}` : ""}`, {
+    const res = await fetch(`${this.baseUrl}/get-issues/v2${query ? `?${query}` : ""}`, {
       method: "GET",
       headers: this.getHeaders()
     });

@@ -33,13 +33,13 @@
 ├──────────────────────────┬──────────────────────────┬───────────────────────┤
 │   🔐 Authentication      │   📥 Data Retrieval      │   📤 Data Submission  │
 ├──────────────────────────┼──────────────────────────┼───────────────────────┤
-│ • POST /get-auth/v1      │ • POST /get-issues/v1    │ • POST /new-issue/v1  │
-│   (JWT Token Generation) │ • POST /get-issue/v1     │ • POST /update-issue/v1│
-│                          │ • POST /download-issues/v1│ • POST /star/v1      │
-│                          │ • POST /search-org/v1    │ • POST /comment/v1    │
-│                          │ • POST /get-org-list/v1  │ • POST /join-forward/v1│
-│                          │ • POST /get-type-list/v1 │                       │
-│                          │ • POST /get-status-list/v1│                       │
+│ • POST /get-auth/v1      │ • GET /get-issues/v2     │ • POST /new-issue/v1  │
+│   (JWT Token Generation) │ • GET /get-issue/v1      │ • PATCH /update-issue/v1│
+│                          │ • GET /download-issues/v2│ • POST /star/v1       │
+│                          │ • GET /search-org/v1     │ • POST /comment/v1    │
+│                          │ • GET /get-org-list/v1   │ • POST /join-forward/v1│
+│                          │ • GET /get-type-list/v2  │                       │
+│                          │ • GET /get-status-list/v2│                       │
 ├──────────────────────────┴──────────────────────────┴───────────────────────┤
 │                        🔔 Real-time Push (Webhooks)                         │
 │ • POST -> Client Webhook (เมื่อมีเรื่องแจ้งใหม่)                              │
