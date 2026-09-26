@@ -58,13 +58,13 @@
         </optgroup>
         <optgroup label="2. Data Retrieval (ดึงข้อมูล)">
           <option value="#sec-query">📌 2. Data Retrieval (การขอข้อมูลจาก Fondue)</option>
-          <option value="#get-issues">GET /get-issues/v1 - ขอรายการเรื่องแจ้ง</option>
+          <option value="#get-issues">GET /get-issues/v2 - ขอรายการเรื่องแจ้ง</option>
           <option value="#get-issue">GET /get-issue/v1 - ขอรายละเอียดรายเคส</option>
-          <option value="#download-issues">GET /download-issues/v1 - ดาวน์โหลดรายการเรื่องแจ้งเป็น CSV</option>
+          <option value="#download-issues">GET /download-issues/v2 - ดาวน์โหลดรายการเรื่องแจ้งเป็น CSV</option>
           <option value="#search-org">GET /search-org/v1 - ค้นหาหน่วยงาน</option>
           <option value="#get-org-list">GET /get-org-list/v1 - ขอรายชื่อหน่วยงานในผังโครงสร้างองค์กร</option>
-          <option value="#get-type-list">GET /get-type-list/v1 - ขอรายการประเภทปัญหา</option>
-          <option value="#get-status-list">GET /get-status-list/v1 - ขอรายการสถานะ</option>
+          <option value="#get-type-list">GET /get-type-list/v2 - ขอรายการประเภทปัญหา</option>
+          <option value="#get-status-list">GET /get-status-list/v2 - ขอรายการสถานะ</option>
         </optgroup>
         <optgroup label="3. Data Submission (ส่งข้อมูล)">
           <option value="#sec-action">📌 3. Data Submission (การส่งข้อมูลให้ Fondue)</option>
@@ -82,6 +82,10 @@
         <optgroup label="5. Troubleshooting">
           <option value="#sec-error">📌 5. Troubleshooting (รหัสข้อผิดพลาด)</option>
           <option value="#error-codes">Error Codes & วิธีแก้ไข</option>
+        </optgroup>
+        <optgroup label="6. Change Log">
+          <option value="#sec-changelog">📌 6. Change Log (ประวัติการเปลี่ยนแปลง)</option>
+          <option value="#changelog">2026-09-26 - v2 Release</option>
         </optgroup>
       </select>
     </div>
@@ -118,21 +122,21 @@
           <div class="sidebar-group">
             <a href="#sec-query" class="sidebar-group-title">2. Data Retrieval (7)</a>
             <ul class="sidebar-links">
-              <li><a href="#get-issues" class="sidebar-link"><span class="link-name">/get-issues/v1</span><span
+              <li><a href="#get-issues" class="sidebar-link"><span class="link-name">/get-issues/v2</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-issue" class="sidebar-link"><span class="link-name">/get-issue/v1</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#download-issues" class="sidebar-link"><span
-                    class="link-name">/download-issues/v1</span><span
+                    class="link-name">/download-issues/v2</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#search-org" class="sidebar-link"><span class="link-name">/search-org/v1</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-org-list" class="sidebar-link"><span class="link-name">/get-org-list/v1</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list/v1</span><span
+              <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list/v2</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-status-list" class="sidebar-link"><span
-                    class="link-name">/get-status-list/v1</span><span
+                    class="link-name">/get-status-list/v2</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
             </ul>
           </div>
@@ -172,6 +176,15 @@
             <ul class="sidebar-links">
               <li><a href="#error-codes" class="sidebar-link"><span class="link-name">Error Codes</span><span
                     class="sidebar-badge">INFO</span></a></li>
+            </ul>
+          </div>
+
+          <!-- Group 6 -->
+          <div class="sidebar-group">
+            <a href="#sec-changelog" class="sidebar-group-title">6. Change Log</a>
+            <ul class="sidebar-links">
+              <li><a href="#changelog" class="sidebar-link"><span class="link-name">2026-09-26</span><span
+                    class="sidebar-badge" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border-color: rgba(34, 197, 94, 0.3);">v2</span></a></li>
             </ul>
           </div>
         </nav>
@@ -410,15 +423,14 @@
               <div class="api-card-header">
                 <div class="api-card-title-group">
                   <span class="method-badge method-get">GET</span>
-                  <span class="api-endpoint">/get-issues/v1</span>
+                  <span class="api-endpoint">/get-issues/v2</span>
                   <span class="api-card-name">2. ขอรายการเรื่องแจ้ง</span>
                 </div>
                 <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ กรองตามหน่วยงานและช่วงเวลาได้ผ่าน Query
-                    String (ไม่มี Pagination หรือตัวกรองคำค้นหา)</p>
+                  <p class="api-desc">ดึงรายการเรื่องแจ้งที่หน่วยงานได้รับ กรองตามหน่วยงาน (<code>org_id</code>), ช่วงเวลา (<code>duration</code>), หมวดหมู่/ประเภทเรื่อง (<code>type_name_th</code>, <code>issue_category_id</code>, <code>org_category_id</code>), และสถานะติดตาม/ส่งต่อ (<code>is_follow</code>, <code>is_forward</code>)</p>
                   <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
@@ -445,23 +457,59 @@
                           <tr>
                             <td><span class="param-name">duration</span></td>
                             <td>string</td>
-                            <td><code>today</code> หรือ <code>all</code> (Default: <code>today</code>) — หมายเหตุ:
-                              <code>all</code> อาจได้ JSON ขนาดใหญ่มาก บาง client อาจรับไม่ไหว
-                            </td>
+                            <td><code>today</code> (Default: ดึงเฉพาะเคสที่เคลื่อนไหวล่าสุด 1 วัน), <code>3days</code> หรือ <code>3day</code> (ย้อนหลัง 3 วัน), <code>all</code> (ดึงทั้งหมดโดยไม่จำกัดช่วงเวลา สูงสุด 5,000 รายการ)</td>
                             <td><code>today</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">type_name_th</span></td>
+                            <td>string</td>
+                            <td>ชื่อประเภทเรื่องภาษาไทย/อังกฤษ กรองตรงกับชื่อกลางหรือชื่อเฉพาะหน่วยงาน (รองรับ alias: <code>type_name</code>, <code>category_name_th</code>, <code>category_name</code>)</td>
+                            <td><code>ถนน</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_category_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสประเภทเรื่องกลาง (<code>ta.issue_category_id</code>)</td>
+                            <td><code>1</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_category_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสประเภทเรื่องเฉพาะของหน่วยงาน (<code>ta.local_category_id</code>)</td>
+                            <td><code>10</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span></td>
+                            <td>boolean</td>
+                            <td>กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (<code>voice_message.is_follow = true/false</code>)</td>
+                            <td><code>true</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_forward</span></td>
+                            <td>boolean</td>
+                            <td>กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (<code>app_data.ticket_assignments.is_forward = true/false</code>)</td>
+                            <td><code>false</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   </details>
+                  <p style="font-size:0.85rem;color:var(--text-muted);margin:8px 0 0;">
+                    💡 <strong>เงื่อนไขสำคัญ:</strong> ทุกตัวเป็น Optional หากมีการระบุ <code>type_name_th</code> ระบบจะให้ความสำคัญสูงสุดและ<strong>ไม่สนใจ</strong> <code>issue_category_id</code> กับ <code>org_category_id</code>
+                  </p>
                 </div>
                 <div class="api-code-col">
                   <div class="code-block-wrap">
                     <div class="code-header"><span class="code-title">cURL Example</span><button class="btn-copy"
                         onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
-                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-issues/v1?org_id=151&duration=today' \
+                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_id=151&duration=today' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre>
                     </div>
                   </div>
@@ -1007,7 +1055,7 @@
               <div class="api-card-header">
                 <div class="api-card-title-group">
                   <span class="method-badge method-get">GET</span>
-                  <span class="api-endpoint">/download-issues/v1</span>
+                  <span class="api-endpoint">/download-issues/v2</span>
                   <span class="api-card-name">4. ดาวน์โหลดข้อมูลเป็น CSV</span>
                 </div>
                 <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
@@ -1015,8 +1063,7 @@
               <div class="api-card-body">
                 <div class="api-details-col">
                   <p class="api-desc">ส่งออกข้อมูลเรื่องแจ้งของหน่วยงานออกมาเป็นไฟล์ CSV (คอลัมน์เดียวกับ
-                    <code>get-issues</code>) ตามหน่วยงานและช่วงเวลาที่กำหนด เรียงจากแจ้ง/อัปเดตล่าสุดก่อน
-                    เหมาะสำหรับการทำรายงานหรือวิเคราะห์ข้อมูลภายนอก
+                    <code>get-issues</code>) กรองตามหน่วยงาน (<code>org_id</code>), ช่วงเวลา (<code>duration</code>), หมวดหมู่, และสถานะติดตาม/ส่งต่อ เหมาะสำหรับการทำรายงานหรือวิเคราะห์ข้อมูลภายนอก
                   </p>
                   <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
@@ -1044,23 +1091,59 @@
                           <tr>
                             <td><span class="param-name">duration</span></td>
                             <td>string</td>
-                            <td><code>today</code> หรือ <code>all</code> (Default: <code>today</code>) — หมายเหตุ:
-                              <code>all</code> อาจได้ไฟล์ขนาดใหญ่มาก (หลัก 100+ MB) บาง client อาจรับไม่ไหว
-                            </td>
+                            <td><code>today</code> (Default: ดึงเฉพาะเคสที่เคลื่อนไหวล่าสุด 1 วัน), <code>3days</code> หรือ <code>3day</code> (ย้อนหลัง 3 วัน), <code>all</code> (ดึงทั้งหมดโดยไม่จำกัดช่วงเวลา สูงสุด 5,000 รายการ)</td>
                             <td><code>all</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">type_name_th</span></td>
+                            <td>string</td>
+                            <td>ชื่อประเภทเรื่องภาษาไทย/อังกฤษ กรองตรงกับชื่อกลางหรือชื่อเฉพาะหน่วยงาน (รองรับ alias: <code>type_name</code>, <code>category_name_th</code>, <code>category_name</code>)</td>
+                            <td><code>ถนน</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_category_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสประเภทเรื่องกลาง (<code>ta.issue_category_id</code>)</td>
+                            <td><code>1</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_category_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสประเภทเรื่องเฉพาะของหน่วยงาน (<code>ta.local_category_id</code>)</td>
+                            <td><code>10</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span></td>
+                            <td>boolean</td>
+                            <td>กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (<code>voice_message.is_follow = true/false</code>)</td>
+                            <td><code>true</code></td>
+                            <td><span class="param-opt">OPTIONAL</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_forward</span></td>
+                            <td>boolean</td>
+                            <td>กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (<code>app_data.ticket_assignments.is_forward = true/false</code>)</td>
+                            <td><code>false</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   </details>
+                  <p style="font-size:0.85rem;color:var(--text-muted);margin:8px 0 0;">
+                    💡 <strong>เงื่อนไขสำคัญ:</strong> ทุกตัวเป็น Optional หากมีการระบุ <code>type_name_th</code> ระบบจะให้ความสำคัญสูงสุดและ<strong>ไม่สนใจ</strong> <code>issue_category_id</code> กับ <code>org_category_id</code>
+                  </p>
                 </div>
                 <div class="api-code-col">
                   <div class="code-block-wrap">
                     <div class="code-header"><span class="code-title">cURL Example</span><button class="btn-copy"
                         onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
-                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/download-issues/v1?org_id=151&duration=all' \
+                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/download-issues/v2?org_id=151&duration=all' \
   --header 'Authorization: Bearer YOUR_TOKEN' \
   --output export_issues.csv</code></pre>
                     </div>
@@ -1584,17 +1667,14 @@
               <div class="api-card-header">
                 <div class="api-card-title-group">
                   <span class="method-badge method-get">GET</span>
-                  <span class="api-endpoint">/get-type-list/v1</span>
+                  <span class="api-endpoint">/get-type-list/v2</span>
                   <span class="api-card-name">7. ขอรายการประเภทปัญหา</span>
                 </div>
                 <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ดึง Master Data รายการประเภทปัญหาและหมวดหมู่ที่หน่วยงานรับผิดชอบ เพื่อนำ
-                    <code>type_id</code> หรือชื่อประเภทไปใช้กับ API <code>new-issue</code> พร้อม
-                    <code>org_category</code> ซึ่งรวมหมวดหมู่กลางและหมวดหมู่ custom ของหน่วยงาน
-                  </p>
+                  <p class="api-desc">ดึง Master Data รายการประเภทปัญหาและหมวดหมู่ที่หน่วยงานรับผิดชอบ (กรองเฉพาะประเภทเรื่องที่เปิดใช้งาน <code>is_active = true</code> และตัดประเภทเรื่องกลางที่หน่วยงานปิดการใช้งานออก)</p>
                   <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
@@ -1611,11 +1691,9 @@
                         <tbody>
                           <tr>
                             <td><span class="param-name">org_id</span></td>
-                            <td>string</td>
-                            <td>รหัสหน่วยงาน คั่นด้วย comma ได้ (Default: หน่วยงานของ Account) —
-                              ดูได้เฉพาะหน่วยงานที่กำหนดและหน่วยงานในผังบังคับบัญชาเท่านั้น (เช็ครายชื่อได้จาก
-                              get-org-list) ถ้าไม่มีสิทธิ์จะได้ fail กลับมา</td>
-                            <td><code>151</code></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงาน <strong>รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น</strong> (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token</td>
+                            <td><code>123</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
@@ -1628,7 +1706,7 @@
                     <div class="code-header"><span class="code-title">cURL Example</span><button class="btn-copy"
                         onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
-                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-type-list/v1?org_id=151' \
+                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-type-list/v2?org_id=123' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre>
                     </div>
                   </div>
@@ -1640,28 +1718,26 @@
                       <div class="code-content">
                         <pre><code>{
   "status": "success",
-  "message": "",
-  "exec_time": "1.179s",
-  "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-  "credit_balance": null,
-  "org_id": [151],
-  "count": 34,
+  "org_id": 123,
+  "count": 2,
   "results": [
-    {"org_id": 151, "topic_id": 78, "type_id": 196886, "type": "น้ำท่วม", "type_en": "Flood", "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png", "index": 4}
-  ],
-  "org_category": [
     {
-      "org_id": 151,
-      "issue_category_id": 6,
-      "org_category_id": 166551,
-      "name_th": "ฟิวเพิ่มประเภท",
-      "name_en": "Fewjatest",
-      "sort_order": 10,
-      "icon_url": "attachment/2018-03/s-1520325589.18.png",
-      "category_group": null
+      "type": "ถนน",
+      "type_en": "Road",
+      "issue_category_id": 1,
+      "org_category_id": null,
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/icon/road.png",
+      "index": 1
+    },
+    {
+      "type": "ถนนเฉพาะหน่วยงาน",
+      "type_en": "Local Road",
+      "issue_category_id": 1,
+      "org_category_id": 10,
+      "photo": "https://storage.googleapis.com/traffy_public_bucket/icon/road.png",
+      "index": 2
     }
-  ],
-  "api_log_session_id": 424355237
+  ]
 }</code></pre>
                       </div>
                     </div>
@@ -1684,6 +1760,21 @@
                             <td><code>success</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">org_id</span></td>
+                            <td>หมายเลขหน่วยงาน (integer)</td>
+                            <td><code>123</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">count</span></td>
+                            <td>จำนวนผลลัพธ์ใน <code>results</code></td>
+                            <td><code>2</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">results</span></td>
+                            <td>Array ของข้อมูลประเภทปัญหา</td>
+                            <td><code>(Array)</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">message</span></td>
                             <td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td>
                             <td><code>""</code></td>
@@ -1695,35 +1786,13 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">source</span></td>
-                            <td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ
-                              <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช
-                            </td>
-                            <td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td>
+                            <td>แหล่งข้อมูล (<code>db</code> หรือ <code>cache</code>)</td>
+                            <td><code>db</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">credit_balance</span></td>
                             <td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td>
                             <td><code>null</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>Array หมายเลขหน่วยงานที่ใช้ค้นหา</td>
-                            <td><code>[151]</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">count</span></td>
-                            <td>จำนวนผลลัพธ์ใน <code>results</code></td>
-                            <td><code>34</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">results</span></td>
-                            <td>Array ของข้อมูลประเภทปัญหา</td>
-                            <td><code>(Array)</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_category</span></td>
-                            <td>Array หมวดหมู่กลาง + หมวดหมู่ custom ของหน่วยงาน <span class="param-opt">NEW</span></td>
-                            <td><code>(Array)</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">api_log_session_id</span></td>
@@ -1736,76 +1805,29 @@
                             </td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>หมายเลขหน่วยงาน</td>
-                            <td><code>151</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">topic_id</span></td>
-                            <td>รหัสประเภทปัญหา (id กลางของระบบ Fondue)</td>
-                            <td><code>78</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">type_id</span></td>
-                            <td>รหัสประเภทปัญหา (id เฉพาะของหน่วยงาน)</td>
-                            <td><code>196886</code></td>
-                          </tr>
-                          <tr>
                             <td><span class="param-name">type</span> / <span class="param-name">type_en</span></td>
-                            <td>ชื่อประเภทปัญหา (ไทย/อังกฤษ)</td>
-                            <td><code>น้ำท่วม</code> / <code>Flood</code></td>
+                            <td>ชื่อประเภทเรื่อง (ไทย/อังกฤษ)</td>
+                            <td><code>ถนน</code> / <code>Road</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_category_id</span></td>
+                            <td>รหัสประเภทเรื่องกลาง</td>
+                            <td><code>1</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_category_id</span></td>
+                            <td>รหัสประเภทเรื่องเฉพาะของหน่วยงาน (<code>null</code> หากใช้ประเภทเรื่องกลาง)</td>
+                            <td><code>10</code> / <code>null</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">photo</span></td>
-                            <td>URL รูปภาพไอคอน</td>
+                            <td>URL รูปภาพไอคอนประเภทปัญหา</td>
                             <td><code>https://storage.googleapis.com/...</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">index</span></td>
                             <td>ลำดับการเรียงลำดับ</td>
-                            <td><code>4</code></td>
-                          </tr>
-                          <tr>
-                            <td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน
-                              <code>org_category[]</code>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>หมายเลขหน่วยงาน (<code>null</code> = หมวดหมู่กลาง ยังไม่ถูกปรับแต่ง)</td>
-                            <td><code>151</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">issue_category_id</span></td>
-                            <td>รหัสหมวดหมู่กลางของระบบ</td>
-                            <td><code>6</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_category_id</span></td>
-                            <td>รหัสหมวดหมู่ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง)</td>
-                            <td><code>166551</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">name_th</span> / <span class="param-name">name_en</span></td>
-                            <td>ชื่อหมวดหมู่ — เป็นชื่อกลางของระบบ (จาก issue_categories) เมื่อ org_id เป็น null
-                              หรือชื่อ custom ที่หน่วยงานตั้งเอง (จาก org_categories) เมื่อ org_id ไม่เป็น null
-                              (อังกฤษอาจเป็น <code>null</code>)</td>
-                            <td><code>ฟิวเพิ่มประเภท</code> / <code>Fewjatest</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">sort_order</span></td>
-                            <td>ลำดับการเรียง</td>
-                            <td><code>10</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">icon_url</span></td>
-                            <td>URL ไอคอนหมวดหมู่ (มาจากหมวดหมู่กลางเสมอ)</td>
-                            <td><code>attachment/2018-03/s-1520325589.18.png</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">category_group</span></td>
-                            <td>กลุ่มของหมวดหมู่ (มาจากหมวดหมู่กลางเสมอ)</td>
-                            <td><code>null</code></td>
+                            <td><code>1</code></td>
                           </tr>
                         </tbody>
                       </table>
@@ -1821,15 +1843,14 @@
               <div class="api-card-header">
                 <div class="api-card-title-group">
                   <span class="method-badge method-get">GET</span>
-                  <span class="api-endpoint">/get-status-list/v1</span>
+                  <span class="api-endpoint">/get-status-list/v2</span>
                   <span class="api-card-name">8. ขอรายการสถานะที่ใช้งานได้</span>
                 </div>
                 <span class="api-auth-badge">🛡️ Header: Bearer Token</span>
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ดึงรายการสถานะของเรื่องแจ้งที่เป็นไปได้ในระบบ (เช่น รอรับเรื่อง, กำลังดำเนินการ,
-                    เสร็จสิ้น, ส่งต่อ ฯลฯ) พร้อม <code>org_status</code> ซึ่งรวมสถานะกลางและสถานะ custom ของหน่วยงาน</p>
+                  <p class="api-desc">ดึงรายการสถานะของเรื่องแจ้งที่หน่วยงานสามารถใช้งานได้ (กรองเฉพาะสถานะที่เปิดใช้งาน <code>is_active = true</code> และตัดสถานะกลางที่หน่วยงานปิดการใช้งานออก)</p>
                   <details class="param-section" open>
                     <summary class="param-title">Query String Parameters</summary>
                     <div class="table-wrap">
@@ -1846,11 +1867,9 @@
                         <tbody>
                           <tr>
                             <td><span class="param-name">org_id</span></td>
-                            <td>string</td>
-                            <td>รหัสหน่วยงาน คั่นด้วย comma ได้หลายหน่วยงาน (Default: หน่วยงานของ Account) —
-                              ดูได้เฉพาะหน่วยงานที่กำหนดและหน่วยงานในผังบังคับบัญชาเท่านั้น (เช็ครายชื่อได้จาก
-                              get-org-list) ถ้าไม่มีสิทธิ์จะได้ fail กลับมา</td>
-                            <td><code>151</code></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงาน <strong>รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น</strong> (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token</td>
+                            <td><code>123</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
@@ -1863,7 +1882,7 @@
                     <div class="code-header"><span class="code-title">cURL Example</span><button class="btn-copy"
                         onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
-                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-status-list/v1?org_id=151' \
+                      <pre><code>curl -X GET 'https://publicapi.traffy.in.th/exchange-api/get-status-list/v2?org_id=123' \
   --header 'Authorization: Bearer YOUR_TOKEN'</code></pre>
                     </div>
                   </div>
@@ -1875,43 +1894,34 @@
                       <div class="code-content">
                         <pre><code>{
   "status": "success",
-  "message": "",
-  "exec_time": "1.121s",
-  "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-  "credit_balance": null,
-  "org_id": [151],
-  "count": 20,
+  "org_id": 123,
+  "count": 2,
   "results": [
-    {"org_id": 151, "status_id": 81, "status": "รอรับเรื่อง", "status_type": "start", "index": 1},
-    {"org_id": 151, "status_id": 192003, "status": "รับเรื่อง", "status_type": "inprogress", "index": 2}
-  ],
-  "org_status": [
     {
-      "org_id": null,
       "issue_status_id": 1,
       "org_statuses_id": null,
-      "group_name_th": "รอรับเรื่อง",
-      "group_name_en": "Open",
+      "status": "รอรับเรื่อง",
+      "status_en": "Pending",
+      "status_type": "waiting",
       "sort_order": 1,
-      "bg_color": "#f98a89",
-      "text_color": "#000",
-      "border_color": "#ef5d4a",
-      "is_active": "t"
+      "bg_color": "#FFA500",
+      "text_color": "#FFFFFF",
+      "border_color": "#FFA500",
+      "is_active": true
     },
     {
-      "org_id": null,
       "issue_status_id": 2,
-      "org_statuses_id": null,
-      "group_name_th": "กำลังดำเนินการ",
-      "group_name_en": "In Progress",
+      "org_statuses_id": 15,
+      "status": "กำลังดำเนินการ",
+      "status_en": "In Progress",
+      "status_type": "inprogress",
       "sort_order": 2,
-      "bg_color": "#ffeca0",
-      "text_color": "#92400E",
-      "border_color": "#f4bf00",
-      "is_active": "t"
+      "bg_color": "#0000FF",
+      "text_color": "#FFFFFF",
+      "border_color": "#0000FF",
+      "is_active": true
     }
-  ],
-  "api_log_session_id": 1841962945
+  ]
 }</code></pre>
                       </div>
                     </div>
@@ -1934,6 +1944,21 @@
                             <td><code>success</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">org_id</span></td>
+                            <td>หมายเลขหน่วยงาน (integer)</td>
+                            <td><code>123</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">count</span></td>
+                            <td>จำนวนผลลัพธ์ใน <code>results</code></td>
+                            <td><code>2</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">results</span></td>
+                            <td>Array ของข้อมูลสถานะ</td>
+                            <td><code>(Array)</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">message</span></td>
                             <td>ข้อความอธิบายเพิ่มเติม (ไม่ว่างเมื่อ status เป็น fail หรือ warning)</td>
                             <td><code>""</code></td>
@@ -1945,30 +1970,13 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">source</span></td>
-                            <td>แหล่งข้อมูล — <code>db</code> เมื่อดึงข้อมูลสดจากฐานข้อมูล หรือข้อความรูปแบบ
-                              <code>cache/h cache &lt;วันเวลาที่แคชถูกสร้าง&gt; (expire Ns)</code> เมื่อดึงจากแคช
-                            </td>
-                            <td><code>h cache 2026-09-09 16:42:17 (expire 600s), db</code></td>
+                            <td>แหล่งข้อมูล (<code>db</code> หรือ <code>cache</code>)</td>
+                            <td><code>db</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">credit_balance</span></td>
                             <td>โควต้าคงเหลือ (<code>null</code> = ไม่จำกัด)</td>
                             <td><code>null</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>Array หมายเลขหน่วยงานที่ใช้ค้นหา</td>
-                            <td><code>[151]</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">count</span></td>
-                            <td>จำนวนผลลัพธ์ใน <code>results</code></td>
-                            <td><code>20</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_status</span></td>
-                            <td>Array สถานะกลาง + สถานะ custom ของหน่วยงาน <span class="param-opt">NEW</span></td>
-                            <td><code>(Array)</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">api_log_session_id</span></td>
@@ -1981,75 +1989,46 @@
                             </td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>หมายเลขหน่วยงาน</td>
-                            <td><code>151</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">status_id</span></td>
-                            <td>หมายเลขสถานะ (ระบบเดิม)</td>
-                            <td><code>81</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">status</span></td>
-                            <td>ชื่อสถานะ</td>
-                            <td><code>รอรับเรื่อง</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">status_type</span></td>
-                            <td>ประเภทของสถานะ:
-                              <code>start</code>/<code>inprogress</code>/<code>finish</code>/<code>irrelevant</code>/<code>follow</code>
-                            </td>
-                            <td><code>start</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">index</span></td>
-                            <td>ลำดับการเรียงลำดับ</td>
-                            <td><code>1</code></td>
-                          </tr>
-                          <tr>
-                            <td colspan="3" style="background:var(--bg-subtle);font-weight:600;">** ข้อมูลที่อยู่ใน
-                              <code>org_status[]</code>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">org_id</span></td>
-                            <td>หมายเลขหน่วยงาน (<code>null</code> = สถานะกลาง ยังไม่ถูกปรับแต่ง)</td>
-                            <td><code>null</code></td>
-                          </tr>
-                          <tr>
                             <td><span class="param-name">issue_status_id</span></td>
                             <td>รหัสสถานะกลางของระบบ</td>
                             <td><code>1</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">org_statuses_id</span></td>
-                            <td>รหัสสถานะ custom ของหน่วยงาน (<code>null</code> = ยังไม่ปรับแต่ง)</td>
-                            <td><code>null</code></td>
+                            <td>รหัสสถานะเฉพาะของหน่วยงาน (<code>null</code> หากใช้สถานะกลาง)</td>
+                            <td><code>15</code> / <code>null</code></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">group_name_th</span> / <span
-                                class="param-name">group_name_en</span></td>
-                            <td>ชื่อสถานะ (ไทย/อังกฤษ — อังกฤษอาจเป็น <code>null</code>)</td>
-                            <td><code>รอรับเรื่อง</code> / <code>Open</code></td>
+                            <td><span class="param-name">status</span></td>
+                            <td>ชื่อกลุ่ม/สถานะภาษาไทย (เดิม <code>group_name_th</code>)</td>
+                            <td><code>รอรับเรื่อง</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_en</span></td>
+                            <td>ชื่อกลุ่ม/สถานะภาษาอังกฤษ (เดิม <code>group_name_en</code>)</td>
+                            <td><code>Pending</code> / <code>null</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_type</span></td>
+                            <td>ประเภทสถานะ (ดึงมาจาก <code>legacy_state_type</code> ของ <code>issue_statuses</code> เช่น <code>waiting</code>, <code>inprogress</code>)</td>
+                            <td><code>waiting</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">sort_order</span></td>
-                            <td>ลำดับการเรียง</td>
+                            <td>ลำดับการเรียงลำดับ</td>
                             <td><code>1</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">bg_color</span> / <span class="param-name">text_color</span> /
                               <span class="param-name">border_color</span>
                             </td>
-                            <td>สีพื้นหลัง/ตัวอักษร/ขอบ (hex code)</td>
-                            <td><code>#f98a89</code> / <code>#000</code> / <code>#ef5d4a</code></td>
+                            <td>สีพื้นหลัง / ตัวอักษร / ขอบ สำหรับแสดงผล (hex code)</td>
+                            <td><code>#FFA500</code> / <code>#FFFFFF</code> / <code>#FFA500</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">is_active</span></td>
-                            <td>เปิดใช้งานอยู่หรือไม่ (string ตามรูปแบบ PostgreSQL boolean) — query ของ endpoint
-                              นี้กรองเฉพาะสถานะที่ active เท่านั้น จึงมีค่าเป็น <code>"t"</code> เสมอ</td>
-                            <td><code>"t"</code></td>
+                            <td>สถานะการเปิดใช้งาน คืนค่าเป็น Boolean (<code>true</code> / <code>false</code>)</td>
+                            <td><code>true</code></td>
                           </tr>
                         </tbody>
                       </table>
@@ -3400,6 +3379,28 @@
               </table>
             </div>
           </div>
+        </section>
+
+        <!-- 6. CHANGE LOG -->
+        <section class="docs-section-group" id="sec-changelog">
+          <div class="docs-group-header">
+            <span class="group-num-badge">6</span>
+            <div>
+              <h2 class="group-heading">ประวัติการเปลี่ยนแปลง (Change Log)</h2>
+              <p class="group-subheading">บันทึกประวัติการปรับปรุงและอัปเดตเวอร์ชันของ Exchange API</p>
+            </div>
+          </div>
+
+          <article class="api-card" id="changelog" data-keywords="changelog change log update history 2026-09-26 v2" style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">2026-09-26</h3>
+              <span class="sidebar-badge" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border-color: rgba(34, 197, 94, 0.3); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">v2 Release</span>
+            </div>
+            <ul style="margin: 0; padding-left: 20px; line-height: 1.8; color: var(--text-secondary);">
+              <li>เปลี่ยนไปใช้ API <code>get-type-list/v2</code> และ <code>get-status-list/v2</code></li>
+              <li>ปรับปรุง API <code>get-issues</code> และ <code>download-issues</code> ให้รองรับ parameter <code>type_name_th</code> (และ alias), <code>issue_category_id</code>, <code>org_category_id</code>, <code>is_follow</code>, <code>is_forward</code> และ เพิ่มตัวเลือก <code>3days</code> สำหรับ parameter <code>duration</code></li>
+            </ul>
+          </article>
         </section>
 
       </main>

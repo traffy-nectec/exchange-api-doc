@@ -39,10 +39,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/AuthResponse"
 
-  /get-issues/v1:
+  /get-issues/v2:
     get:
       summary: Get Issues List
-      description: Retrieve list of reported issues for the authenticated organization. ไม่มี pagination หรือ filter อื่นนอกจากที่ระบุด้านล่าง
+      description: Retrieve list of reported issues for the authenticated organization. กรองตามหน่วยงาน (org_id), ช่วงเวลา (duration), หมวดหมู่ (type_name_th, issue_category_id, org_category_id), และสถานะติดตาม/ส่งต่อ (is_follow, is_forward)
       security:
         - BearerAuth: []
       parameters:
@@ -56,11 +56,46 @@ paths:
         - name: duration
           in: query
           required: false
-          description: ช่วงเวลาของข้อมูลที่ต้องการ
+          description: "ช่วงเวลาของข้อมูล: today (ย้อนหลัง 1 วัน, default), 3days (ย้อนหลัง 3 วัน, หรือ 3day), all (ทั้งหมด สูงสุด 5,000 รายการ)"
           schema:
             type: string
-            enum: ["today", "all"]
+            enum: ["today", "3days", "all"]
             default: "today"
+        - name: type_name_th
+          in: query
+          required: false
+          description: "ชื่อประเภทเรื่องภาษาไทย/อังกฤษ (Filter ตรงกับชื่อกลางหรือชื่อเฉพาะหน่วยงาน, รองรับ alias: type_name, category_name_th, category_name). หากระบุจะให้ความสำคัญสูงสุดและไม่สนใจ issue_category_id/org_category_id"
+          schema:
+            type: string
+          example: "ถนน"
+        - name: issue_category_id
+          in: query
+          required: false
+          description: รหัสประเภทเรื่องกลาง (ta.issue_category_id)
+          schema:
+            type: integer
+          example: 1
+        - name: org_category_id
+          in: query
+          required: false
+          description: รหัสประเภทเรื่องเฉพาะของหน่วยงาน (ta.local_category_id)
+          schema:
+            type: integer
+          example: 10
+        - name: is_follow
+          in: query
+          required: false
+          description: กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (voice_message.is_follow = true/false)
+          schema:
+            type: boolean
+          example: true
+        - name: is_forward
+          in: query
+          required: false
+          description: กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (app_data.ticket_assignments.is_forward = true/false)
+          schema:
+            type: boolean
+          example: false
       responses:
         "200":
           description: Issues list response
@@ -91,10 +126,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetIssueResponse"
 
-  /download-issues/v1:
+  /download-issues/v2:
     get:
       summary: Download Issues as CSV
-      description: ดาวน์โหลดรายการเรื่องร้องเรียนเป็นไฟล์ CSV (คอลัมน์เดียวกับ get-issues.results แต่ไม่มี org_id) หากเกิด error จะได้ JSON error wrapper แทน
+      description: ดาวน์โหลดรายการเรื่องร้องเรียนเป็นไฟล์ CSV (คอลัมน์เดียวกับ get-issues.results แต่ไม่มี org_id) กรองตาม org_id, duration, type_name_th, issue_category_id, org_category_id, is_follow, is_forward
       security:
         - BearerAuth: []
       parameters:
@@ -108,10 +143,46 @@ paths:
         - name: duration
           in: query
           required: false
+          description: "ช่วงเวลาของข้อมูล: today (ย้อนหลัง 1 วัน, default), 3days (ย้อนหลัง 3 วัน, หรือ 3day), all (ทั้งหมด สูงสุด 5,000 รายการ)"
           schema:
             type: string
-            enum: ["today", "all"]
+            enum: ["today", "3days", "all"]
             default: "today"
+        - name: type_name_th
+          in: query
+          required: false
+          description: "ชื่อประเภทเรื่องภาษาไทย/อังกฤษ (Filter ตรงกับชื่อกลางหรือชื่อเฉพาะหน่วยงาน, รองรับ alias: type_name, category_name_th, category_name)"
+          schema:
+            type: string
+          example: "ถนน"
+        - name: issue_category_id
+          in: query
+          required: false
+          description: รหัสประเภทเรื่องกลาง (ta.issue_category_id)
+          schema:
+            type: integer
+          example: 1
+        - name: org_category_id
+          in: query
+          required: false
+          description: รหัสประเภทเรื่องเฉพาะของหน่วยงาน (ta.local_category_id)
+          schema:
+            type: integer
+          example: 10
+        - name: is_follow
+          in: query
+          required: false
+          description: กรองเฉพาะเรื่องที่มีการติดตามเรื่อง (voice_message.is_follow = true/false)
+          schema:
+            type: boolean
+          example: true
+        - name: is_forward
+          in: query
+          required: false
+          description: กรองเฉพาะเรื่องที่มีการส่งต่อเรื่อง (app_data.ticket_assignments.is_forward = true/false)
+          schema:
+            type: boolean
+          example: false
       responses:
         "200":
           description: CSV file หรือ JSON error wrapper (กรณี error)
@@ -168,20 +239,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetOrgListResponse"
 
-  /get-type-list/v1:
+  /get-type-list/v2:
     get:
       summary: Get Issue Type/Category List
-      description: ดึงรายการประเภท/หมวดหมู่เรื่องร้องเรียน รวมถึงหมวดหมู่ custom ของหน่วยงาน (org_category)
+      description: ดึงรายการประเภท/หมวดหมู่เรื่องร้องเรียนที่เปิดใช้งาน (is_active = true) ของหน่วยงาน
       security:
         - BearerAuth: []
       parameters:
         - name: org_id
           in: query
           required: false
-          description: รหัสหน่วยงาน คั่นหลายค่าด้วย comma ได้ (ไม่ระบุ = ทั้งหมด)
+          description: รหัสหน่วยงาน รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token
           schema:
-            type: string
-          example: "151"
+            type: integer
+          example: 123
       responses:
         "200":
           description: Type/category list response
@@ -190,20 +261,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetTypeListResponse"
 
-  /get-status-list/v1:
+  /get-status-list/v2:
     get:
       summary: Get Issue Status List
-      description: ดึงรายการสถานะเรื่องร้องเรียน รวมถึงสถานะ custom ของหน่วยงาน (org_status)
+      description: ดึงรายการสถานะเรื่องร้องเรียนที่เปิดใช้งาน (is_active = true) ของหน่วยงาน
       security:
         - BearerAuth: []
       parameters:
         - name: org_id
           in: query
           required: false
-          description: รหัสหน่วยงาน (ไม่ระบุ = ทั้งหมด)
+          description: รหัสหน่วยงาน รับค่าเป็นตัวเลข Integer ตัวเดียวเท่านั้น (ไม่รองรับ Comma-separated list) หากไม่ระบุจะใช้ค่า Default จาก Token
           schema:
-            type: string
-          example: "151"
+            type: integer
+          example: 123
       responses:
         "200":
           description: Status list response
@@ -687,51 +758,42 @@ components:
     TypeListItem:
       type: object
       properties:
-        org_id:
-          type: string
-        topic_id:
-          type: string
-        type_id:
-          type: string
         type:
           type: string
+          example: "ถนน"
         type_en:
           type: string
-        photo:
-          type: string
-        index:
-          type: integer
-
-    OrgCategoryItem:
-      type: object
-      description: "ใหม่ — สถานะกลาง+custom ต่อหน่วยงาน"
-      properties:
-        org_id:
-          type: string
-          nullable: true
-          description: "null = หมวดหมู่กลาง"
+          example: "Road"
         issue_category_id:
           type: integer
+          example: 1
         org_category_id:
           type: integer
           nullable: true
-          description: "null = หมวดหมู่กลาง"
-        name_th:
+          example: null
+        photo:
           type: string
-        name_en:
-          type: string
-        sort_order:
+          example: "https://storage.googleapis.com/traffy_public_bucket/icon/road.png"
+        index:
           type: integer
-        icon_url:
-          type: string
-        category_group:
-          type: string
+          example: 1
 
     GetTypeListResponse:
       type: object
       properties:
         status:
           type: string
+          example: "success"
+        org_id:
+          type: integer
+          example: 123
+        count:
+          type: integer
+          example: 2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypeListItem"
         message:
           type: string
         exec_time:
@@ -741,73 +803,62 @@ components:
         credit_balance:
           type: integer
           nullable: true
-        org_id:
-          type: array
-          items:
-            type: string
-        count:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/TypeListItem"
-        org_category:
-          type: array
-          description: "ใหม่"
-          items:
-            $ref: "#/components/schemas/OrgCategoryItem"
         api_log_session_id:
           type: string
 
     StatusListItem:
       type: object
       properties:
-        org_id:
-          type: string
-        status_id:
-          type: string
-        status:
-          type: string
-        status_type:
-          type: string
-        index:
-          type: integer
-
-    OrgStatusItem:
-      type: object
-      description: "ใหม่ — สถานะกลาง+custom ต่อหน่วยงาน"
-      properties:
-        org_id:
-          type: string
-          nullable: true
-          description: "null = สถานะกลาง"
         issue_status_id:
           type: integer
+          example: 1
         org_statuses_id:
           type: integer
           nullable: true
-          description: "null = สถานะกลาง"
-        group_name_th:
+          example: null
+        status:
           type: string
-        group_name_en:
+          example: "รอรับเรื่อง"
+        status_en:
           type: string
+          nullable: true
+          example: "Pending"
+        status_type:
+          type: string
+          nullable: true
+          example: "waiting"
         sort_order:
           type: integer
+          example: 1
         bg_color:
           type: string
+          example: "#FFA500"
         text_color:
           type: string
+          example: "#FFFFFF"
         border_color:
           type: string
+          example: "#FFA500"
         is_active:
-          type: string
-          description: "\"t\" หรือ \"f\""
+          type: boolean
+          example: true
 
     GetStatusListResponse:
       type: object
       properties:
         status:
           type: string
+          example: "success"
+        org_id:
+          type: integer
+          example: 123
+        count:
+          type: integer
+          example: 2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusListItem"
         message:
           type: string
         exec_time:
@@ -817,21 +868,6 @@ components:
         credit_balance:
           type: integer
           nullable: true
-        org_id:
-          type: array
-          items:
-            type: string
-        count:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/StatusListItem"
-        org_status:
-          type: array
-          description: "ใหม่"
-          items:
-            $ref: "#/components/schemas/OrgStatusItem"
         api_log_session_id:
           type: string
 

@@ -24,8 +24,9 @@ class TraffyExchangeClient:
         }
 
     def get_issues(self, org_id: Optional[str] = None, duration: Optional[str] = None, **kwargs) -> Dict[str, Any]:
-        # org_id: comma-list, optional (default = account's org). duration: "today" (default) | "all"
-        url = f"{self.base_url}/get-issues/v1"
+        # org_id: comma-list, optional (default = account's org). duration: "today" (default) | "3days" | "all"
+        # Optional filters: type_name_th, issue_category_id, org_category_id, is_follow, is_forward
+        url = f"{self.base_url}/get-issues/v2"
         params = {**kwargs}
         if org_id:
             params["org_id"] = org_id

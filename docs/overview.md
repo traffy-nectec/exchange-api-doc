@@ -18,13 +18,13 @@
 
 ### 📥 2. ขอข้อมูลจาก Traffy Fondue (Data Retrieval)
 ใช้สำหรับดึงข้อมูลเรื่องแจ้งและข้อมูลระบบไปแสดงผลหรือประมวลผลต่อในระบบของหน่วยงาน
-* [`get-issues`](query-apis.md#api-get-issues-v1): ดูรายการเรื่องแจ้งของหน่วยงาน พร้อมระบบตัวกรอง
-* [`download-issues`](query-apis.md#api-download-issues-v1): ดาวน์โหลดข้อมูลเรื่องแจ้งเป็นไฟล์ CSV
-* [`get-issue`](query-apis.md#api-get-issue-v1): ดูรายละเอียดเชิงลึกและประวัติการดำเนินงานของเรื่องแจ้งตาม `ticket_id`
-* [`search-org`](query-apis.md#api-search-org-v1): ค้นหาหน่วยงานอื่นจากชื่อ
-* [`get-org-list`](query-apis.md#api-get-org-list-v1): ดูผังโครงสร้างรายชื่อหน่วยงานในสังกัด
-* [`get-type-list`](query-apis.md#api-get-type-list-v1): ดูรายการประเภทปัญหาที่หน่วยงานรับผิดชอบ
-* [`get-status-list`](query-apis.md#api-get-status-list-v1): ดูรายการสถานะของเรื่องแจ้งที่สามารถใช้งานได้
+* [`get-issues`](query-apis.md#1-api-get-issues-ขอรายการเรื่องแจ้ง): ดูรายการเรื่องแจ้งของหน่วยงาน พร้อมระบบตัวกรอง (v2)
+* [`download-issues`](query-apis.md#3-api-download-issues-ดาวน์โหลดไฟล์-csv): ดาวน์โหลดข้อมูลเรื่องแจ้งเป็นไฟล์ CSV (v2)
+* [`get-issue`](query-apis.md#2-api-get-issue-ขอรายละเอียดเชิงลึกของเรื่องแจ้ง): ดูรายละเอียดเชิงลึกและประวัติการดำเนินงานของเรื่องแจ้งตาม `ticket_id`
+* [`search-org`](query-apis.md#4-api-search-org-ค้นหาหน่วยงาน): ค้นหาหน่วยงานอื่นจากชื่อ
+* [`get-org-list`](query-apis.md#5-api-get-org-list-ขอโครงสร้างหน่วยงานในสังกัด): ดูผังโครงสร้างรายชื่อหน่วยงานในสังกัด
+* [`get-type-list`](query-apis.md#6-api-get-type-list-ขอรายการประเภทปัญหา): ดูรายการประเภทปัญหาที่หน่วยงานรับผิดชอบ (v2)
+* [`get-status-list`](query-apis.md#7-api-get-status-list-ขอรายการสถานะ): ดูรายการสถานะของเรื่องแจ้งที่สามารถใช้งานได้ (v2)
 
 ### 🔔 3. ส่งข้อมูลแบบ Real-time (Webhooks / Push)
 ระบบจะส่งข้อมูลไปยัง API Endpoint ปลายทางของหน่วยงานอัตโนมัติแบบ Real-time โดยไม่หักโควต้า (Non credit-balance)
