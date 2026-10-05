@@ -19,6 +19,7 @@
 * [OpenAPI 3.0 Specification (`openapi.yaml`)](openapi.yaml)
 * [ตัวอย่างโค้ดการเชื่อมต่อ (Code Examples)](examples/)
 * [กรอบความรู้เชิงระบบและเป้าหมาย (OKF.md)](OKF.md)
+* [บันทึกการตัดสินใจเชิงสถาปัตยกรรม (ADR.md)](ADR.md)
 * [บริบททางเทคนิคและสถาปัตยกรรม (CONTEXT.md)](CONTEXT.md)
 * [เอกสารส่งมอบงานและการต่อยอด (HANDOFF.md)](HANDOFF.md)
 
@@ -32,7 +33,7 @@
 | :--- | :---: | :---: | :--- |
 | [`/get-auth/v1`](docs/authentication.md) | `POST` | User/Pass | ขอรับ JWT Bearer Token |
 | [`/get-issues/v2`](docs/query-apis.md#1-api-get-issues-ขอรายการเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายการเรื่องแจ้งของหน่วยงาน (org_id, duration, filters) |
-| [`/get-issue/v1`](docs/query-apis.md#2-api-get-issue-ขอรายละเอียดเชิงลึกของเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายละเอียดเชิงลึกของเรื่องแจ้งราย `ticket_id` |
+| [`/get-issue/v2`](docs/query-apis.md#2-api-get-issue-ขอรายละเอียดเชิงลึกของเรื่องแจ้ง) | `GET` | Bearer Token | ดึงรายละเอียดเชิงลึกของเรื่องแจ้งราย `ticket_id` |
 | [`/download-issues/v2`](docs/query-apis.md#3-api-download-issues-ดาวน์โหลดไฟล์-csv) | `GET` | Bearer Token | ส่งออกข้อมูลเรื่องแจ้งเป็นไฟล์ CSV |
 | [`/search-org/v1`](docs/query-apis.md#4-api-search-org-ค้นหาหน่วยงาน) | `GET` | Bearer Token | ค้นหารหัสหน่วยงาน (`org_id`) จากชื่อ |
 | [`/get-org-list/v1`](docs/query-apis.md#5-api-get-org-list-ขอโครงสร้างหน่วยงานในสังกัด) | `GET` | Bearer Token | ดึงผังรายชื่อหน่วยงานในสังกัด |
@@ -78,6 +79,7 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 │   └── app.js
 ├── README.md               # เอกสารหน้าแรกและสรุป Endpoint
 ├── OKF.md                  # Objectives, Key Results & System Knowledge Framework
+├── ADR.md                  # Architecture Decision Records
 ├── CONTEXT.md              # Technical Context & Integration Architecture
 ├── HANDOFF.md              # Handoff Documentation & Next Steps
 ├── openapi.yaml            # OpenAPI 3.0.3 Specification
@@ -97,6 +99,15 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 ---
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
+
+### 2026-10-05
+- ทดสอบการเชื่อมต่อ API ครบทั้ง 14 Endpoints บน Live Server ด้วยชุดทดสอบอัตโนมัติ (ผลลัพธ์ผ่าน 100%)
+- กำหนดให้ใช้ `/get-issue/v2` เป็น Primary Endpoint และปรับปรุงโครงสร้างข้อมูลให้ตรงกับ Server Response ปัจจุบัน (`status_th_latest`, `name` ใน `orgs[]`, `issue_category_id`, ฯลฯ)
+- แก้ไข JSON Schema และ Code Examples ของ `/get-auth/v1` ให้ `results` เป็น Object
+- เพิ่ม Best Practice แนะนำการส่ง `?org_id={org_id}` ใน `/get-org-list/v1`
+- ปรับปรุงข้อกำหนดพารามิเตอร์ `origin_group` ใน `/join-forward/v1` เป็น Optional
+- เพิ่มเอกสาร [`ADR.md`](ADR.md) บันทึกการตัดสินใจเชิงสถาปัตยกรรม (ADR-001 ถึง ADR-007)
+- ปรับปรุง Client SDK (Python & Node.js) ให้รองรับการแกะ Bearer Token อย่างถูกต้อง
 
 ### 2026-09-26
 - เปลี่ยนไปใช้ API `get-type-list/v2` และ `get-status-list/v2`

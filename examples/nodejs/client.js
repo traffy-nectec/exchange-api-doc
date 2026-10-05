@@ -11,8 +11,8 @@ class TraffyExchangeClient {
       body: JSON.stringify({ user: username, pass: password })
     });
     const data = await res.json();
-    if (data.status === "success" && data.results && data.results.length > 0) {
-      this.token = data.results[0].token;
+    if (data.status === "success" && data.results) {
+      this.token = Array.isArray(data.results) ? data.results[0].token : data.results.token;
     }
     return data;
   }
@@ -37,10 +37,10 @@ class TraffyExchangeClient {
     return res.json();
   }
 
-  // ticket_id is REQUIRED — get-issue/v1 does not support client_ticket_id
+  // ticket_id is REQUIRED — does not support client_ticket_id
   async getIssue(ticketId, params = {}) {
     const query = new URLSearchParams({ ticket_id: ticketId, ...params }).toString();
-    const res = await fetch(`${this.baseUrl}/get-issue/v1?${query}`, {
+    const res = await fetch(`${this.baseUrl}/get-issue/v2?${query}`, {
       method: "GET",
       headers: this.getHeaders()
     });

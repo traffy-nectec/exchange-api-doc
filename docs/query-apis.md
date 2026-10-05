@@ -120,19 +120,20 @@ Authorization: Bearer <token>
 
 ### Endpoint URL
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-issue/v1?ticket_id={ticket_id}
+GET https://publicapi.traffy.in.th/exchange-api/get-issue/v2?ticket_id={ticket_id}
 Authorization: Bearer <token>
 ```
+*(หมายเหตุ: ระบบยังคงรองรับ `/get-issue/v1` สำหรับการเชื่อมต่อแบบเดิม)*
 
 ### Input Parameters (Query String)
 
 | Parameter | Type | Required | Description | Example |
 | :--- | :--- | :---: | :--- | :--- |
-| `ticket_id` | string | **REQUIRED** | หมายเลขเรื่องแจ้งในระบบ Fondue (**ไม่รองรับ** `client_ticket_id`) | `"2023-ABCDEF"` |
+| `ticket_id` | string | **REQUIRED** | หมายเลขเรื่องแจ้งในระบบ Fondue (**ไม่รองรับ** `client_ticket_id`) | `"2026-YUXXFL"` |
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-issue/v1?ticket_id=2023-ABCDEF
+GET https://publicapi.traffy.in.th/exchange-api/get-issue/v2?ticket_id=2026-YUXXFL
 Authorization: Bearer <token>
 ```
 
@@ -148,106 +149,105 @@ Authorization: Bearer <token>
 | `source` | string | แหล่งข้อมูล (cache หรือ live) |
 | `credit_balance` | integer / null | โควต้าคงเหลือ (null = unlimited) |
 | `ticket_id` | string | หมายเลขเรื่องแจ้งที่ค้นหา |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
+| `api_log_session_id` | string / integer | รหัส session สำหรับอ้างอิง log |
 | `results` | object | รายละเอียดเรื่องแจ้ง (ดูฟิลด์ด้านล่าง) |
 
 #### ฟิลด์ใน `results`:
 * `ticket_id`, `type`, `organization`, `description`, `photo`, `latitude`, `longitude`, `address`, `subdistrict`, `district`, `province`, `timestamp` — เช่นเดียวกับ `get-issues`
-* `status_type`: ประเภทของสถานะ
-* `confirmed`: ยืนยันปิดเรื่องแล้วหรือไม่
-* `star`: คะแนนดาวที่ได้รับ
-* `count_reopen`: จำนวนครั้งที่ถูกเปิดใหม่
+* `status_th_latest`: สถานะภาษาไทยล่าสุดของเรื่องแจ้ง (เช่น `"เสร็จสิ้น"`, `"กำลังดำเนินการ"`)
+* `status_type`: ประเภทของสถานะ (เช่น `"finish"`, `"inprogress"`, `"start"`)
+* `confirmed`: ยืนยันปิดเรื่องแล้วหรือไม่ (boolean)
+* `star`: คะแนนดาวที่ได้รับ (1-5 หรือ `null`)
+* `count_reopen`: จำนวนครั้งที่ถูกเปิดใหม่ (integer)
 * `last_activity`: วันเวลากิจกรรมล่าสุด
 * `orgs[]`: รายการหน่วยงานที่เกี่ยวข้องกับเรื่องแจ้งนี้ แต่ละรายการมี:
   * `timestamp`: วันเวลาที่ส่งต่อ/รับเรื่อง
-  * `org_id` / `org`: รหัสและชื่อหน่วยงาน
-  * `type_id` / `type` / `type_en`: รหัสและชื่อประเภทปัญหา (ไทย/อังกฤษ)
-  * `status_id` / `status` / `status_type`: รหัส ชื่อ และประเภทของสถานะ
-  * `org_category_id`: รหัสหมวดหมู่แบบ custom ของหน่วยงาน (null = ใช้หมวดหมู่กลาง)
-  * `org_status_id`: รหัสสถานะแบบ custom ของหน่วยงาน (null = ใช้สถานะกลาง)
-* `timeline[]`: ประวัติการดำเนินการ แต่ละรายการมี `timestamp`, `status_id`, `status`, `org_id`, `org`, `note`, `photo`
+  * `org_id`: รหัสหน่วยงาน (integer)
+  * `name`: ชื่อหน่วยงาน (string)
+  * `type` / `type_en`: ชื่อประเภทปัญหาภาษาไทยและภาษาอังกฤษ
+  * `issue_category_id`: รหัสหมวดหมู่กลาง (integer)
+  * `org_category_id`: รหัสหมวดหมู่เฉพาะของหน่วยงาน (null = ใช้หมวดหมู่กลาง)
+  * `status` / `status_en`: สถานะภาษาไทยและอังกฤษ
+  * `status_type`: ประเภทสถานะ
+  * `is_follow` / `is_forward`: สถานะติดตาม/ส่งต่อ (boolean)
+  * `issue_status_id`: รหัสสถานะกลาง (integer)
+  * `org_status_id`: รหัสสถานะเฉพาะของหน่วยงาน (null = ใช้สถานะกลาง)
+* `timeline[]`: ประวัติการดำเนินการ แต่ละรายการมี:
+  * `timestamp`: วันเวลาของกิจกรรม
+  * `status_id`: รหัสสถานะ (integer / null)
+  * `status`: ชื่อสถานะ
+  * `org_id` / `org`: รหัสและชื่อหน่วยงานที่ดำเนินการ
+  * `note`: รายละเอียดหรือบันทึกข้อความ
+  * `photo`: ลิงก์ URL รูปภาพผลการดำเนินงาน (string / null)
 
-#### Example Response (ผลจริงจากการทดสอบ ticket_id=2026-GYDHMT, org 151)
+#### Example Response (ผลจริงจากการทดสอบ)
 ```json
 {
-    "status": "success",
-    "message": "",
-    "exec_time": "1.193s",
-    "source": "h cache 2026-09-09 16:42:17 (expire 600s), db",
-    "credit_balance": null,
-    "ticket_id": "2026-GYDHMT",
-    "results": {
-        "ticket_id": "2026-GYDHMT",
-        "type": "อื่นๆ",
-        "organization": "Traffy @ ITS Lab2, ทดสอบ toy (2)",
-        "description": "ทดสอบแจ้ง ด้วย ssl ใหม่",
-        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/2d85cd26729c8bff06e30718d2629e5f.jpeg",
-        "latitude": 14.077774,
-        "longitude": 100.60131,
-        "address": "ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",
-        "subdistrict": "คลองหนึ่ง",
-        "district": "คลองหลวง",
-        "province": "ปทุมธานี",
-        "timestamp": "2026-08-27 22:15:33.416627",
-        "status_type": "inprogress",
-        "confirmed": false,
-        "star": null,
-        "count_reopen": 0,
-        "last_activity": "2026-09-01 16:14:49.465362",
-        "orgs": [
-            {
-                "timestamp": "2026-08-27 22:15:33.416627",
-                "org_id": 151,
-                "org": "Traffy @ ITS Lab2",
-                "type_id": 620543,
-                "type": "อื่นๆ",
-                "type_en": "Other",
-                "status_id": 105125,
-                "status": "กำลังดำเนินการ",
-                "status_type": "inprogress",
-                "org_category_id": null,
-                "org_status_id": 1219411
-            },
-            {
-                "timestamp": "2026-08-27 22:15:33.416627",
-                "org_id": 26683,
-                "org": "ทดสอบ toy (2)",
-                "type_id": 620543,
-                "type": "อื่นๆ",
-                "type_en": "Other",
-                "status_id": 105125,
-                "status": "กำลังดำเนินการ",
-                "status_type": "inprogress",
-                "org_category_id": null,
-                "org_status_id": null
-            }
-        ],
-        "timeline": [
-            {
-                "timestamp": "2026-08-27 22:15:33.416627",
-                "status_id": null,
-                "status": "รอรับเรื่อง",
-                "org_id": null,
-                "org": null,
-                "note": "ทดสอบแจ้ง ด้วย ssl ใหม่",
-                "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/2d85cd26729c8bff06e30718d2629e5f.jpeg"
-            },
-            {
-                "timestamp": "2026-08-27 22:18:06.282372",
-                "status_id": 106369,
-                "status": "จัดทำนโยบาย",
-                "org_id": 151,
-                "org": "Traffy @ ITS Lab2",
-                "note": "ทดสอบ",
-                "photo": null
-            },
-            { "...": "ตัดรายการที่เหลือ" }
-        ]
-    },
-    "api_log_session_id": 2077283457
-}
+  "status": "success",
+  "message": "",
+  "exec_time": "1.257s",
+  "source": "h cache 2026-10-05 19:06:41 (expire 600s), db",
+  "credit_balance": 984,
+  "ticket_id": "2026-YUXXFL",
+  "results": {
+    "ticket_id": "2026-YUXXFL",
+    "type": "น้ำท่วม",
+    "organization": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด",
+    "description": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
+    "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
+    "latitude": 13.754158,
+    "longitude": 100.501499,
+    "address": "แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",
+    "subdistrict": "เสาชิงช้า",
+    "district": "พระนคร",
+    "province": "กรุงเทพมหานคร",
+    "timestamp": "2026-10-05 19:06:16.831069",
+    "status_th_latest": "เสร็จสิ้น",
+    "status_type": "finish",
+    "confirmed": false,
+    "star": 5,
+    "count_reopen": 0,
+    "last_activity": "2026-10-05 19:06:29.688952",
+    "orgs": [
+      {
+        "timestamp": "2026-10-05 19:06:16.831069",
+        "org_id": 43152,
+        "name": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+        "type": "น้ำท่วม",
+        "type_en": "Flood",
+        "issue_category_id": 78,
+        "org_category_id": null,
+        "status": "เสร็จสิ้น",
+        "status_en": "Resolved",
+        "is_follow": false,
+        "is_forward": false,
+        "issue_status_id": 3,
+        "org_status_id": null,
+        "status_type": "finish"
+      }
+    ],
+    "timeline": [
+      {
+        "timestamp": "2026-10-05 19:06:16.831069",
+        "status_id": null,
+        "status": "รอรับเรื่อง",
+        "org_id": null,
+        "org": null,
+        "note": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png"
+      },
+      {
+        "timestamp": "2026-10-05 19:06:29.571698",
+        "status_id": 285950,
+        "status": "เสร็จสิ้น",
+        "org_id": 43152,
+        "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+        "note": "ทดลองปรับสถานะด้วย Exchange API",
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png"
+      }
+    ]
+  },
 ```
-*(หมายเหตุ: `org_status_id: 1219411` คือสถานะ custom "จัดทำนโยบาย" ที่ org 151 ตั้งไว้เอง — org 26683 ยังไม่ได้ตั้ง custom status เลยได้ `null`)*
 
 ---
 
@@ -374,11 +374,13 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `org_id` | string | OPTIONAL | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส | `151,1302` (Default: หน่วยงานของ account) |
+| `org_id` | string | OPTIONAL (แนะนำให้ระบุเสมอ) | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส *(หากไม่ระบุ ระบบจะใช้หน่วยงานของ Account แต่อาจเกิด PHP Warning บน Server แทรกมาก่อน JSON ดังนั้นแนะนำให้ส่งค่าเสมอ)* | `151,1302` (Default: หน่วยงานของ account) |
+
+> ⚠️ **คำแนะนำ:** ควรส่ง query parameter `?org_id={org_id}` เสมอ เพื่อป้องกันข้อผิดพลาด PHP Warning ที่อาจเกิดขึ้นเมื่อไม่ระบุค่า `org_id`
 
 #### Example Request
 ```http
-GET https://publicapi.traffy.in.th/exchange-api/get-org-list/v1?org_id=151
+GET https://publicapi.traffy.in.th/exchange-api/get-org-list/v1?org_id=43152
 Authorization: Bearer <token>
 ```
 

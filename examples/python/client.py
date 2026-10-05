@@ -12,7 +12,8 @@ class TraffyExchangeClient:
         res.raise_for_status()
         data = res.json()
         if data.get("status") == "success" and data.get("results"):
-            self.token = data["results"][0]["token"]
+            results = data["results"]
+            self.token = results["token"] if isinstance(results, dict) else results[0]["token"]
         return data
 
     def _get_headers(self) -> Dict[str, str]:
@@ -37,8 +38,8 @@ class TraffyExchangeClient:
         return res.json()
 
     def get_issue(self, ticket_id: str) -> Dict[str, Any]:
-        # ticket_id is REQUIRED — get-issue/v1 does not support client_ticket_id
-        url = f"{self.base_url}/get-issue/v1"
+        # ticket_id is REQUIRED — does not support client_ticket_id
+        url = f"{self.base_url}/get-issue/v2"
         res = requests.get(url, params={"ticket_id": ticket_id}, headers=self._get_headers())
         res.raise_for_status()
         return res.json()
