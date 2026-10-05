@@ -104,9 +104,31 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetIssuesResponse"
 
+  /get-issue/v2:
+    get:
+      summary: Get Issue Details (v2)
+      description: Retrieve detailed information for a specific ticket.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: ticket_id
+          in: query
+          required: true
+          description: รหัส ticket ของเรื่องร้องเรียน (ไม่รองรับ client_ticket_id สำหรับ API นี้)
+          schema:
+            type: string
+          example: "2026-YUXXFL"
+      responses:
+        "200":
+          description: Issue detail response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIssueResponse"
+
   /get-issue/v1:
     get:
-      summary: Get Issue Details
+      summary: Get Issue Details (v1 - legacy)
       description: Retrieve detailed information for a specific ticket.
       security:
         - BearerAuth: []
@@ -520,29 +542,43 @@ components:
         timestamp:
           type: string
         org_id:
+          type: integer
+        name:
           type: string
+          description: ชื่อหน่วยงาน
         org:
           type: string
+          description: alias เดิมของ name
         type_id:
-          type: string
+          type: integer
         type:
           type: string
         type_en:
           type: string
-        status_id:
-          type: string
-        status:
-          type: string
-        status_type:
-          type: string
+        issue_category_id:
+          type: integer
+          nullable: true
         org_category_id:
           type: integer
           nullable: true
-          description: "ใหม่ — null = ใช้หมวดหมู่กลาง"
+          description: "null = ใช้หมวดหมู่กลาง"
+        status:
+          type: string
+        status_en:
+          type: string
+        status_type:
+          type: string
+        is_follow:
+          type: boolean
+        is_forward:
+          type: boolean
+        issue_status_id:
+          type: integer
+          nullable: true
         org_status_id:
           type: integer
           nullable: true
-          description: "ใหม่ — null = ใช้สถานะกลาง"
+          description: "null = ใช้สถานะกลาง"
 
     IssueTimelineItem:
       type: object
@@ -550,19 +586,22 @@ components:
         timestamp:
           type: string
         status_id:
-          type: string
+          type: integer
+          nullable: true
         status:
           type: string
         org_id:
-          type: string
+          type: integer
+          nullable: true
         org:
           type: string
+          nullable: true
         note:
           type: string
         photo:
-          type: array
-          items:
-            type: string
+          type: string
+          nullable: true
+          description: ลิงก์ URL รูปภาพผลการดำเนินงาน
 
     GetIssueResponse:
       type: object
@@ -594,9 +633,8 @@ components:
             description:
               type: string
             photo:
-              type: array
-              items:
-                type: string
+              type: string
+              description: ลิงก์รูปภาพเรื่องแจ้ง
             latitude:
               type: number
             longitude:
@@ -611,6 +649,9 @@ components:
               type: string
             timestamp:
               type: string
+            status_th_latest:
+              type: string
+              description: สถานะภาษาไทยล่าสุด
             status_type:
               type: string
             confirmed:
@@ -626,6 +667,10 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/IssueOrg"
+            timeline:
+              type: array
+              items:
+                $ref: "#/components/schemas/IssueTimelineItem"
             timeline:
               type: array
               items:
@@ -1183,22 +1228,23 @@ components:
     JoinForwardRequest:
       type: object
       required:
-        - origin_group
         - scenario
       properties:
         ticket_id:
           type: string
-          example: "2026-ABCDEF"
+          example: "2026-YUXXFL"
         client_ticket_id:
           type: string
         message_id:
           type: string
         origin_group:
           type: string
+          description: รหัสหน่วยงานต้นทาง หากไม่ระบุจะใช้หน่วยงานของ Account โดยอัตโนมัติ
         destination_group:
           type: array
           items:
-            type: string
+            type: integer
+          example: [1302]
         scenario:
           type: integer
           enum: [1, 2]
@@ -1216,6 +1262,7 @@ components:
           default: false
         note:
           type: string
+          example: "ทดสอบส่งต่อ"
         photo:
           type: array
           items:
@@ -1234,6 +1281,7 @@ components:
       properties:
         status:
           type: string
+          example: "success"
         message:
           type: string
         exec_time:
@@ -1247,5 +1295,8 @@ components:
           type: string
           description: มีเมื่อ downstream ส่งมาเท่านั้น
         results:
-          type: object
-          description: อาจไม่มี key นี้เลยถ้า downstream ไม่ส่งมา (ไม่ใช่แค่ array ว่าง)
+          description: มักส่งกลับเป็น array ว่าง [] หรือ object เมื่อดำเนินการสำเร็จ
+          oneOf:
+            - type: array
+              items: {}
+            - type: object

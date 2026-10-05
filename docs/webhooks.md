@@ -1,6 +1,6 @@
 # การส่งข้อมูลแบบ Real-time (Webhooks)
 
-Traffy Fondue สามารถส่งข้อมูลแจ้งเตือนแบบ Real-time ไปยัง Server Endpoint ของหน่วยงานได้โดยอัตโนมัติ โดย **ไม่นับรวมในโควต้าการใช้งาน (Non-credit balance)**
+Traffy Fondue สามารถส่งข้อมูลแบบ Real-time ไปยัง Server Endpoint ของหน่วยงานได้โดยอัตโนมัติ โดย **ไม่นับรวมในโควต้าการใช้งาน (Non-credit balance)**
 
 > [!NOTE]
 > กรุณาประสานงานกับทีมพัฒนา Traffy Fondue ผ่านทาง Line **[@fonduehelp](https://line.me/R/ti/p/%40155yjrwo)** เพื่อลงทะเบียน Endpoint URL สำหรับรับ Webhook

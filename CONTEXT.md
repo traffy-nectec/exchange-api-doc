@@ -24,7 +24,7 @@ sequenceDiagram
 
     Note over Dev,TFAuth: Phase 1: Authentication
     Dev->>TFAuth: POST /get-auth/v1 {"user": "...", "pass": "..."}
-    TFAuth-->>Dev: 200 OK {"token": "JWT_TOKEN", "expire_timestamp": "..."}
+    TFAuth-->>Dev: 200 OK {"results": {"token": "JWT_TOKEN", "expire_timestamp": "..."}}
 
     Note over Dev,TFCore: Phase 2: Operations (e.g. Ingestion / Retrieval)
     Dev->>TFCore: POST /new-issue/v1 (Header: Authorization: Bearer JWT_TOKEN)
@@ -62,4 +62,5 @@ sequenceDiagram
 1. **Server-to-Server Only:** การเรียก API และการเก็บ Credential (`user`/`pass`) ต้องทำในระบบฝั่ง Server เท่านั้น ห้ามนำไปฝังใน Client-side Web หรือ Mobile App
 2. **Bearer Token Headers:** ทุก Endpoint (ยกเว้น `get-auth`) ต้องส่ง Header `Authorization: Bearer <token>`
 3. **Webhook Verification:** Endpoint รับ Webhook ของหน่วยงานควรเปิดรับเฉพาะ HTTPS และมีระบบตรวจสอบ Payload เพื่อความปลอดภัย
-4. **Loop Prevention (ป้องกัน Loop):** ห้ามนำข้อมูลเรื่องแจ้งใหม่หรือการอัปเดตสถานะที่ได้รับจาก Traffy Fondue Webhook ส่งกลับเข้ามาที่ API `new-issue` หรือ `update-issue` เพื่อป้องกันการเกิด Echo / Infinite Loop
+4. **Loop Prevention (ป้องกัน Loop):** ห้ามนำข้อมูลเรื่องแจ้งใหม่หรือการอัปเดตสถานะที่ได้รับจาก Traffy Fondue Webhook ส่งกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Echo / Infinite Loop
+5. **Architecture Decisions:** รายละเอียดการตัดสินใจเชิงสถาปัตยกรรมและข้อตกลง Schema ดูเพิ่มเติมได้ที่ [`ADR.md`](ADR.md)

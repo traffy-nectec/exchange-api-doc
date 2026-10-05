@@ -51,34 +51,32 @@ Content-Type: application/json
 | `credit_balance` | integer \| null | จำนวนครั้งการใช้งาน API ที่เหลืออยู่ในเดือนนี้ (เป็น `null` หาก Account ไม่ได้กำหนดโควต้าไว้ / ใช้งานไม่จำกัด) | `820` |
 | `quota_limit` | integer | โควต้าการใช้งานทั้งหมดต่อเดือน | `1000` |
 | `permissions` | array[string] | สิทธิ์การเข้าถึงของ Account (`["read", "write"]`) | `["read", "write"]` |
-| `results` | array[object] | ข้อมูล Token ที่ได้ | *ดูตารางด้านล่าง* |
+| `results` | object | ข้อมูล Token ที่ได้ | *ดูตารางด้านล่าง* |
 | `api_log_session_id` | integer | หมายเลข API log session สำหรับใช้ debug การทำงานของ API ร่วมกับทีม Traffy | `2122913957` |
 
 #### ฟิลด์ใน `results`:
 | Parameter | Type | Description | Example |
 | :--- | :--- | :--- | :--- |
 | `token` | string | JWT Token สำหรับนำไปใส่ใน Header `Authorization: Bearer <token>` | `"eyJhbGciOiJIUzI1Ni..."` |
-| `expire_timestamp` | string | วันเวลาที่ Token หมดอายุ (เวลาประเทศไทย UTC+7) | `"2026-08-31 23:59:59"` |
+| `expire_timestamp` | string | วันเวลาที่ Token หมดอายุ (เวลาประเทศไทย UTC+7) | `"2026-10-12 19:06:12"` |
 
 #### Example Response (Success)
 ```json
 {
   "status": "success",
   "message": "",
-  "exec_time": "0.041s",
-  "credit_balance": 820,
+  "exec_time": "1.056s",
+  "credit_balance": 995,
   "quota_limit": 1000,
   "permissions": [
     "read",
     "write"
   ],
-  "results": [
-    {
-      "token": "abcdefghijklmnopqrstuvwxyz1234567890",
-      "expire_timestamp": "2026-08-31 23:59:59"
-    }
-  ],
-  "api_log_session_id": 2122913957
+  "results": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expire_timestamp": "2026-10-12 19:06:12"
+  },
+  "api_log_session_id": 922348568
 }
 ```
 
@@ -110,10 +108,10 @@ headers = {"Content-Type": "application/json"}
 response = requests.post(url, json=payload, headers=headers)
 data = response.json()
 
-if data.get("status") == "success":
-    token = data["results"][0]["token"]
+if data.get("status") == "success" and "results" in data:
+    token = data["results"]["token"]
     print(f"Token: {token}")
-    print(f"Expires at: {data['results'][0]['expire_timestamp']}")
+    print(f"Expires at: {data['results']['expire_timestamp']}")
 ```
 
 ### Node.js
@@ -128,5 +126,8 @@ const response = await fetch('https://publicapi.traffy.in.th/exchange-api/get-au
 });
 
 const data = await response.json();
-console.log(data);
+if (data.status === 'success' && data.results) {
+  const token = data.results.token;
+  console.log('Token:', token);
+}
 ```

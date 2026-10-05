@@ -213,9 +213,9 @@ Content-Type: application/json
 | Parameter | Type | Required | Description | Example |
 | :--- | :--- | :---: | :--- | :--- |
 | `comment` | string | **REQUIRED** | ข้อความความคิดเห็น/แชท | `"ขอบคุณสำหรับการแจ้งเรื่อง"` |
-| `ticket_id` | string | REQUIRED\* | รหัสเรื่องแจ้งของ Fondue | `"2023-ABCDEF"` |
+| `ticket_id` | string | REQUIRED\* | รหัสเรื่องแจ้งของ Fondue | `"2026-YUXXFL"` |
 | `client_ticket_id` | string | REQUIRED\* | หรือรหัสอ้างอิงของหน่วยงาน (*เลือกระบุอย่างใดอย่างหนึ่ง) | `"TICKET-EXT-9988"` |
-| `comment_type` | string | OPTIONAL | ประเภทข้อความ: `chat` / `chat_staff_only` / `comment` (ค่าเริ่มต้น `chat`) | `"chat"` |
+| `comment_type` | string | OPTIONAL | ประเภทข้อความ: `chat` (จนท.คุยกันเอง/คุยกับผู้แจ้ง) / `chat_staff_only` (จนท.คุยกันเอง) / `comment` (จนท. ให้ความเห็นหลังให้ดาว แทนผู้แจ้ง) (ค่าเริ่มต้น `chat`) | `"chat"` |
 | `base64comment` | string | OPTIONAL | ข้อความความคิดเห็นแบบ base64 (ทางเลือกแทน `comment`) | `"4Kew4Kiw4KeI4Ki..."` |
 | `noti_reporter` | boolean | OPTIONAL | แจ้งเตือนผู้แจ้งเรื่องหรือไม่ | `true` |
 | `noti_staff` | boolean | OPTIONAL | แจ้งเตือนเจ้าหน้าที่หรือไม่ | `true` |
@@ -223,10 +223,9 @@ Content-Type: application/json
 #### Example Request
 ```json
 {
-  "ticket_id": "2023-ABCDEF",
-  "comment": "เจ้าหน้าที่รับทราบและดำเนินการต่อให้ครับ",
-  "comment_type": "chat",
-  "noti_reporter": true
+  "ticket_id": "2026-YUXXFL",
+  "comment": "ทดสอบ จนท.คุยกันเอง",
+  "comment_type": "chat"
 }
 ```
 
@@ -234,12 +233,12 @@ Content-Type: application/json
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
-| `status` | string | สถานะผลลัพธ์ |
+| `status` | string | สถานะผลลัพธ์ (`success`) |
 | `message` | string | ข้อความอธิบายผล |
-| `exec_time` | number | เวลาที่ใช้ประมวลผล (วินาที) |
+| `exec_time` | string | เวลาที่ใช้ประมวลผล (วินาที) เช่น `"2.366s"` |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` | string | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_messagecomment` | string | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
+| `api_log_session_id` | number | รหัส log การเรียกใช้งาน |
+| `api_log_session_id_messagecomment` | number | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
 
 ---
 
@@ -258,17 +257,17 @@ Content-Type: application/json
 
 | Parameter | Type | Required | Description | Example |
 | :--- | :--- | :---: | :--- | :--- |
-| `ticket_id` | string | REQUIRED\* | รหัสเรื่องแจ้งของ Fondue | `"2023-ABCDEF"` |
+| `ticket_id` | string | REQUIRED\* | รหัสเรื่องแจ้งของ Fondue | `"2026-YUXXFL"` |
 | `client_ticket_id` | string | REQUIRED\* | หรือรหัสอ้างอิงของหน่วยงาน | `"TICKET-EXT-9988"` |
 | `message_id` | integer | REQUIRED\* | หรือรหัสข้อความอ้างอิง (*เลือกระบุอย่างใดอย่างหนึ่งจากสามตัวนี้) | `30314900` |
-| `origin_group` | integer | **REQUIRED** | รหัสหน่วยงานต้นทาง | `151` |
+| `origin_group` | integer | OPTIONAL | รหัสหน่วยงานต้นทาง (หากไม่ระบุ ระบบจะใช้หน่วยงานของ Account โดยอัตโนมัติ) | `43152` |
 | `destination_group` | array[integer] | OPTIONAL | รหัสหน่วยงานปลายทาง | `[1302]` |
 | `scenario` | integer | **REQUIRED** | รูปแบบการดำเนินการ: `1` = เชิญร่วม, `2` = ส่งต่อ | `2` |
 | `noti` | boolean | OPTIONAL | 🆕 shorthand ตั้งค่าให้ทั้ง `noti_reporter` และ `noti_staff` พร้อมกัน | `true` |
 | `noti_staff` | boolean | OPTIONAL (default `true`) | 🆕 แจ้งเตือนเจ้าหน้าที่หรือไม่ | `true` |
 | `noti_reporter` | boolean | OPTIONAL (default `true`) | 🆕 แจ้งเตือนผู้แจ้งเรื่องหรือไม่ | `true` |
 | `skip_timeline` | boolean | OPTIONAL (default `false`) | 🆕 ข้ามการบันทึกรายการนี้ลง timeline หรือไม่ | `false` |
-| `note` | string | OPTIONAL | บันทึกข้อความประกอบการเชิญร่วม/ส่งต่อ | `"ส่งต่อหน่วยงานที่รับผิดชอบโดยตรง"` |
+| `note` | string | OPTIONAL | บันทึกข้อความประกอบการเชิญร่วม/ส่งต่อ | `"ทดสอบส่งต่อ"` |
 | `photo` | array[string] | OPTIONAL\*\* | 🆕 รูปภาพประกอบ เป็นลิงก์ URL | `["https://example.com/photo.jpg"]` |
 | `photo_base64` | string / array[string] | OPTIONAL\*\* | 🆕 รูปภาพประกอบแบบ base64 | `"iVBORw0KGgo..."` |
 | `recursive_counter` | integer | OPTIONAL | 🆕 ตัวนับการส่งต่อซ้ำ (ใช้ภายในระบบเพื่อป้องกันการวนลูป) | `0` |
@@ -281,13 +280,13 @@ Content-Type: application/json
 #### Example Request
 ```json
 {
-  "message_id": 30314900,
-  "origin_group": 151,
+  "ticket_id": "2026-YUXXFL",
   "destination_group": [1302],
   "scenario": 2,
-  "note": "ส่งต่อหน่วยงานที่รับผิดชอบโดยตรง",
   "noti_staff": true,
-  "noti_reporter": true
+  "noti_reporter": true,
+  "skip_timeline": false,
+  "note": "ทดสอบส่งต่อ"
 }
 ```
 
@@ -295,10 +294,23 @@ Content-Type: application/json
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
-| `status` | string | สถานะผลลัพธ์ |
+| `status` | string | สถานะผลลัพธ์ (`success`) |
 | `message` | string | ข้อความอธิบายผล |
-| `exec_time` | number | เวลาที่ใช้ประมวลผล (วินาที) |
+| `exec_time` | string | เวลาที่ใช้ประมวลผล (วินาที) เช่น `"3.627s"` |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` | string | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_join_forward` | string | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
-| `results` | object | ⚠️ อาจไม่มี key นี้ในผลลัพธ์เลยหาก downstream ไม่ส่งข้อมูลกลับมา (ไม่ใช่แค่ array ว่าง) |
+| `api_log_session_id` | number | รหัส log การเรียกใช้งาน |
+| `api_log_session_id_join_forward` | number | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
+| `results` | array / object | ส่งผ่านมาจาก internal API `join_forward` โดยตรง (เมื่อสำเร็จมักได้ `[]` หรือไม่มี key นี้) |
+
+#### Example Response (Success)
+```json
+{
+  "status": "success",
+  "message": "",
+  "exec_time": "3.627s",
+  "credit_balance": 992,
+  "api_log_session_id": 1855040299,
+  "api_log_session_id_join_forward": 203539335,
+  "results": []
+}
+```

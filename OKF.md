@@ -11,6 +11,7 @@
 - **KR 1.2:** พัฒนา Interactive Web Portal (`docs.html`, `index.html`) ที่มีระบบ Live Search, Collapsible Sections (เปิด Request/cURL เป็นค่าเริ่มต้น และซ่อน Response/JSON Schema เพื่อความสะอาด), และปุ่มคัดลอกโค้ด
 - **KR 1.3:** แปลงสเปกจาก Google Docs และ Notion มาเป็นเอกสาร Markdown ที่มีโครงสร้างชัดเจน พร้อม Schema, Parameters, Error Codes, และ Example Requests/Responses
 - **KR 1.4:** จัดทำ OpenAPI 3.0.3 Specification (`openapi.yaml`) ที่ผ่านการ Validate สามารถนำไป Import เข้า Swagger UI, Postman หรือใช้สร้าง Client SDK ได้ทันที
+- **KR 1.5:** บันทึกและกำกับการตัดสินใจเชิงสถาปัตยกรรมผ่าน Architecture Decision Records ([`ADR.md`](ADR.md)) เพื่อให้ข้อกำหนดทางเทคนิคสอดคล้องกับพฤติกรรมจริงของ Live Server อย่างสมบูรณ์ (Contract Alignment)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -34,7 +35,7 @@
 │   🔐 Authentication      │   📥 Data Retrieval      │   📤 Data Submission  │
 ├──────────────────────────┼──────────────────────────┼───────────────────────┤
 │ • POST /get-auth/v1      │ • GET /get-issues/v2     │ • POST /new-issue/v1  │
-│   (JWT Token Generation) │ • GET /get-issue/v1      │ • PATCH /update-issue/v1│
+│   (JWT Token Generation) │ • GET /get-issue/v2      │ • PATCH /update-issue/v1│
 │                          │ • GET /download-issues/v2│ • POST /star/v1       │
 │                          │ • GET /search-org/v1     │ • POST /comment/v1    │
 │                          │ • GET /get-org-list/v1   │ • POST /join-forward/v1│
@@ -48,8 +49,10 @@
 ```
 
 ### 2.2 มาตรฐานความถูกต้องของข้อมูล (Data Validation Principles)
-1. **HTTP Method:** Endpoint ทั้งหมดของ Exchange API ใช้ `POST` Method (และ `update-issue` ใช้ `PATCH`) พร้อมส่ง Payload ในรูปแบบ JSON Body (`Content-Type: application/json`)
-2. **Timezone:** ข้อมูลวันเวลาในระบบใช้เวลามาตรฐานประเทศไทย (UTC+7 / `Asia/Bangkok`) รูปแบบ `YYYY-MM-DD HH:MM:SS` หรือ ISO 8601
-3. **Geo-coordinates:** พิกัดตำแหน่งใช้ระบบพิกัด WGS84 (Latitude, Longitude เป็นเลขทศนิยม)
-4. **Token Expiry:** JWT Token มีอายุการใช้งานจำกัด และจะระบุ `expire_timestamp` มาพร้อมกับ Response ของ `get-auth`
-5. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop
+1. **HTTP Methods:** หมวด Data Retrieval ใช้ `GET` Method พร้อม Query Parameters และหมวด Data Submission ใช้ `POST` (หรือ `PATCH` สำหรับ `update-issue`) พร้อม Request Body แบบ JSON (`Content-Type: application/json`)
+2. **Authentication Contract:** การเรียก `POST /get-auth/v1` จะคืนค่า `results` เป็น JSON Object ซึ่งบรรจุ `token` (JWT String) และ `expire_timestamp` (ADR-002)
+3. **Primary Endpoints:** กำหนดให้ใช้ `/get-issue/v2` เป็นมาตรฐานหลักสำหรับการเรียกดูรายละเอียดเรื่องแจ้ง เพื่อให้ได้โครงสร้างข้อมูลองค์กรและสถานะล่าสุดที่สมบูรณ์ (ADR-001)
+4. **Timezone:** ข้อมูลวันเวลาในระบบใช้เวลามาตรฐานประเทศไทย (UTC+7 / `Asia/Bangkok`) รูปแบบ `YYYY-MM-DD HH:MM:SS` หรือ ISO 8601
+5. **Geo-coordinates:** พิกัดตำแหน่งใช้ระบบพิกัด WGS84 (Latitude, Longitude เป็นเลขทศนิยม)
+6. **Defensive Parameter Hygiene:** แนะนำให้ส่ง `?org_id={org_id}` สำหรับ `GET /get-org-list/v1` เสมอ เพื่อป้องกัน Backend Warning ปะปนหน้า JSON Output (ADR-003)
+7. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop (ADR-007)

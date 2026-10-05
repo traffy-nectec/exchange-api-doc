@@ -78,11 +78,11 @@
 
       <div class="hero-stats">
         <div class="stat-item">
-          <span class="stat-num">13</span>
+          <span class="stat-num">14</span>
           <span class="stat-label">Core API Endpoints</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">2</span>
+          <span class="stat-num">3</span>
           <span class="stat-label">Real-time Webhooks</span>
         </div>
         <div class="stat-item">
@@ -103,7 +103,7 @@
       <div class="section-header">
         <span class="section-tag">Integration Modes</span>
         <h2 class="section-title">3 รูปแบบการเชื่อมต่อระบบ</h2>
-        <p class="section-desc">เลือกรูปแบบการเชื่อมต่อที่ตอบโจทย์การทำงานของหน่วยงานท่าน</p>
+        <p class="section-desc">รูปแบบการรับส่งข้อมูลที่มีให้บริการ</p>
       </div>
 
       <div class="modes-grid">
@@ -112,7 +112,7 @@
           <div class="mode-icon-wrap" aria-hidden="true">📤</div>
           <h3 class="mode-title">1. ส่งข้อมูลเข้า Fondue</h3>
           <p class="mode-desc">
-            เชื่อมระบบแจ้งเหตุหรือ Application ของหน่วยงาน เพื่อส่งเรื่องแจ้งใหม่เข้ามาดำเนินการต่อในระบบ Traffy Fondue
+            ระบบของท่าน ส่งเรื่องแจ้งใหม่หรือการอัปเดต เข้ามาในระบบ Traffy Fondue
           </p>
           <ul class="mode-list">
             <li class="mode-list-item"><code>new-issue</code> ส่งเรื่องแจ้งใหม่พร้อมพิกัดและรูป</li>
@@ -120,6 +120,9 @@
             <li class="mode-list-item"><code>star</code> บันทึกคะแนนความพึงพอใจ</li>
             <li class="mode-list-item"><code>comment</code> ส่งข้อความแชต/SMS ถึงผู้แจ้ง</li>
             <li class="mode-list-item"><code>join-forward</code> เชิญร่วม & ส่งต่อเคส</li>
+            <li class="mode-list-item"><u>หมายเหตุ:</u> ทุก API จำเป็นต้องใช้ Bearer token ที่ได้มาจาก API
+              <code>get-auth</code>
+            </li>
           </ul>
         </div>
 
@@ -128,14 +131,19 @@
           <div class="mode-icon-wrap" aria-hidden="true">📥</div>
           <h3 class="mode-title">2. ขอข้อมูลจาก Fondue</h3>
           <p class="mode-desc">
-            ดึงรายการเรื่องแจ้ง พิกัด ภาพถ่าย และข้อมูลโครงสร้างหน่วยงานไปแสดงผลบน Dashboard หรือระบบภายในของท่าน
+            ระบบของท่าน ดึงรายการเรื่องแจ้ง พิกัด ภาพถ่าย และข้อมูลโครงสร้างหน่วยงานไปแสดงผลบน Dashboard
+            หรือระบบภายในของท่าน
           </p>
           <ul class="mode-list">
             <li class="mode-list-item"><code>get-issues</code> ดึงรายการเรื่องแจ้งพร้อมตัวกรอง</li>
             <li class="mode-list-item"><code>get-issue</code> ดึงประวัติและข้อมูลเชิงลึกรายเคส</li>
             <li class="mode-list-item"><code>download-issues</code> Export ข้อมูลเป็น CSV</li>
-            <li class="mode-list-item"><code>search-org</code> ค้นหาหน่วยงานจากชื่อ</li>
-            <li class="mode-list-item"><code>get-org-list</code> / <code>get-type-list</code> ผังองค์กร & หมวดหมู่</li>
+            <li class="mode-list-item"><code>get-org-list</code> ขอผังโครงสร้างหน่วยงาน</li>
+            <li class="mode-list-item"><code>get-type-list</code> ขอรายการประเภทปัญหา</li>
+            <li class="mode-list-item"><code>get-status-list</code> ขอรายการสถานะ</li>
+            <li class="mode-list-item"><u>หมายเหตุ:</u> ทุก API จำเป็นต้องใช้ Bearer token ที่ได้มาจาก API
+              <code>get-auth</code>
+            </li>
           </ul>
         </div>
 
@@ -144,13 +152,16 @@
           <div class="mode-icon-wrap" aria-hidden="true">🔔</div>
           <h3 class="mode-title">3. Real-time Webhooks</h3>
           <p class="mode-desc">
-            ระบบ Traffy Fondue ส่งข้อมูลแจ้งเตือนไปยัง Server ปลายทางของท่านทันทีเมื่อมีเหตุการณ์เกิดขึ้น
+            ระบบ Traffy Fondue ส่งข้อมูลเรื่องแจ้งใหม่ หรือการอัปเดต หรือข้อความแชท ไปยัง Server
+            ปลายทางของท่านทันทีเมื่อมีเหตุการณ์เกิดขึ้น
             โดยไม่หักโควต้า
           </p>
           <ul class="mode-list">
-            <li class="mode-list-item"><code>POST (New Issue)</code> แจ้งเตือนเมื่อมีเคสใหม่เข้ามา</li>
-            <li class="mode-list-item"><code>PATCH (Status Update)</code> แจ้งเมื่อเจ้าหน้าที่อัปเดตงาน</li>
-            <li class="mode-list-item"><code>Non-quota</code> ไม่นับรอบ Credit Balance</li>
+            <li class="mode-list-item"><code>New Issue [POST]</code> ส่งข้อมูลเรื่องแจ้งไปให้เมื่อมีเคสใหม่เข้ามา</li>
+            <li class="mode-list-item"><code>Status Update [PATCH]</code> ส่งข้อมูลการอัปเดตไปให้เมื่อมีการอัปเดต</li>
+            <li class="mode-list-item"><code>Chat [POST]</code> ส่งข้อความแชทไปให้เมื่อมีข้อความแชท</li>
+            <li class="mode-list-item"><u>หมายเหตุ:</u><br />1. <code>Non-quota</code> การส่งนี้จะไม่นับโควต้า Credit
+              Balance<br />2. จะไม่ส่งกิจกรรมที่ได้รับเข้ามาทาง Exchange ทุก account เพื่อป้องกันการเกิด echo loop</li>
           </ul>
         </div>
       </div>
@@ -186,7 +197,7 @@
         <div class="step-card">
           <div class="step-badge">4</div>
           <h4 class="step-title">เริ่มเชื่อมต่อ API</h4>
-          <p class="step-desc">นำ Token ที่ได้รับใส่ใน Header <code>Authorization: Bearer</code> แล้วเรียกใช้ API
+          <p class="step-desc">นำ Token ที่ได้รับ มาใส่ใน Header <code>Authorization: Bearer</code> แล้วเรียกใช้ API
             ที่ต้องการได้ทันที</p>
         </div>
       </div>
@@ -204,8 +215,8 @@
             Documentation</span>
           <h3 style="color: var(--brand); font-size: 1.75rem;">คู่มือการเชื่อมต่อ API ฉบับเต็ม</h3>
           <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            รวมเอกสารสเปกครบทั้ง <strong>13 Core Endpoints</strong> และ <strong>2 Real-time Webhooks</strong>
-            พร้อมประเภทตัวแปร (Data Types), ตัวอย่างคำสั่ง cURL, ตัวอย่าง JSON Response, รหัส Error Codes และ OpenAPI
+            รวมเอกสารสเปกครบ <strong>ทุก Endpoints</strong> และ <strong>ทุก Real-time Webhooks</strong>
+            พร้อมประเภทตัวแปร (Data Types), ตัวอย่างคำสั่ง cURL, ตัวอย่าง JSON Response และ OpenAPI
             Spec (.yaml)
           </p>
         </div>

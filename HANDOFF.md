@@ -24,6 +24,7 @@
 | **`js/app.js`** | ฟังก์ชัน Interactive (Live Search, ScrollSpy Navigation, Copy-to-Clipboard) |
 | **`README.md`** | หน้าแรกของ Repository สรุป Quick API Reference, Quickstart, และโครงสร้างโปรเจกต์ |
 | **`OKF.md`** | Objectives, Key Results และ System Knowledge Framework |
+| **`ADR.md`** | Architecture Decision Records บันทึกการตัดสินใจเชิงสถาปัตยกรรมและข้อตกลง API |
 | **`CONTEXT.md`** | สถาปัตยกรรมการเชื่อมต่อ, Data Schemas, และ Security Principles |
 | **`HANDOFF.md`** | เอกสารส่งมอบงาน บันทึกการปรับปรุง และแนวทางการต่อยอด |
 | **`openapi.yaml`** | สเปกมาตรฐาน OpenAPI 3.0.3 สำหรับนำเข้า Swagger / Postman หรือใช้สร้าง SDK |
@@ -38,6 +39,27 @@
 ---
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
+
+### 🧪 Live API Verification & Contract Alignment Release (Version: 2026-10-05)
+- **End-to-End Live Testing:** ทำการทดสอบยิง API จริงครบทุก Endpoint (14 APIs: Authentication, Query, Action) ผ่านระบบอัตโนมัติ ผลลัพธ์ผ่านทั้งหมด 100% (HTTP 200 OK)
+- **`POST /exchange-api/get-auth/v1` Contract Alignment:**
+  - ปรับปรุง JSON Schema ของ `results` ให้เป็น `object` (จากเดิมระบุเป็น `array[object]`) ให้ตรงกับพฤติกรรมจริงของ API
+  - อัปเดต Client SDK ใน `examples/python/client.py` และ `examples/nodejs/client.js` ให้ดึง Token จาก Object อย่างถูกต้องและปลอดภัย
+- **`GET /exchange-api/get-issue/v2` Official Adoption:**
+  - กำหนดให้ `/get-issue/v2` เป็น Primary Endpoint สำหรับการดึงข้อมูลเรื่องแจ้งรายใบ
+  - อัปเดตโครงสร้างฟิลด์ใหม่: `status_th_latest`, คีย์ชื่อหน่วยงาน `name` ใน `orgs[]`, `issue_category_id`, `issue_status_id`, `status_en`, `is_follow`, และ `is_forward`
+  - คง `/get-issue/v1` ไว้ใน `openapi.yaml` พร้อมระบุ `deprecated: true` เพื่อความเข้ากันได้ย้อนหลัง (Backward Compatibility)
+- **`GET /exchange-api/get-org-list/v1` Best Practice Guidance:**
+  - ระบุคำแนะนำให้นักพัฒนาส่ง `?org_id={org_id}` เสมอ เพื่อป้องกันปัญหา PHP Warning รั่วไหลออกมาก่อน JSON Payload เมื่อไม่ระบุ Parameter
+- **`POST /exchange-api/join-forward/v1` Schema Refinement:**
+  - ปรับสถานะพารามิเตอร์ `origin_group` เป็น Optional (เซิร์ฟเวอร์จะอ้างอิงจากหน่วยงานของ Token เจ้าของบัญชีให้อัตโนมัติ)
+  - ปรับปรุง Response Example และ Schema ให้ตรงกับผลลัพธ์จริง (`results: []`)
+- **`POST /exchange-api/comment/v1` Context Clarification:**
+  - เพิ่มคำอธิบายความแตกต่างของ `comment_type`: `"comment"` สำหรับความเห็นประเมินความพึงพอใจ และ `"chat"` สำหรับการสนทนากับประชาชนผ่าน SMS
+- **Architecture Decision Records (ADR):**
+  - เพิ่มเอกสาร [`ADR.md`](ADR.md) บันทึกเหตุผลการตัดสินใจทางสถาปัตยกรรม (ADR-001 ถึง ADR-007)
+- **Code & Specs Synchronization:**
+  - ตรวจทานและอัปเดต `docs.html`, `openapi.yaml`, `README.md`, `OKF.md`, `CONTEXT.md`, และ `docs/*.md` ให้สอดคล้องกันทุกส่วน
 
 ### 🚀 Exchange API (v2) Release (Version: 2026-09-26)
 - **`GET /exchange-api/get-issues/v2` & `GET /exchange-api/download-issues/v2`:**
