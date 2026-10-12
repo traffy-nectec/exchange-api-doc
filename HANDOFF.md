@@ -40,6 +40,17 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 🛠️ Response Alignment & Navigation Single Source of Truth (Version: 2026-10-12)
+- **Single Source of Truth for API Versioning:**
+  - ถอดเลขเวอร์ชัน (`/v1`, `/v2`) ออกจากลิงก์เมนูนำทางด้านซ้าย (`.docs-sidebar-nav`) ใน `docs.html` คงเหลือเฉพาะชื่อ Resource หลัก (เช่น `/get-issues`, `/get-issue`, `/new-issue`)
+  - กำหนดให้การ์ดรายละเอียดของแต่ละ API เป็นจุดระบุเวอร์ชันและควบคุมเวอร์ชันเพียงจุดเดียว (Single Source of Truth) เพื่อลดความซ้ำซ้อนและป้องกันการแก้ไขเวอร์ชันตกหล่นในอนาคต
+- **Live Response & Webhook Schema Alignment:**
+  - อัปเดตตัวอย่าง Response JSON ใน `docs.html` (ทั้งสำหรับ Action APIs และ Webhook Events เช่น `new-issue`, `update-issue`, `star`, `comment`, `join-forward`) ให้ตรงกับข้อมูลจริงที่เซิร์ฟเวอร์ตอบกลับมา
+- **Parameter Validation & Documentation Accuracy:**
+  - ตรวจสอบ Input Parameters ของทุก Endpoint เทียบกับซอร์สโค้ดจริงใน `exchange-api-php` ยืนยันว่า `GET /get-issue/v2` รับเฉพาะ `ticket_id` และไม่รองรับ `client_ticket_id` พร้อมปรับคำอธิบายให้ถูกต้องตรงกัน
+- **Architecture Decision Record (ADR-008):**
+  - บันทึกการตัดสินใจเชิงสถาปัตยกรรมเรื่อง Single Source of Truth สำหรับ Versioning ใน UI ลงใน [`ADR.md`](ADR.md)
+
 ### 🧪 Live API Verification & Contract Alignment Release (Version: 2026-10-05)
 - **End-to-End Live Testing:** ทำการทดสอบยิง API จริงครบทุก Endpoint (14 APIs: Authentication, Query, Action) ผ่านระบบอัตโนมัติ ผลลัพธ์ผ่านทั้งหมด 100% (HTTP 200 OK)
 - **`POST /exchange-api/get-auth/v1` Contract Alignment:**

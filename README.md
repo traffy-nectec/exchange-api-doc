@@ -100,6 +100,12 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
+### 2026-10-12
+- ปรับปรุงการนำทางในเอกสาร (`docs.html`): ถอด `/v1` และ `/v2` ออกจากเมนูด้านซ้าย (`docs-sidebar-nav`) โดยแสดงเฉพาะชื่อ Resource หลัก และกำหนดให้ส่วนรายละเอียดในการ์ด API แต่ละตัวเป็นจุดเดียวในการระบุเวอร์ชัน (Single Source of Truth) เพื่อป้องกันการแก้ไขเวอร์ชันไม่ครบหลายจุด
+- อัปเดตตัวอย่างผลลัพธ์ JSON (Response Examples) ของ API ต่างๆ และ Webhooks ให้ตรงกับเวอร์ชันและผลลัพธ์จริงจากเซิร์ฟเวอร์
+- ตรวจสอบความถูกต้องของ Input Parameters อ้างอิงตามโค้ด Backend จริง (เช่น ยืนยันว่า `get-issue` ไม่รองรับ `client_ticket_id` และระบุคำอธิบายให้ถูกต้อง)
+- บันทึกการตัดสินใจเชิงสถาปัตยกรรม [ADR-008](ADR.md#adr-008-การรวม-single-source-of-truth-สำหรับ-versioning-ใน-ui-และการปรับปรุงความถูกต้องของ-parameter--response-contract)
+
 ### 2026-10-05
 - ทดสอบการเชื่อมต่อ API ครบทั้ง 14 Endpoints บน Live Server ด้วยชุดทดสอบอัตโนมัติ (ผลลัพธ์ผ่าน 100%)
 - กำหนดให้ใช้ `/get-issue/v2` เป็น Primary Endpoint และปรับปรุงโครงสร้างข้อมูลให้ตรงกับ Server Response ปัจจุบัน (`status_th_latest`, `name` ใน `orgs[]`, `issue_category_id`, ฯลฯ)
