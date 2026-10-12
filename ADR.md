@@ -13,6 +13,7 @@
 * [ADR-005: การรองรับบริบทการใช้งาน 2 รูปแบบใน `POST /comment/v1` (`comment` vs `chat`)](#adr-005-การรองรับบริบทการใช้งาน-2-รูปแบบใน-post-commentv1-comment-vs-chat)
 * [ADR-006: การคงความเข้ากันได้ย้อนหลัง (Backward Compatibility) และการประกาศ Dual-Version ใน OpenAPI Spec](#adr-006-การคงความเข้ากันได้ย้อนหลัง-backward-compatibility-และการประกาศ-dual-version-ใน-openapi-spec)
 * [ADR-007: มาตรการป้องกัน Infinite Webhook Feedback Loop ระหว่างระบบภายนอกและแพลตฟอร์ม](#adr-007-มาตรการป้องกัน-infinite-webhook-feedback-loop-ระหว่างระบบภายนอกและแพลตฟอร์ม)
+* [ADR-008: การรวม Single Source of Truth สำหรับ Versioning ใน UI และการปรับปรุงความถูกต้องของ Parameter & Response Contract](#adr-008-การรวม-single-source-of-truth-สำหรับ-versioning-ใน-ui-และการปรับปรุงความถูกต้องของ-parameter--response-contract)
 
 ---
 
@@ -174,3 +175,26 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 
 ### ผลสืบเนื่อง (Consequences)
 - ป้องกันความเสียหายต่อทรัพยากรเซิร์ฟเวอร์ และรักษาความถูกต้องของข้อมูลในระบบ
+
+---
+
+## ADR-008: การรวม Single Source of Truth สำหรับ Versioning ใน UI และการปรับปรุงความถูกต้องของ Parameter & Response Contract
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-10-12)
+
+### บริบท (Context)
+เดิมแถบนำทางด้านซ้าย (Sidebar Navigation: `.docs-sidebar-nav`) และเมนูเลือก Endpoint บนหน้าเอกสาร `docs.html` มีการระบุเลขเวอร์ชันกำกับไว้ในชื่อเมนู เช่น `/get-issues/v2`, `/update-issue/v1` 
+การมีเลขเวอร์ชันกระจายอยู่หลายแห่งก่อให้เกิดปัญหา:
+1. **Redundant Maintenance Overhead:** เมื่อมีการปรับปรุง Endpoint เป็นเวอร์ชันใหม่ ผู้ดูแลเอกสารต้องตามแก้ไขเวอร์ชันในหลายจุด (ทั้ง Sidebar, Dropdown Menu, หัวการ์ด API, cURL Example, และ Response Block) ซึ่งมักเกิดข้อผิดพลาดหรือแก้ไม่ครบ
+2. **Contract Discrepancy & Parameter Drift:** คำอธิบาย Input Parameters และตัวอย่าง JSON Response ในเอกสารบางจุดไม่สอดคล้องกับพฤติกรรมจริงของ Live Backend Server เช่น ใน `GET /get-issue/v2` คำอธิบายเคยระบุว่ารองรับ `client_ticket_id` ทั้งที่โค้ดจริงรับเฉพาะ `ticket_id` เท่านั้น
+
+### การตัดสินใจ (Decision)
+1. **Single Source of Truth สำหรับ Versioning:** นำ `/v1` และ `/v2` ออกจากชื่อรายการใน Sidebar Navigation (`.docs-sidebar-nav`) ให้คงเหลือเฉพาะชื่อ Resource หลัก (เช่น `/get-issues`, `/get-issue`, `/new-issue`) และกำหนดให้ **การ์ดรายละเอียดของแต่ละ API** เป็นจุดเดียว (Single Source of Truth) ที่ระบุและควบคุมเวอร์ชันของ Endpoint นั้นๆ
+2. **Response Contract Alignment:** อัปเดตตัวอย่างผลลัพธ์ JSON ใน `docs.html` (ทั้งสำหรับ Action APIs และ Webhooks) ให้ตรงกับ Live Production Server Response ในปัจจุบัน
+3. **Parameter Precision:** ตรวจสอบและแก้ไขคำอธิบาย Input Parameters ราย Endpoint อ้างอิงตามโค้ด Backend ใน `exchange-api-php` เป็นหลัก ยืนยันว่า `GET /get-issue/v2` ไม่รองรับ `client_ticket_id` เพื่อไม่ให้ผู้ใช้งานสับสน
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** เมนูนำทางเรียบง่าย สะอาดตา และเมื่อมีการอัปเกรดเวอร์ชันของ API ใดๆ ในอนาคต มีจุดที่ต้องแก้ไขเวอร์ชันเพียงจุดเดียวที่การ์ด API นั้นๆ ป้องกันการแก้ไม่ครบ
+- **ความแม่นยำ:** ผู้พัฒนาระบบภายนอกได้รับสเปก Parameter และตัวอย่าง Response ที่ถูกต้องตรงกับเซิร์ฟเวอร์จริง 100%
+

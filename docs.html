@@ -111,7 +111,7 @@
             <ul class="sidebar-links">
               <li>
                 <a href="#get-auth" class="sidebar-link">
-                  <span class="link-name">/get-auth/v1</span>
+                  <span class="link-name">/get-auth</span>
                   <span class="method-badge method-post badge-mini">POST</span>
                 </a>
               </li>
@@ -122,21 +122,21 @@
           <div class="sidebar-group">
             <a href="#sec-query" class="sidebar-group-title">2. Data Retrieval (7)</a>
             <ul class="sidebar-links">
-              <li><a href="#get-issues" class="sidebar-link"><span class="link-name">/get-issues/v2</span><span
+              <li><a href="#get-issues" class="sidebar-link"><span class="link-name">/get-issues</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-issue" class="sidebar-link"><span class="link-name">/get-issue/v2</span><span
+              <li><a href="#get-issue" class="sidebar-link"><span class="link-name">/get-issue</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#download-issues" class="sidebar-link"><span
-                    class="link-name">/download-issues/v2</span><span
+                    class="link-name">/download-issues</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#search-org" class="sidebar-link"><span class="link-name">/search-org/v1</span><span
+              <li><a href="#search-org" class="sidebar-link"><span class="link-name">/search-org</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-org-list" class="sidebar-link"><span class="link-name">/get-org-list/v1</span><span
+              <li><a href="#get-org-list" class="sidebar-link"><span class="link-name">/get-org-list</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list/v2</span><span
+              <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-status-list" class="sidebar-link"><span
-                    class="link-name">/get-status-list/v2</span><span
+                    class="link-name">/get-status-list</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
             </ul>
           </div>
@@ -145,15 +145,15 @@
           <div class="sidebar-group">
             <a href="#sec-action" class="sidebar-group-title">3. Data Submission (5)</a>
             <ul class="sidebar-links">
-              <li><a href="#new-issue" class="sidebar-link"><span class="link-name">/new-issue/v1</span><span
+              <li><a href="#new-issue" class="sidebar-link"><span class="link-name">/new-issue</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#update-issue" class="sidebar-link"><span class="link-name">/update-issue/v1</span><span
+              <li><a href="#update-issue" class="sidebar-link"><span class="link-name">/update-issue</span><span
                     class="method-badge method-patch badge-mini">PATCH</span></a></li>
-              <li><a href="#star" class="sidebar-link"><span class="link-name">/star/v1</span><span
+              <li><a href="#star" class="sidebar-link"><span class="link-name">/star</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#comment" class="sidebar-link"><span class="link-name">/comment/v1</span><span
+              <li><a href="#comment" class="sidebar-link"><span class="link-name">/comment</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#join-forward" class="sidebar-link"><span class="link-name">/join-forward/v1</span><span
+              <li><a href="#join-forward" class="sidebar-link"><span class="link-name">/join-forward</span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
             </ul>
           </div>
@@ -308,20 +308,20 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.041s",
-  "credit_balance": 820,
-  "quota_limit": 1000,
-  "permissions": [
-    "read",
-    "write"
-  ],
-  "results": {
-    "token": "YOUR_TOKEN",
-    "expire_timestamp": "2031-08-31 23:59:59"
-  },
-  "api_log_session_id": 2122913957
+    "status": "success",
+    "message": "",
+    "exec_time": "0.89s",
+    "credit_balance": 975,
+    "quota_limit": 1000,
+    "permissions": [
+        "read",
+        "write"
+    ],
+    "results": {
+        "token": "YOUT_TOKEN",
+        "expire_timestamp": "2026-10-17 17:00:42"
+    },
+    "api_log_session_id": 410727497
 }</code></pre>
                       </div>
                     </div>
@@ -536,44 +536,74 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "14.128s",
-  "source": "h db, db",
-  "credit_balance": null,
-  "org_id": [151],
-  "count": 4367,
-  "api_log_session_id": 2030246239,
-  "results": [
-    {
-      "ticket_id": "2026-ABCDEF",
-      "type": "ทุจริต",
-      "type_reporter": "ทางเท้า",
-      "organization": "Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue",
-      "description": "ทดสอบ flex 2026-06-26 (2)",
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg",
-      "latitude": 14.077786,
-      "longitude": 100.601313,
-      "address": "112 อุทยานวิทยาศาสตร์ ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120 ประเทศไทย",
-      "subdistrict": "คลองหนึ่ง",
-      "district": "คลองหลวง",
-      "province": "ปทุมธานี",
-      "timestamp": "2026-06-26 00:56:33.222981",
-      "photo_after": "https://storage.googleapis.com/traffy_public_bucket/",
-      "timestamp_inprogress": "2026-06-26 15:56:48.166621",
-      "timestamp_finished": "2026-07-01 02:48:34.224461",
-      "org_finished": "Traffy @ ITS Lab2",
-      "is_follow": false,
-      "is_forward": false,
-      "status": "ของบประมาณ",
-      "status_latest": "ของบประมาณ",
-      "confirmed": false,
-      "star": 0,
-      "count_reopen": 0,
-      "last_activity": "2026-09-23 17:13:37.632132"
-    }
-    // ... ข้อมูลเรื่องแจ้งอื่นๆ รวมทั้งหมด 4388 รายการ
-  ]
+    "status": "success",
+    "message": "",
+    "exec_time": "1.219s",
+    "source": "h db, db",
+    "credit_balance": 968,
+    "org_id": [
+        151
+    ],
+    "count": 2,
+    "api_log_session_id": 987350047,
+    "results": [
+        {
+            "ticket_id": "2026-ABCDEF",
+            "type": "น้ำท่วม",
+            "type_reporter": "น้ำท่วม",
+            "organization": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด",
+            "description": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
+            "latitude": 13.754158,
+            "longitude": 100.501499,
+            "address": "แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",
+            "subdistrict": "เสาชิงช้า",
+            "district": "พระนคร",
+            "province": "กรุงเทพมหานคร",
+            "timestamp": "2026-10-05 19:06:16.831069",
+            "photo_after": null,
+            "timestamp_inprogress": null,
+            "timestamp_finished": "2026-10-05 19:06:29.688952",
+            "org_finished": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+            "is_follow": false,
+            "is_forward": false,
+            "status": "เสร็จสิ้น",
+            "status_latest": "เสร็จสิ้น",
+            "confirmed": false,
+            "star": 5,
+            "count_reopen": 0,
+            "last_activity": "2026-10-05 19:06:29.688952"
+        },
+        {
+            "ticket_id": "2026-GHIJKL",
+            "type": "น้ำท่วม",
+            "type_reporter": "น้ำท่วม",
+            "organization": "ทดสอบการใช้งานระบบ Fondue, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+            "description": "ทดสอบการแจ้ง 27/04/2569 ครั้งที่ 1 น้ำท่วม\n#SoSafe",
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-04/d18444b2e7dd0979b6c9362c2219056e.jpg",
+            "latitude": 13.750072,
+            "longitude": 100.491292,
+            "address": "แขวงพระบรมมหาราชวัง เขตพระนคร กรุงเทพมหานคร",
+            "subdistrict": "พระบรมมหาราชวัง",
+            "district": "พระนคร",
+            "province": "กรุงเทพมหานคร",
+            "timestamp": "2026-04-27 15:32:24.316164",
+            "photo_after": null,
+            "timestamp_inprogress": null,
+            "timestamp_finished": null,
+            "org_finished": null,
+            "is_follow": false,
+            "is_forward": false,
+            "status": "รอรับเรื่อง",
+            "status_latest": "รอรับเรื่อง",
+            "confirmed": false,
+            "star": 0,
+            "count_reopen": 0,
+            "last_activity": "2026-04-27 15:32:24.316164"
+        },
+        {
+        }
+    ]
 }</code></pre>
                       </div>
                     </div>
@@ -786,7 +816,7 @@
                           <tr>
                             <td><span class="param-name">ticket_id</span></td>
                             <td>string</td>
-                            <td>รหัสเรื่องแจ้ง Fondue</td>
+                            <td>รหัสเรื่องแจ้ง Fondue (ไม่รองรับ client_ticket_id สำหรับ API นี้)</td>
                             <td><code>2026-ABCDEF</code></td>
                             <td><span class="param-req">REQUIRED</span></td>
                           </tr>
@@ -811,73 +841,144 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "1.374s",
-  "source": "h db, db",
-  "credit_balance": null,
-  "ticket_id": "2026-ABCDEF",
-  "results": {
+    "status": "success",
+    "message": "",
+    "exec_time": "1.43s",
+    "source": "h db, db",
+    "credit_balance": 965,
     "ticket_id": "2026-ABCDEF",
-    "type": "ทางเท้า",
-    "organization": "Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue",
-    "description": "ทดสอบ flex 2026-06-26 (2)",
-    "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg",
-    "latitude": 14.077786,
-    "longitude": 100.601313,
-    "address": "112 อุทยานวิทยาศาสตร์ ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120 ประเทศไทย",
-    "subdistrict": "คลองหนึ่ง",
-    "district": "คลองหลวง",
-    "province": "ปทุมธานี",
-    "timestamp": "2026-06-26 00:56:33.222981",
-    "status_th_latest": "ของบประมาณ",
-    "status_type": "inprogress",
-    "confirmed": false,
-    "star": 0,
-    "count_reopen": 0,
-    "last_activity": "2026-09-23 17:13:37.632132",
-    "orgs": [
-      {
-        "timestamp": "2026-06-26 00:56:33.222981",
-        "org_id": 151,
-        "name": "Traffy @ ITS Lab2",
-        "type": "ทุจริต",
-        "type_en": "Corruption",
-        "issue_category_id": 74,
-        "org_category_id": null,
-        "status": "ของบประมาณ",
-        "status_en": "In Progress",
-        "is_follow": false,
-        "is_forward": false,
-        "issue_status_id": 2,
-        "org_status_id": 1219415,
-        "status_type": "inprogress"
-      }
-      // ... หน่วยงานอื่นๆ ที่ร่วมรับผิดชอบ
-    ],
-    "timeline": [
-      {
-        "timestamp": "2026-06-26 00:56:33.222981",
-        "status_id": null,
-        "status": "รอรับเรื่อง",
-        "org_id": null,
-        "org": null,
-        "note": "ทดสอบ flex 2026-06-26 (2)",
-        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg"
-      },
-      {
-        "timestamp": "2026-06-26 14:30:47.063075",
-        "status_id": 81,
-        "status": "รอรับเรื่อง",
-        "org_id": 151,
-        "org": "Traffy @ ITS Lab2",
-        "note": "Traffy @ ITS Lab2 เปลี่ยนประเภทเป็น ต้นไม้",
-        "photo": null
-      }
-      // ... ประวัติการดำเนินการอื่นๆ
-    ]
-  },
-  "api_log_session_id": 430149014
+    "results": {
+        "ticket_id": "2026-ABCDEF",
+        "type": "น้ำท่วม",
+        "organization": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด",
+        "description": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
+        "latitude": 13.754158,
+        "longitude": 100.501499,
+        "address": "แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",
+        "subdistrict": "เสาชิงช้า",
+        "district": "พระนคร",
+        "province": "กรุงเทพมหานคร",
+        "timestamp": "2026-10-05 19:06:16.831069",
+        "status_th_latest": "เสร็จสิ้น",
+        "status_type": "finish",
+        "confirmed": false,
+        "star": 5,
+        "count_reopen": 0,
+        "last_activity": "2026-10-05 19:06:29.688952",
+        "orgs": [
+            {
+                "timestamp": "2026-10-05 19:06:16.831069",
+                "org_id": 6347,
+                "name": "ทดสอบการใช้งานระบบ Fondue",
+                "type": "น้ำท่วม",
+                "type_en": "Flood",
+                "issue_category_id": 78,
+                "org_category_id": null,
+                "status": "เสร็จสิ้น",
+                "status_en": "Resolved",
+                "is_follow": false,
+                "is_forward": false,
+                "issue_status_id": 3,
+                "org_status_id": null,
+                "status_type": "finish"
+            },
+            {
+                "timestamp": "2026-10-05 19:06:16.831069",
+                "org_id": 43152,
+                "name": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+                "type": "น้ำท่วม",
+                "type_en": "Flood",
+                "issue_category_id": 78,
+                "org_category_id": null,
+                "status": "เสร็จสิ้น",
+                "status_en": "Resolved",
+                "is_follow": false,
+                "is_forward": false,
+                "issue_status_id": 3,
+                "org_status_id": null,
+                "status_type": "finish"
+            },
+            {
+                "timestamp": "2026-10-05 19:06:21.519541",
+                "org_id": 1302,
+                "name": "!@฿",
+                "type": "น้ำท่วม",
+                "type_en": "Flood",
+                "issue_category_id": 78,
+                "org_category_id": null,
+                "status": "เสร็จสิ้น",
+                "status_en": "Resolved",
+                "is_follow": false,
+                "is_forward": false,
+                "issue_status_id": 3,
+                "org_status_id": null,
+                "status_type": "finish"
+            },
+            {
+                "timestamp": "2026-10-05 19:06:21.519541",
+                "org_id": 28186,
+                "name": "เมืองแอสการ์ด",
+                "type": "น้ำท่วม",
+                "type_en": "Flood",
+                "issue_category_id": 78,
+                "org_category_id": null,
+                "status": "เสร็จสิ้น",
+                "status_en": "Resolved",
+                "is_follow": false,
+                "is_forward": false,
+                "issue_status_id": 3,
+                "org_status_id": null,
+                "status_type": "finish"
+            },
+            {
+                "timestamp": "2026-10-05 19:06:21.519541",
+                "org_id": 151,
+                "name": "Traffy @ ITS Lab2",
+                "type": "น้ำท่วม",
+                "type_en": "Flood",
+                "issue_category_id": 78,
+                "org_category_id": null,
+                "status": "เสร็จสิ้น",
+                "status_en": "Resolved",
+                "is_follow": false,
+                "is_forward": false,
+                "issue_status_id": 3,
+                "org_status_id": null,
+                "status_type": "finish"
+            }
+        ],
+        "timeline": [
+            {
+                "timestamp": "2026-10-05 19:06:16.831069",
+                "status_id": null,
+                "status": "รอรับเรื่อง",
+                "org_id": null,
+                "org": null,
+                "note": "ทดสอบการแจ้ง 2026-10-05 19:06\n#Test",
+                "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png"
+            },
+            {
+                "timestamp": "2026-10-05 19:06:21.519541",
+                "status_id": 285951,
+                "status": "ส่งต่อ",
+                "org_id": 151,
+                "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+                "note": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย) ส่งต่อไปยัง !@฿\r\nเนื่องจาก ทดสอบส่งต่อ\n( ⓘ และ ทดสอบการใช้งานระบบ Fondue ก็เป็นส่งต่อด้วยโดยอัตโนมัติ)",
+                "photo": null
+            },
+            {
+                "timestamp": "2026-10-05 19:06:29.571698",
+                "status_id": 285950,
+                "status": "เสร็จสิ้น",
+                "org_id": 151,
+                "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
+                "note": "ทดลองปรับสถานะด้วย Exchange API",
+                "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png"
+            }
+        ]
+    },
+    "api_log_session_id": 1799826007
 }</code></pre>
                       </div>
                     </div>
@@ -1231,9 +1332,10 @@
                       <div class="code-header"><span class="code-title">Response (200 OK) — CSV</span><button
                           class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
-                        <pre><code>ticket_id,type,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,status,confirmed,star,count_reopen,last_activity
-2026-ABCDEF,ทุจริต,"Traffy @ ITS Lab2, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด, Test create by few1, ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue","ทดสอบ flex 2026-06-26 (2)",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-06/957d68c3dec369f7c8df186545fb167b.jpeg,14.077786,100.601313,"112 อุทยานวิทยาศาสตร์ ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120 ประเทศไทยี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-06-26 00:56:33.222981",https://storage.googleapis.com/traffy_public_bucket/,"2026-06-26 15:56:48.166621","2026-07-01 02:48:34.224461","Traffy @ ITS Lab2",ของบประมาณ,false,0,0,"2026-09-23 17:13:37.632132"
-// ... รวมทั้งหมด 4388 แถว (org_id=151, duration=all)</code></pre>
+                        <pre><code>ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
+2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952"
+2026-GHIJKL,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue","ทดสอบการแจ้ง 27/04/2569 ครั้งที่ 1 น้ำท่วม\n#SoSafe",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-04/d18444b2e7dd0979b6c9362c2219056e.jpg,13.750072,100.491292,"แขวงพระบรมมหาราชวัง เขตพระนคร กรุงเทพมหานคร",พระบรมมหาราชวัง,พระนคร,กรุงเทพมหานคร,"2026-04-27 15:32:24.316164",,,,,,,รอรับเรื่อง,รอรับเรื่อง,,0,0,"2026-04-27 15:32:24.316164"
+</code></pre>
                       </div>
                     </div>
                     <div class="code-block-wrap" style="margin-top:8px;">
@@ -1425,16 +1527,39 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "1.372s",
-  "source": "db",
-  "credit_balance": null,
-  "text": "Traffy*",
-  "count": 0,
-  "results": [],
-  "api_log_session_id": 1085634030,
-  "api_log_session_id_show_joinforward_from_hierarchy": 689953440
+    "status": "success",
+    "message": "",
+    "exec_time": "1.583s",
+    "source": "db",
+    "credit_balance": 960,
+    "text": "เขตค*",
+    "count": 5,
+    "results": [
+        {
+            "org_id": "18055",
+            "name": "เขตคลองเตย",
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2023-12/ef26985e438d6873f8894bbb84cb1ebe09ab563b.png",
+            "latitude": 13.70814,
+            "longitude": 100.583706,
+            "address": "เขตคลองเตย กรุงเทพมหานคร",
+            "province": "กรุงเทพมหานคร",
+            "is_official": true
+        },
+        {
+            "org_id": "18056",
+            "name": "เขตคลองสาน",
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2023-11/a747aa05395b9c5ea4d2226e1da442c6d55063f2.jpg",
+            "latitude": 13.730544,
+            "longitude": 100.509252,
+            "address": "เขตคลองสาน กรุงเทพมหานคร",
+            "province": "กรุงเทพมหานคร",
+            "is_official": true
+        },
+        {
+        }
+    ],
+    "api_log_session_id": 1576633664,
+    "api_log_session_id_show_joinforward_from_hierarchy": 538559209
 }</code></pre>
                       </div>
                     </div>
@@ -1583,7 +1708,8 @@
                             <td><span class="param-name">org_id</span></td>
                             <td>string</td>
                             <td>รหัสหน่วยงาน คั่นด้วย comma ได้ (Default: หน่วยงานของ Account) —
-                              <em>แนะนำให้ระบุเสมอเพื่อป้องกัน PHP Warning บนเซิร์ฟเวอร์</em></td>
+                              <em>แนะนำให้ระบุเสมอเพื่อป้องกัน PHP Warning บนเซิร์ฟเวอร์</em>
+                            </td>
                             <td><code>151</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
@@ -1797,32 +1923,34 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "1.207s",
-  "source": "h db, db",
-  "credit_balance": 994,
-  "org_id": 151,
-  "count": 38,
-  "results": [
-    {
-      "type": "น้ำท่วม",
-      "type_en": "Flood",
-      "issue_category_id": 78,
-      "org_category_id": null,
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png",
-      "index": 4
-    },
-    {
-      "type": "ความสะอาด",
-      "type_en": "Cleanliness",
-      "issue_category_id": 5,
-      "org_category_id": null,
-      "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2018-03/s-1520325639.52.png",
-      "index": 6
-    }
-  ],
-  "api_log_session_id": 1444434658
+    "status": "success",
+    "message": "",
+    "exec_time": "1.946s",
+    "source": "h cache 2026-10-10 17:04:01 (expire 600s), cache 2026-10-10 17:04:01 (expire 3600s)",
+    "credit_balance": 973,
+    "org_id": 151,
+    "count": 38,
+    "results": [
+        {
+            "type": "น้ำท่วม",
+            "type_en": "Flood",
+            "issue_category_id": 78,
+            "org_category_id": null,
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2021-09/s-1630552986.779968.png",
+            "index": 4
+        },
+        {
+            "type": "ความสะอาด",
+            "type_en": "Cleanliness",
+            "issue_category_id": 5,
+            "org_category_id": null,
+            "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2018-03/s-1520325639.52.png",
+            "index": 6
+        },
+        {
+        }
+    ],
+    "api_log_session_id": 1581207288
 }</code></pre>
                       </div>
                     </div>
@@ -1986,35 +2114,42 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "org_id": 151,
-  "count": 2,
-  "results": [
-    {
-      "issue_status_id": 1,
-      "org_statuses_id": null,
-      "status": "รอรับเรื่อง",
-      "status_en": "Pending",
-      "status_type": "waiting",
-      "sort_order": 1,
-      "bg_color": "#FFA500",
-      "text_color": "#FFFFFF",
-      "border_color": "#FFA500",
-      "is_active": true
-    },
-    {
-      "issue_status_id": 2,
-      "org_statuses_id": 15,
-      "status": "กำลังดำเนินการ",
-      "status_en": "In Progress",
-      "status_type": "inprogress",
-      "sort_order": 2,
-      "bg_color": "#0000FF",
-      "text_color": "#FFFFFF",
-      "border_color": "#0000FF",
-      "is_active": true
-    }
-  ]
+    "status": "success",
+    "message": "",
+    "exec_time": "0.996s",
+    "source": "h cache 2026-10-10 17:04:01 (expire 600s), db",
+    "credit_balance": 972,
+    "org_id": 151,
+    "count": 4,
+    "results": [
+        {
+            "issue_status_id": 1,
+            "org_statuses_id": null,
+            "status": "รอรับเรื่อง",
+            "status_en": "Open",
+            "status_type": "start",
+            "sort_order": 1,
+            "bg_color": "#f98a89",
+            "text_color": "#000",
+            "border_color": "#ef5d4a",
+            "is_active": true
+        },
+        {
+            "issue_status_id": 2,
+            "org_statuses_id": null,
+            "status": "กำลังดำเนินการ",
+            "status_en": "In Progress",
+            "status_type": "inprogress",
+            "sort_order": 2,
+            "bg_color": "#ffeca0",
+            "text_color": "#92400E",
+            "border_color": "#f4bf00",
+            "is_active": true
+        },
+        {
+        }
+    ],
+    "api_log_session_id": 31630987
 }</code></pre>
                       </div>
                     </div>
@@ -2337,13 +2472,18 @@
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "description": "พบฝาท่อชำรุด อาจเกิดอันตราย",
-    "latitude": 13.7563,
-    "longitude": 100.5018,
-    "issue_category_id": 12,
-    "address": "ปากซอยพหลโยธิน 12",
-    "client_ticket_id": "EXT-2026-001"
-  }'</code></pre>
+    "description": "ทดสอบการแจ้ง 2026-10-10",
+    "category_name_th": "ความสะอาด",
+    "photo_base64": [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAC0CAMAAABBuyXtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTlGQUFDMjEwQzJEMTFFRTk2OTdFMjY4NkM5ODI5M0QiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTlGQUFDMjAwQzJEMTFFRTk2OTdFMjY4NkM5ODI5M0QiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkIxMTMwQzIwMEMyQzExRUVCNEQ1QUExM0M1RjExMEI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIxMTMwQzIxMEMyQzExRUVCNEQ1QUExM0M1RjExMEI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+ShfL/QAAAAxQTFRFcUcn/vz4/6gAnH9owsExJwAABNNJREFUeNrsnIGSsyoMhRPO+7/z/S2KIYQKVSA7V3Z2xlKVz0MSAlqJRQFoWQEkCQkoWlxgYC2HyhQjR1RCsB2LvBRILCJnXOSMauciP3YlucgdFVHE8ka1yUX+xNq4yJ9YbrH+QcEjFsb5ONxhwdMwmwUed4PHiQV3Du4Z65WrM8l8jf6vyrWJ5E8ubDD+5Iow3uTah2lvMeLoO1+9mLIHV3Kdpu7K6MVKi6c1l3MpyJFcyFbL0mIe4IVKhtTV64ycrTMSMTtYa8yplFzLbExRSaNfqFdBVcoFD1SlXPO7ka0CXY/1Uq23rhpVIRc8QJVGDxdU60LqV6hCLriAKuRyAqXkghssnooFcC2G1mMEZsiE7l6ctrzQJxeG9l41QbiSC3OMvFGu0RN/XOVTC+SCmeZ1yjUtn1orF+5gDZzJVrsHS2MEP9OLPAVreYyAT7ngVC5mlzHiMbmmqGXLhbMMlQvfuocUUTFsbXAjjB5tXvZl1Q8jjL4F63q973m5Lqy5cQlydi/23kmYIRc6zzLFFfsaeXwpfCO4CzVkymN1Jdrtfepa5CeML8fCA/Y1jgsubgQoLpgz2dVcVn+6eq7AJRa5hJJcvrDgnQsv11/m8uSOMnH3YvaII+JUd0zTzqKWjto9n5lqXvYTo0dihXO45qlmH6fnWq04KYYAkVhzHomK7W/y7Izx+bVPw3Gyus3dod1x/B2dNFEWv1CKIsZlUAIXrjkhQuLI9qLTnZ34kWn7X/KgRcRKViNs61CMlmJFBxRY0a4WYx19Jjxx3SiTYSHvxDTDWIRFCWL7uPcfJZvzVtjnb7vasR5/UBGy/NoUHo78eGh9YSwW3zmNP6wxauH4gye1Hpp7TMCC5YZGJT6JWotaQK9nX04HceTRqvVzx/SFOB/0drukFla5ZlR5oNSILlI2cW50epWBZTylaUc3cCtW92Ii7BMzp5uD2QwJ0Kz5XUQbS+2J7rhF2S0RKNTzADJ2rGOpS/kZC3Jqn7GcjUH7RBVrr/v8NQYkmA+i6ChZbYyasfpG3oI+r3gEi5dhkU+sPrXoJla/bdGlrj9G+aonWm6Pb1jW0bewzLhVj0bytjQbsS4fX/ETVjXK27Gb8yifIrq0o3PPrnDaNiZejHTHDlZl94ShI4P4nhfUso0fx+rv+RYMeDOLMhILEMxsoy0XRFMqWd0+doSoTnXyFOhKT9/ylre85Yg4eLE6sJy+usnr+7ccYvl8txviXTl/Yjl+QZ8zLpwvf3T3WBg5fK+LuxeLAsXbYeFGqvyltavBYL9LN/8Rxeyi5pLssrxYL9YfwgphLFbYStoqvgnG3v8qs2/0juJjeYY2rLOF/ORBFFEnvyp2LE55HtOJFXRrrK9Sbply6LogDwo/Y+1HZj2jdUuXUHY86/1CptFdtQJfYOn+Vaj8pFrJEIKFFfLa8/qt1gTqbdtKHRIMgwpKw9P8TDWVF9xSK11+A9YRGgpUNlBvqnU01obF2jksy3zAtjLX1lghWFgcyngZhqhlYylHUMazTC3DEczRxXSDR9SyQ3soYlApginMU2pVsLhUy3QOnqlWMKlDoRZPVcuqZTvwDlLL2jJrTbWG2RZ/jwBBBfRyQAr1bO1htcrv68oEM0G9oHpnPi/W/w3rPwEGAJgFLVXEhHMJAAAAAElFTkSuQmCC"
+    ],
+    "latitude": 14.077761473127232,
+    "longitude": 100.60131479506877,
+    "address": "112 ถนนพหลโ ยธิน ตำบล คลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120",
+    "subdistrict": "คลองหนึ่ง",
+    "district": "คลองหลวง",
+    "province": "ปทุมธานี"
+}'</code></pre>
                     </div>
                   </div>
                   <details class="param-section">
@@ -2353,19 +2493,19 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "13.982s",
-  "credit_balance": null,
-  "api_log_session": 1869101365,
-  "org_id": [
-    151
-  ],
-  "api_log_session_id_new-issue": 926966040,
-  "results": {
-    "ticket_id": "2026-ABCDEF",
-    "password": "1234"
-  }
+    "status": "success",
+    "message": "",
+    "exec_time": "5.433s",
+    "credit_balance": 959,
+    "api_log_session": 2106821134,
+    "org_id": [
+        151
+    ],
+    "api_log_session_id_new-issue": 2103774691,
+    "results": {
+        "ticket_id": "2026-ABCDEF",
+        "password": "1234"
+    }
 }</code></pre>
                       </div>
                     </div>
@@ -2457,7 +2597,7 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">api_log_session_id_new-issue</span></td>
-                            <td>API log session ของการเรียก internal API <code>new-issue/v2</code>
+                            <td>API log session ของการเรียก internal API <code>new-issue/v1</code>
                               ที่ทำงานจริงเบื้องหลัง — ปรากฏเมื่อ response จาก internal API มี api_log_session_id
                               ส่งกลับมา (ไม่ว่าการเรียกนั้นจะสำเร็จหรือ error)</td>
                             <td><code>987654321</code></td>
@@ -2640,11 +2780,12 @@
   -H "Content-Type: application/json" \
   -d '{
     "ticket_id": "2026-ABCDEF",
-    "issue_status_id": 5,
-    "note": "เจ้าหน้าที่ซ่อมแซมเสร็จสิ้นแล้ว",
-    "noti_reporter": true,
-    "noti_staff": true
-  }'</code></pre>
+    "state_name": "กำลังดำเนินการ",
+    "note": "ทดลองปรับสถานะด้วย Exchange API",
+    "photo_base64": [
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAC0CAMAAABBuyXtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTlGQUFDMjEwQzJEMTFFRTk2OTdFMjY4NkM5ODI5M0QiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTlGQUFDMjAwQzJEMTFFRTk2OTdFMjY4NkM5ODI5M0QiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkIxMTMwQzIwMEMyQzExRUVCNEQ1QUExM0M1RjExMEI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIxMTMwQzIxMEMyQzExRUVCNEQ1QUExM0M1RjExMEI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+ShfL/QAAAAxQTFRFcUcn/vz4/6gAnH9owsExJwAABNNJREFUeNrsnIGSsyoMhRPO+7/z/S2KIYQKVSA7V3Z2xlKVz0MSAlqJRQFoWQEkCQkoWlxgYC2HyhQjR1RCsB2LvBRILCJnXOSMauciP3YlucgdFVHE8ka1yUX+xNq4yJ9YbrH+QcEjFsb5ONxhwdMwmwUed4PHiQV3Du4Z65WrM8l8jf6vyrWJ5E8ubDD+5Iow3uTah2lvMeLoO1+9mLIHV3Kdpu7K6MVKi6c1l3MpyJFcyFbL0mIe4IVKhtTV64ycrTMSMTtYa8yplFzLbExRSaNfqFdBVcoFD1SlXPO7ka0CXY/1Uq23rhpVIRc8QJVGDxdU60LqV6hCLriAKuRyAqXkghssnooFcC2G1mMEZsiE7l6ctrzQJxeG9l41QbiSC3OMvFGu0RN/XOVTC+SCmeZ1yjUtn1orF+5gDZzJVrsHS2MEP9OLPAVreYyAT7ngVC5mlzHiMbmmqGXLhbMMlQvfuocUUTFsbXAjjB5tXvZl1Q8jjL4F63q973m5Lqy5cQlydi/23kmYIRc6zzLFFfsaeXwpfCO4CzVkymN1Jdrtfepa5CeML8fCA/Y1jgsubgQoLpgz2dVcVn+6eq7AJRa5hJJcvrDgnQsv11/m8uSOMnH3YvaII+JUd0zTzqKWjto9n5lqXvYTo0dihXO45qlmH6fnWq04KYYAkVhzHomK7W/y7Izx+bVPw3Gyus3dod1x/B2dNFEWv1CKIsZlUAIXrjkhQuLI9qLTnZ34kWn7X/KgRcRKViNs61CMlmJFBxRY0a4WYx19Jjxx3SiTYSHvxDTDWIRFCWL7uPcfJZvzVtjnb7vasR5/UBGy/NoUHo78eGh9YSwW3zmNP6wxauH4gye1Hpp7TMCC5YZGJT6JWotaQK9nX04HceTRqvVzx/SFOB/0drukFla5ZlR5oNSILlI2cW50epWBZTylaUc3cCtW92Ii7BMzp5uD2QwJ0Kz5XUQbS+2J7rhF2S0RKNTzADJ2rGOpS/kZC3Jqn7GcjUH7RBVrr/v8NQYkmA+i6ChZbYyasfpG3oI+r3gEi5dhkU+sPrXoJla/bdGlrj9G+aonWm6Pb1jW0bewzLhVj0bytjQbsS4fX/ETVjXK27Gb8yifIrq0o3PPrnDaNiZejHTHDlZl94ShI4P4nhfUso0fx+rv+RYMeDOLMhILEMxsoy0XRFMqWd0+doSoTnXyFOhKT9/ylre85Yg4eLE6sJy+usnr+7ccYvl8txviXTl/Yjl+QZ8zLpwvf3T3WBg5fK+LuxeLAsXbYeFGqvyltavBYL9LN/8Rxeyi5pLssrxYL9YfwgphLFbYStoqvgnG3v8qs2/0juJjeYY2rLOF/ORBFFEnvyp2LE55HtOJFXRrrK9Sbply6LogDwo/Y+1HZj2jdUuXUHY86/1CptFdtQJfYOn+Vaj8pFrJEIKFFfLa8/qt1gTqbdtKHRIMgwpKw9P8TDWVF9xSK11+A9YRGgpUNlBvqnU01obF2jksy3zAtjLX1lghWFgcyngZhqhlYylHUMazTC3DEczRxXSDR9SyQ3soYlApginMU2pVsLhUy3QOnqlWMKlDoRZPVcuqZTvwDlLL2jJrTbWG2RZ/jwBBBfRyQAr1bO1htcrv68oEM0G9oHpnPi/W/w3rPwEGAJgFLVXEhHMJAAAAAElFTkSuQmCC"
+    ]
+}'</code></pre>
                     </div>
                   </div>
                   <details class="param-section">
@@ -2654,14 +2795,14 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.22s",
-  "credit_balance": 819,
-  "org_id": 151,
-  "api_log_session_id": 1234567890,
-  "source": "h db",
-  "api_log_session_id_update_message": 987654321
+    "status": "success",
+    "message": "",
+    "exec_time": "4.544s",
+    "credit_balance": 958,
+    "org_id": 151,
+    "api_log_session_id": 1318057093,
+    "source": "h db",
+    "api_log_session_id_update_message": 7604078
 }</code></pre>
                       </div>
                     </div>
@@ -2836,12 +2977,12 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.04s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_star": 987654321
+    "status": "success",
+    "message": "",
+    "exec_time": "2.019s",
+    "credit_balance": 955,
+    "api_log_session_id": 1627013755,
+    "api_log_session_id_star": 1876745266
 }</code></pre>
                       </div>
                     </div>
@@ -2989,12 +3130,12 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "0.10s",
-  "credit_balance": 819,
-  "api_log_session_id": 1234567890,
-  "api_log_session_id_messagecomment": 987654321
+    "status": "success",
+    "message": "",
+    "exec_time": "2.364s",
+    "credit_balance": 954,
+    "api_log_session_id": 318366603,
+    "api_log_session_id_messagecomment": 214448439
 }</code></pre>
                       </div>
                     </div>
@@ -3177,8 +3318,8 @@
     "ticket_id": "2026-ABCDEF",
     "destination_group": [1302],
     "scenario": 2,
-    "note": "ส่งต่อหน่วยงานที่รับผิดชอบโดยตรง"
-  }'</code></pre>
+    "note": "ทดสอบส่งต่อ"
+}'</code></pre>
                     </div>
                   </div>
                   <details class="param-section">
@@ -3188,13 +3329,13 @@
                           onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
-  "status": "success",
-  "message": "",
-  "exec_time": "4.114s",
-  "credit_balance": null,
-  "api_log_session_id": 894425742,
-  "api_log_session_id_join_forward": 137118659,
-  "results": []
+    "status": "success",
+    "message": "",
+    "exec_time": "3.81s",
+    "credit_balance": 953,
+    "api_log_session_id": 197816176,
+    "api_log_session_id_join_forward": 1289237601,
+    "results": []
 }</code></pre>
                       </div>
                     </div>
@@ -3346,16 +3487,30 @@
                     <div class="code-content">
                       <pre><code>{
   "event": "new-issue",
-  "timestamp": "2026-08-31 10:00:00.000000",
+  "timestamp": "2026-10-10 19:19:37.389642",
   "ticket_id": "2026-ABCDEF",
-  "description": "พบฝาท่อชำรุด",
-  "type_id": 12,
-  "type": "ถนน",
-  "photo": ["https://storage.googleapis.com/..."],
-  "latitude": 13.754158,
-  "longitude": 100.5014985,
-  "address": "112 ถ.พหลโยธิน ปทุมธานี",
-  "orgs": [{"org_id": 151, "org": "Traffy Fondue"}]
+  "description": "ทดสอบแจ้งเข้าหน่วยงาน 2026-10-10",
+  "type": "อื่นๆ",
+  "type_en": "Other",
+  "issue_category_id": 12,
+  "org_category_id": null,
+  "status": "รอรับเรื่อง",
+  "status_en": "Open",
+  "is_follow": false,
+  "is_forward": false,
+  "issue_status_id": 1,
+  "org_status_id": null,
+  "status_type": "start",
+  "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/7f3358882698a7d4f1d23d93be009ab2.jpeg",
+  "latitude": "14.077771879738362",
+  "longitude": "100.60131479546563",
+  "address": "112 ถนนพหลโ ยธิน ตำบล คลองหนึ่ง อำเภอคลองหลวง ปทุมธานี 12120",
+  "orgs": [
+    {
+      "org": "Traffy @ ITS Lab2",
+      "org_id": 151
+    }
+  ]
 }</code></pre>
                     </div>
                   </div>
@@ -3417,12 +3572,22 @@
                           <tr>
                             <td><span class="param-name">photo</span></td>
                             <td>array[str]</td>
-                            <td>ภาพถ่ายหลังการแก้ไข</td>
+                            <td>ภาพถ่ายหลังการแก้ไข (ถ้าไม่มีการแนบรูป จะเป็น null)</td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">org</span></td>
+                            <td><span class="param-name">tl_org_id</span></td>
+                            <td>integer</td>
+                            <td>หมายเลขหน่วยงานผู้ดำเนินการ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">tl_org</span></td>
                             <td>string</td>
                             <td>ชื่อหน่วยงานผู้ดำเนินการ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">tl_status</span></td>
+                            <td>string</td>
+                            <td>สถานะที่ถูกบันทึกลง time line (รวมถึง "ติดตามเรื่อง" และ "ส่งต่อ" ด้วย)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -3436,12 +3601,23 @@
                     <div class="code-content">
                       <pre><code>{
   "event": "update-issue",
-  "timestamp": "2026-08-31 11:30:00.000000",
+  "timestamp": "2026-10-10 18:00:05.753977+0700",
   "ticket_id": "2026-ABCDEF",
-  "org": "Traffy @ ITS Lab2",
-  "status": "เสร็จสิ้น",
-  "note": "ได้ทำการแก้ไขเสร็จสิ้นแล้วครับ",
-  "photo": ["https://storage.googleapis.com/..."]
+  "client_ticket_id": null,
+  "status": "กำลังดำเนินการ",
+  "status_en": "In Progress",
+  "status_type": "inprogress",
+  "is_follow": false,
+  "is_forward": false,
+  "issue_status_id": 2,
+  "org_status_id": null,
+  "tl_org_id": 151,
+  "tl_org": "Traffy @ ITS Lab2",
+  "tl_status": "กำลังดำเนินการ",
+  "note": "ทดสอบปรับสถานะ",
+  "photo": [
+    "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/5b2aeca91541bff9d5515e6bb194f40a.jpg"
+  ]
 }</code></pre>
                     </div>
                   </div>
@@ -3546,7 +3722,7 @@
   "message_comment_id": 12345678,
   "message_id": 1234567,
   "ticket_id": "2026-ABCDEF",
-  "comment": "test",
+  "comment": "ทดสอบส่งข้อความจากเจ้าหน้าที่",
   "timestamp": "2026-09-17 15:13:57.662001",
   "sender_org_id": 151,
   "sender_org": "Traffy @ ITS Lab2",

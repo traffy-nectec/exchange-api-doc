@@ -12,6 +12,7 @@
 - **KR 1.3:** แปลงสเปกจาก Google Docs และ Notion มาเป็นเอกสาร Markdown ที่มีโครงสร้างชัดเจน พร้อม Schema, Parameters, Error Codes, และ Example Requests/Responses
 - **KR 1.4:** จัดทำ OpenAPI 3.0.3 Specification (`openapi.yaml`) ที่ผ่านการ Validate สามารถนำไป Import เข้า Swagger UI, Postman หรือใช้สร้าง Client SDK ได้ทันที
 - **KR 1.5:** บันทึกและกำกับการตัดสินใจเชิงสถาปัตยกรรมผ่าน Architecture Decision Records ([`ADR.md`](ADR.md)) เพื่อให้ข้อกำหนดทางเทคนิคสอดคล้องกับพฤติกรรมจริงของ Live Server อย่างสมบูรณ์ (Contract Alignment)
+- **KR 1.6:** วางโครงสร้างการนำทางบนเอกสารเว็บแบบ Single Source of Truth โดยแยกเวอร์ชันออกจากเมนูนำทางด้านซ้าย เพื่อลดความซ้ำซ้อนและป้องกันข้อผิดพลาดในการดูแลรักษาเวอร์ชัน (ADR-008)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -56,3 +57,4 @@
 5. **Geo-coordinates:** พิกัดตำแหน่งใช้ระบบพิกัด WGS84 (Latitude, Longitude เป็นเลขทศนิยม)
 6. **Defensive Parameter Hygiene:** แนะนำให้ส่ง `?org_id={org_id}` สำหรับ `GET /get-org-list/v1` เสมอ เพื่อป้องกัน Backend Warning ปะปนหน้า JSON Output (ADR-003)
 7. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop (ADR-007)
+8. **Single Source of Truth for Endpoint Versioning:** เมนูนำทางของเอกสารอ้างอิงเฉพาะชื่อฐานของ Resource โดยกำหนดให้การ์ดรายละเอียดของแต่ละ API เป็นจุดระบุและควบคุมเวอร์ชันเพียงจุดเดียว เพื่อป้องกันการแก้ไขเวอร์ชันไม่ครบถ้วน (ADR-008)
