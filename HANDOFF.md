@@ -41,19 +41,20 @@
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
 ### 🏷️ Two-Row API Header & Legal Disclaimer Release (Version: 2026-10-16)
-- **Two-Row API Header Structure:**
+- **Two-Row API Header Structure & Strict Line Break:**
   - ปรับโครงสร้างหัวการ์ด API ทุกรายการ (13 Core Endpoints และ 3 Webhooks) ใน `docs.html` เป็นแบบลำดับชั้น 2 บรรทัด (Two-Row Hierarchy)
   - บรรทัดที่ 1 (Title): แสดงลำดับ, ชื่อ endpoint ในรูปแบบ badge code, และคำอธิบายภาษาไทย (เช่น `1. /get-auth ขอ JWT Bearer Token`)
   - บรรทัดที่ 2 (Meta): แสดง Method Badge, Full Production URL (เช่น `https://publicapi.traffy.in.th/exchange-api/get-auth/v1`), และ Auth Method Badge อย่างเป็นสัดส่วน
-  - เพิ่ม CSS Classes `.api-card-header-top`, `.api-card-title`, `.api-card-header-bottom` ใน `css/style.css` รองรับ Responsive เต็มรูปแบบ
+  - บังคับการขึ้นบรรทัดใหม่ด้วย `display: flex !important; flex-direction: column !important; align-items: flex-start !important;` และ `.api-card-header-top { display: block; width: 100%; }` ใน `css/style.css`
+  - เพิ่ม Inline Style Defensive Fallback `style="flex-direction: column; align-items: flex-start;"` ใน `docs.html` และเพิ่ม Cache-Busting `css/style.css?v=2` ป้องกันบราวเซอร์แคชแสดงผลผิดพลาด
 - **Platform Service Provider & Content Liability Disclaimer:**
   - เพิ่มแบนเนอร์ข้อกำหนดการใช้งานและข้อสงวนสิทธิ์ความรับผิดชอบใน `docs.html` (`#sec-disclaimer`), `index.html` (`#disclaimer`), `docs/overview.md`, `README.md`, และ `openapi.yaml`
   - ชี้แจงบทบาทของ Traffy Fondue และ สวทช. ในฐานะผู้ให้บริการระบบเทคโนโลยีสารสนเทศตัวกลาง โดยความรับผิดชอบต่อเนื้อหาตกอยู่แก่ผู้แจ้งเหตุ เจ้าหน้าที่ผู้ดำเนินการ และผู้นำข้อมูลไปใช้ต่อโดยตรง
 - **Raw Uncensored Data Caution & PDPA Compliance:**
   - เพิ่มคำเตือนระบุว่าข้อมูลที่ได้รับผ่าน Exchange API เป็นข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ (Uncensored)
   - กำชับให้ผู้ใช้งานระมัดระวังการเผยแพร่ออกสู่สาธารณะ และต้องทำ Data Masking / Redaction ข้อมูลส่วนบุคคลตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)
-- **Architecture Decision Record (ADR-009):**
-  - บันทึกการตัดสินใจเชิงสถาปัตยกรรมเรื่อง Two-Row API Header และ Legal Disclaimer ลงใน [`ADR.md`](ADR.md)
+- **Architecture Decision Records (ADR-009 & ADR-010):**
+  - บันทึกการตัดสินใจเชิงสถาปัตยกรรมเรื่อง Two-Row API Header, Legal Disclaimer และ Strict Line Break & Cache-Busting ลงใน [`ADR.md`](ADR.md)
 
 ### 🛠️ Response Alignment & Navigation Single Source of Truth (Version: 2026-10-12)
 - **Single Source of Truth for API Versioning:**
