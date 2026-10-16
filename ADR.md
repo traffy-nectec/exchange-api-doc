@@ -14,6 +14,7 @@
 * [ADR-006: การคงความเข้ากันได้ย้อนหลัง (Backward Compatibility) และการประกาศ Dual-Version ใน OpenAPI Spec](#adr-006-การคงความเข้ากันได้ย้อนหลัง-backward-compatibility-และการประกาศ-dual-version-ใน-openapi-spec)
 * [ADR-007: มาตรการป้องกัน Infinite Webhook Feedback Loop ระหว่างระบบภายนอกและแพลตฟอร์ม](#adr-007-มาตรการป้องกัน-infinite-webhook-feedback-loop-ระหว่างระบบภายนอกและแพลตฟอร์ม)
 * [ADR-008: การรวม Single Source of Truth สำหรับ Versioning ใน UI และการปรับปรุงความถูกต้องของ Parameter & Response Contract](#adr-008-การรวม-single-source-of-truth-สำหรับ-versioning-ใน-ui-และการปรับปรุงความถูกต้องของ-parameter--response-contract)
+* [ADR-009: การปรับปรุงโครงสร้างหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ](#adr-009-การปรับปรุงโครงสร้างหัวการ์ด-api-เป็น-2-บรรทัด-two-row-hierarchy-และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ)
 
 ---
 
@@ -197,4 +198,31 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **ข้อดี:** เมนูนำทางเรียบง่าย สะอาดตา และเมื่อมีการอัปเกรดเวอร์ชันของ API ใดๆ ในอนาคต มีจุดที่ต้องแก้ไขเวอร์ชันเพียงจุดเดียวที่การ์ด API นั้นๆ ป้องกันการแก้ไม่ครบ
 - **ความแม่นยำ:** ผู้พัฒนาระบบภายนอกได้รับสเปก Parameter และตัวอย่าง Response ที่ถูกต้องตรงกับเซิร์ฟเวอร์จริง 100%
+
+---
+
+## ADR-009: การปรับปรุงโครงสร้างหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-10-16)
+
+### บริบท (Context)
+1. **API Card Header Clarity:** รูปแบบเดิมของหัวการ์ด API ใน `docs.html` รวมเอา Method Badge, Endpoint Path ย่อ, ชื่อคำอธิบายภาษาไทย, และ Authentication Badge ไว้ในแถวเดียวกันแบบแนวนอน (Flex-wrap) ทำให้ผู้ใช้งานสับสนระหว่างชื่อฟังก์ชันการทำงานกับ URL จริง และผู้พัฒนาไม่สามารถมองเห็น Full Production URL ของ Endpoint ได้ทันทีในจุดเดียว
+2. **Platform & Content Liability Governance:** แพลตฟอร์ม Traffy Fondue ทำหน้าที่เป็นตัวกลางทางเทคโนโลยี และข้อมูลที่ส่งผ่าน Exchange API เป็นข้อมูลเรื่องแจ้งดิบที่ยังไม่ผ่านการคัดกรองหรือเซนเซอร์ (Uncensored) จึงจำเป็นต้องมีข้อตกลงและประกาศข้อสงวนสิทธิ์ทางกฎหมาย (Legal Disclaimer) ที่ชัดเจน เพื่อป้องกันข้อพิพาทและให้ผู้ใช้ API ปฏิบัติตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) อย่างเคร่งครัด
+
+### การตัดสินใจ (Decision)
+1. **Two-Row API Header Structure:**
+   - ปรับหัวการ์ด API ทุกการ์ด (13 Core Endpoints และ 3 Webhooks) ให้มีโครงสร้างลำดับชั้น 2 บรรทัด:
+     - **บรรทัดที่ 1 (Title Row):** ระบุลำดับ, ชื่อ endpoint ในรูปแบบ code pill, และคำอธิบายภาษาไทย เช่น `1. <code>/get-auth</code> ขอ JWT Bearer Token`
+     - **บรรทัดที่ 2 (Meta Row):** ระบุ Method Badge, Full Production URL (เช่น `https://publicapi.traffy.in.th/exchange-api/get-auth/v1`), และ Authentication Badge (เช่น `🔑 Auth: User / Pass` หรือ `🛡️ Header: Bearer Token`)
+   - เพิ่มคลาส `.api-card-header-top`, `.api-card-title`, และ `.api-card-header-bottom` ใน `css/style.css` พร้อมรองรับ Responsive Display
+2. **Legal Disclaimer & Raw Data Warning Banner:**
+   - เพิ่มแบนเนอร์และข้อกำหนดความรับผิดชอบทางกฎหมาย (Platform Service Provider Disclaimer) ใน `docs.html` (`#sec-disclaimer`), `index.html` (`#disclaimer`), `README.md`, `docs/overview.md`, `docs/query-apis.md`, และ `openapi.yaml`
+   - ระบุชัดเจนว่าความรับผิดชอบต่อเนื้อหาตกอยู่แก่ (1) เจ้าของเรื่องแจ้ง (2) เจ้าหน้าที่/หน่วยงานผู้รับผิดชอบ และ (3) ผู้นำข้อมูลไปใช้ต่อ โดยตรง และ สวทช./NECTEC ขอปฏิเสธความรับผิดในกรณีเกิดข้อพิพาท
+   - เพิ่มคำเตือนและข้อปฏิบัติเรื่องข้อมูลดิบ (Raw Uncensored Data) กำชับให้ผู้ใช้งานระวังการเผยแพร่ต่อสาธารณะ และต้องทำ Data Masking / Redaction ข้อมูลส่วนบุคคลตาม PDPA ก่อนเสมอ
+
+### ผลสืบเนื่อง (Consequences)
+- **Developer Experience (DX):** ผู้พัฒนาเห็นชื่อฟังก์ชันภาษาไทยและ Full Production URL ของแต่ละ Endpoint ได้ในพริบตา สามารถคัดลอกหรือนำ URL ไปใช้งานต่อได้สะดวกขึ้น
+- **Legal Protection & Risk Mitigation:** ปกป้องแพลตฟอร์มจากความเสี่ยงทางกฎหมายและข้อพิพาทเกี่ยวกับเนื้อหา และสร้างความตระหนักรู้ด้านความเป็นส่วนตัวของข้อมูลแก่ผู้ใช้งาน API ภายนอก
+
 

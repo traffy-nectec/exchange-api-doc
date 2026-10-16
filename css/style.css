@@ -910,13 +910,51 @@ a.sidebar-group-title:hover {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-light);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
   background: #FCFAF8;
   width: 100%;
   box-sizing: border-box;
+}
+
+.api-card-header-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.api-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  word-break: break-word;
+}
+
+.api-card-title code {
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  font-weight: 600;
+  background: var(--brand-subtle);
+  color: var(--brand-accent);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+.api-card-header-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .api-card-title-group {
