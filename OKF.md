@@ -13,6 +13,7 @@
 - **KR 1.4:** จัดทำ OpenAPI 3.0.3 Specification (`openapi.yaml`) ที่ผ่านการ Validate สามารถนำไป Import เข้า Swagger UI, Postman หรือใช้สร้าง Client SDK ได้ทันที
 - **KR 1.5:** บันทึกและกำกับการตัดสินใจเชิงสถาปัตยกรรมผ่าน Architecture Decision Records ([`ADR.md`](ADR.md)) เพื่อให้ข้อกำหนดทางเทคนิคสอดคล้องกับพฤติกรรมจริงของ Live Server อย่างสมบูรณ์ (Contract Alignment)
 - **KR 1.6:** วางโครงสร้างการนำทางบนเอกสารเว็บแบบ Single Source of Truth โดยแยกเวอร์ชันออกจากเมนูนำทางด้านซ้าย เพื่อลดความซ้ำซ้อนและป้องกันข้อผิดพลาดในการดูแลรักษาเวอร์ชัน (ADR-008)
+- **KR 1.7:** พัฒนาโครงสร้างการแสดงผลหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) แยกชื่อฟังก์ชันคำอธิบายภาษาไทยและ Full Production URL ออกจากกันอย่างชัดเจน เพื่อความสะดวกในการอ่านและเรียกใช้งาน (ADR-009)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -22,6 +23,7 @@
 ### 🎯 Objective 3: การจัดการความปลอดภัยและโควต้าอย่างเป็นระบบ (Security & Quota Management)
 - **KR 3.1:** กำหนดมาตรฐานการยืนยันตัวตนด้วย JWT Bearer Token และห้ามเปิดเผย Credential (`user`/`pass`) สู่ Client-side
 - **KR 3.2:** ระบบติดตามโควต้าการใช้งานประจำเดือน (`credit_balance` / `quota_limit`) พร้อมช่องทางประสานงานขอขยายโควต้าผ่าน LINE Official: `@fonduehelp`
+- **KR 3.3:** ประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาทางกฎหมาย (Platform Liability Disclaimer) และวางมาตรการเตือนเรื่องข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ (Raw Uncensored Data Caution) ให้สอดคล้องกับ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)
 
 ---
 
@@ -58,3 +60,6 @@
 6. **Defensive Parameter Hygiene:** แนะนำให้ส่ง `?org_id={org_id}` สำหรับ `GET /get-org-list/v1` เสมอ เพื่อป้องกัน Backend Warning ปะปนหน้า JSON Output (ADR-003)
 7. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop (ADR-007)
 8. **Single Source of Truth for Endpoint Versioning:** เมนูนำทางของเอกสารอ้างอิงเฉพาะชื่อฐานของ Resource โดยกำหนดให้การ์ดรายละเอียดของแต่ละ API เป็นจุดระบุและควบคุมเวอร์ชันเพียงจุดเดียว เพื่อป้องกันการแก้ไขเวอร์ชันไม่ครบถ้วน (ADR-008)
+9. **Two-Row API Header & Full Production URL:** หัวการ์ด API แสดงชื่อ Resource พร้อมคำอธิบายในบรรทัดแรก และแสดง Full Production URL ควบคู่กับ Method Badge และ Auth Method ในบรรทัดที่สอง (ADR-009)
+10. **Data Privacy & Raw Data Governance:** ข้อมูลที่ส่งผ่าน Exchange API เป็นข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ ผู้นำข้อมูลไปใช้ต่อมีหน้าที่ต้องทำ Data Masking / Redaction ข้อมูลส่วนบุคคลตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) ก่อนการเผยแพร่ออกสู่สาธารณะโดยเด็ดขาด (ADR-009)
+
