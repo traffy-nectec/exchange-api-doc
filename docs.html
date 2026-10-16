@@ -28,6 +28,7 @@
         <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
         <li><a href="index.html#modes" class="nav-link">รูปแบบบริการ</a></li>
         <li><a href="index.html#onboarding" class="nav-link">ขั้นตอนขอสิทธิ์</a></li>
+        <li><a href="#sec-disclaimer" class="nav-link">ข้อกำหนดความรับผิดชอบ</a></li>
         <li><a href="index.html#support" class="nav-link">ติดต่อเรา</a></li>
       </ul>
       <div class="header-actions">
@@ -51,6 +52,9 @@
     <div class="container">
       <select id="mobileEndpointSelect" class="mobile-endpoint-select" aria-label="เลือกข้ามไปยัง Endpoint">
         <option value="">⚡ ข้ามไปยัง Endpoint...</option>
+        <optgroup label="⚠️ ข้อกำหนดและข้อสงวนสิทธิ์">
+          <option value="#sec-disclaimer">⚠️ ข้อกำหนดความรับผิดชอบ & ข้อควรระวังเกี่ยวกับข้อมูล</option>
+        </optgroup>
         <optgroup label="1. Authentication">
           <option value="#sec-auth">📌 1. Authentication (การยืนยันตัวตน)</option>
           <option value="#get-auth">get-auth - ขอรับ Token</option>
@@ -105,6 +109,20 @@
         </div>
 
         <nav class="docs-sidebar-nav">
+          <!-- Terms & Disclaimer -->
+          <div class="sidebar-group">
+            <a href="#sec-disclaimer" class="sidebar-group-title" style="color: #b45309;">⚠️ ข้อกำหนดความรับผิดชอบ</a>
+            <ul class="sidebar-links">
+              <li>
+                <a href="#sec-disclaimer" class="sidebar-link">
+                  <span class="link-name">ข้อสงวนสิทธิ์</span>
+                  <span class="sidebar-badge"
+                    style="background: rgba(245, 158, 11, 0.15); color: #d97706; border-color: rgba(245, 158, 11, 0.3);">สำคัญ</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <!-- Group 1 -->
           <div class="sidebar-group">
             <a href="#sec-auth" class="sidebar-group-title">1. Authentication</a>
@@ -126,8 +144,7 @@
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-issue" class="sidebar-link"><span class="link-name">/get-issue</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#download-issues" class="sidebar-link"><span
-                    class="link-name">/download-issues</span><span
+              <li><a href="#download-issues" class="sidebar-link"><span class="link-name">/download-issues</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#search-org" class="sidebar-link"><span class="link-name">/search-org</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
@@ -135,8 +152,7 @@
                     class="method-badge method-get badge-mini">GET</span></a></li>
               <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-status-list" class="sidebar-link"><span
-                    class="link-name">/get-status-list</span><span
+              <li><a href="#get-status-list" class="sidebar-link"><span class="link-name">/get-status-list</span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
             </ul>
           </div>
@@ -219,6 +235,87 @@
             </a>
           </div>
         </div>
+
+        <!-- DISCLAIMER & TERMS OF DATA USE BANNER -->
+        <section class="docs-disclaimer-banner" id="sec-disclaimer"
+          aria-label="ข้อกำหนดความรับผิดชอบเกี่ยวกับเนื้อหาและข้อควรระวังเกี่ยวกับข้อมูล">
+          <div class="disclaimer-header">
+            <div class="disclaimer-badge">
+              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              <span>ข้อกำหนดการใช้งานและข้อสงวนสิทธิ์ความรับผิดชอบ (Terms of Use & Legal Disclaimer)</span>
+            </div>
+            <h2 class="disclaimer-title">ข้อตกลงขอบเขตความรับผิดชอบเกี่ยวกับเนื้อหา และข้อควรระวังการใช้งานข้อมูลจาก
+              Exchange API</h2>
+          </div>
+
+          <div class="disclaimer-grid">
+            <!-- Box 1: Platform Service Provider Only -->
+            <div class="disclaimer-card">
+              <div class="disclaimer-card-header">
+                <span class="disclaimer-icon">🏛️</span>
+                <h3>Traffy Fondue เป็นเพียงแพลตฟอร์มผู้ให้บริการระบบเท่านั้น</h3>
+              </div>
+              <p>
+                แพลตฟอร์ม Traffy Fondue และผู้พัฒนาระบบ (สวทช.) ทำหน้าที่เป็น<strong>ระบบเทคโนโลยีสารสนเทศตัวกลาง
+                  (Platform Service Provider)</strong> เพื่ออำนวยความสะดวกในการรับส่งและประสานงานข้อมูลระหว่างประชาชน
+                หน่วยงานผู้รับผิดชอบ และผู้พัฒนาระบบภายนอกเท่านั้น <strong>มิได้มีฐานะเป็นผู้ผลิต สร้างสรรค์ ควบคุม
+                  ตรวจสอบ หรือรับรองความถูกต้องของเนื้อหา ข้อมูล ข้อความ ภาพถ่าย หรือพิกัดสถานที่ใดๆ ในระบบ</strong>
+              </p>
+            </div>
+
+            <!-- Box 2: Content Liability & Legal Disclaimer -->
+            <div class="disclaimer-card">
+              <div class="disclaimer-card-header">
+                <span class="disclaimer-icon">⚖️</span>
+                <h3>ขอบเขตความรับผิดชอบต่อเนื้อหาทางกฎหมาย</h3>
+              </div>
+              <p>ความรับผิดชอบตามกฎหมายทั้งหมดเกี่ยวกับข้อมูล ข้อความ รูปภาพ พิกัด หรือเอกสารแนบ
+                จะตกอยู่แก่บุคคลและหน่วยงานดังต่อไปนี้โดยตรง:</p>
+              <ul class="disclaimer-list">
+                <li><strong>เจ้าของเรื่องแจ้ง:</strong> รับผิดชอบต่อข้อเท็จจริง ข้อความ รูปภาพ/วีดีโอ/ไฟล์
+                  ที่นำเข้าสู่ระบบ</li>
+                <li><strong>เจ้าหน้าที่และหน่วยงานผู้รับผิดชอบ:</strong> รับผิดชอบต่อข้อความ รูปภาพ/วีดีโอ/ไฟล์
+                  ที่ใช้อัปเดตสถานะการดำเนินงาน</li>
+                <li><strong>ผู้นำข้อมูลไปใช้ต่อ:</strong> รับผิดชอบต่อการจัดเก็บ ประมวลผล
+                  และการนำข้อมูลไปใช้งานหรือเผยแพร่ต่อ</li>
+              </ul>
+              <p class="disclaimer-highlight-text">
+                หากเกิดข้อพิพาท การละเมิดสิทธิ หรือการฟ้องร้องดำเนินคดีใดๆ ผู้พัฒนาและผู้ให้บริการแพลตฟอร์ม Traffy
+                Fondue <strong>ขอปฏิเสธความรับผิด (Disclaimer of Liability)</strong> ในทุกกรณี
+              </p>
+            </div>
+
+            <!-- Box 3: Raw Uncensored Data Warning -->
+            <div class="disclaimer-card disclaimer-card-danger">
+              <div class="disclaimer-card-header">
+                <span class="disclaimer-icon">🚨</span>
+                <h3 style="color: #b45309;">คำเตือนสำคัญสำหรับผู้ใช้งานผ่านระบบ Exchange API</h3>
+              </div>
+              <p>
+                ข้อมูลเรื่องแจ้ง รายละเอียด ข้อความ และรูปภาพที่ได้รับผ่าน Exchange API เป็น <strong>"ข้อมูลดิบ (Raw
+                  Data)"</strong> ที่ <strong>ไม่ผ่านการคัดกรองหรือเซนเซอร์ใดๆ (Uncensored)</strong>
+              </p>
+              <div class="disclaimer-danger-box">
+                <strong>⚠️ ข้อปฏิบัติที่ต้องระมัดระวังสูงสุด:</strong>
+                <ul>
+                  <li><strong>ระวังการเผยแพร่ข้อมูลออกสู่สาธารณะให้มากที่สุด:</strong> การดึงข้อมูลไปเพื่อวิเคราะห์
+                    แสดงผล หรือพัฒนาบริการ ต้องกระทำด้วยความระมัดระวังรอบคอบ</li>
+                  <li><strong>ปฏิบัติตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล (PDPA) อย่างเคร่งครัด:</strong>
+                    ข้อมูลดิบอาจมีข้อมูลส่วนบุคคล เช่น ภาพถ่ายใบหน้าบุคคล ป้ายทะเบียนรถ หมายเลขบัตรประชาชน เบอร์โทรศัพท์
+                    หรือพิกัดบ้านพักอาศัย</li>
+                  <li><strong>ต้องทำ Data Masking / Redaction ก่อนเผยแพร่:</strong> หากมีการนำข้อมูลไปแสดงผลต่อสาธารณะ
+                    <strong>ต้องเบลอภาพ เซนเซอร์ หรือตัดทอนข้อมูลส่วนบุคคลออก</strong> มิฉะนั้นอาจมีความผิดตาม พ.ร.บ.
+                    คุ้มครองข้อมูลส่วนบุคคล และ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- 1. AUTHENTICATION -->
         <section class="docs-section-group" id="sec-auth">
@@ -417,6 +514,17 @@
             <div>
               <h2 class="group-heading">การขอข้อมูลจาก Fondue (Data Retrieval)</h2>
               <p class="group-subheading">API สำหรับดึงรายการเรื่องแจ้ง ประวัติ ข้อมูลสถิติ และผังโครงสร้างหน่วยงาน</p>
+            </div>
+          </div>
+
+          <!-- RAW DATA WARNING ALERT -->
+          <div class="raw-data-alert">
+            <div class="raw-data-alert-icon">⚠️</div>
+            <div class="raw-data-alert-content">
+              <strong>ข้อควรระวังเรื่องการเผยแพร่ข้อมูลสู่สาธารณะ:</strong> ข้อมูลเรื่องแจ้ง ข้อความ และรูปภาพที่ส่งไป
+              เป็น<strong>ข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ (Uncensored)</strong>
+              ให้ระวังการเผยแพร่ข้อมูลออกสู่สาธารณะให้มากที่สุด และต้องปฏิบัติตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)
+              โดยทำการเบลอหรือเซนเซอร์ข้อมูลส่วนบุคคล ก่อนเผยแพร่สู่สาธารณะ
             </div>
           </div>
 
