@@ -15,6 +15,7 @@
 * [ADR-007: มาตรการป้องกัน Infinite Webhook Feedback Loop ระหว่างระบบภายนอกและแพลตฟอร์ม](#adr-007-มาตรการป้องกัน-infinite-webhook-feedback-loop-ระหว่างระบบภายนอกและแพลตฟอร์ม)
 * [ADR-008: การรวม Single Source of Truth สำหรับ Versioning ใน UI และการปรับปรุงความถูกต้องของ Parameter & Response Contract](#adr-008-การรวม-single-source-of-truth-สำหรับ-versioning-ใน-ui-และการปรับปรุงความถูกต้องของ-parameter--response-contract)
 * [ADR-009: การปรับปรุงโครงสร้างหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ](#adr-009-การปรับปรุงโครงสร้างหัวการ์ด-api-เป็น-2-บรรทัด-two-row-hierarchy-และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ)
+* [ADR-010: การบังคับโครงสร้างหัวการ์ด API ขึ้นบรรทัดใหม่แยกระหว่าง Title และ Endpoint URL (Strict Line-Break & Cache-Busting Fallback)](#adr-010-การบังคับโครงสร้างหัวการ์ด-api-ขึ้นบรรทัดใหม่แยกระหว่าง-title-และ-endpoint-url-strict-line-break--cache-busting-fallback)
 
 ---
 
@@ -224,5 +225,30 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **Developer Experience (DX):** ผู้พัฒนาเห็นชื่อฟังก์ชันภาษาไทยและ Full Production URL ของแต่ละ Endpoint ได้ในพริบตา สามารถคัดลอกหรือนำ URL ไปใช้งานต่อได้สะดวกขึ้น
 - **Legal Protection & Risk Mitigation:** ปกป้องแพลตฟอร์มจากความเสี่ยงทางกฎหมายและข้อพิพาทเกี่ยวกับเนื้อหา และสร้างความตระหนักรู้ด้านความเป็นส่วนตัวของข้อมูลแก่ผู้ใช้งาน API ภายนอก
+
+---
+
+## ADR-010: การบังคับโครงสร้างหัวการ์ด API ขึ้นบรรทัดใหม่แยกระหว่าง Title และ Endpoint URL (Strict Line-Break & Cache-Busting Fallback)
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-10-16)
+
+### บริบท (Context)
+แม้จะมีการแบ่งโครงสร้าง DOM ใน `docs.html` เป็น 2 บรรทัด (`.api-card-header-top` และ `.api-card-header-bottom`) ใน ADR-009 แต่จากการทดสอบการแสดงผลบนเว็บบราวเซอร์จริงของผู้ใช้ พบปัญหา:
+1. เว็บบราวเซอร์จำแคชของไฟล์ `css/style.css` เก่า ซึ่งมีสไตล์ `display: flex; justify-content: space-between;` ทำให้ Title (`.api-card-header-top`) และ URL/Badge (`.api-card-header-bottom`) แสดงผลเคียงข้างกันในแนวนอนบนบรรทัดเดียวกัน
+2. เพื่อให้มั่นใจ 100% ว่า URL จะตกลงมาอยู่อีกบรรทัดหนึ่งอย่างแน่นอน จำเป็นต้องมีกลไกป้องกันทั้งในระดับ CSS และ Inline HTML รวมถึงกลไก Cache-Busting
+
+### การตัดสินใจ (Decision)
+1. **Strict Flex Column & Display Block ใน CSS:**
+   - กำหนดให้ `.api-card-header` ใน `css/style.css` มี `display: flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: flex-start !important;`
+   - กำหนดให้ `.api-card-header-top` มี `display: block; width: 100%;` เพื่อครอบครองความกว้างเต็มแถวเสมอ
+2. **Inline Style Defensive Fallback ใน HTML:**
+   - เพิ่ม `style="flex-direction: column; align-items: flex-start;"` ใน Element `.api-card-header` ของการ์ด API ทั้ง 16 จุดใน `docs.html` ป้องกันกรณี CSS ไม่ทำงาน
+3. **Cache-Busting Query Parameter:**
+   - ปรับการเชื่อมโยงสไตล์ชีทใน `docs.html` เป็น `<link rel="stylesheet" href="css/style.css?v=2">` เพื่อบังคับให้บราวเซอร์ดึง CSS ไฟล์ล่าสุดทันที
+
+### ผลสืบเนื่อง (Consequences)
+- **Visual Stability:** รับประกัน 100% ว่า Full URL และ Method/Auth Badges จะแสดงผลอยู่ใต้คำอธิบาย Endpoint ในบรรทัดใหม่อย่างสวยงามบนทุกอุปกรณ์
+- **Zero Cache Latency:** ผู้ใช้งานจะเห็นการจัดวางรูปแบบใหม่ทันทีโดยไม่ต้องสั่ง Hard Refresh
 
 
