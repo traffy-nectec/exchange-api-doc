@@ -1,0 +1,23 @@
+{
+  "0": "TraffyExchangeClient",
+  "2": "Architecture Decision Records (ADR)",
+  "6": "การส่งข้อมูลให้ Traffy Fondue (Action APIs)",
+  "7": "การขอข้อมูลจาก Traffy Fondue (Query APIs)",
+  "8": "README.md",
+  "9": "🔑 API `get-auth` (ขอ JWT)",
+  "10": "Traffy Fondue Exchange API Documentation 📘",
+  "11": "การส่งข้อมูลแบบ Real-time (Webhooks)",
+  "12": "3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)",
+  "13": "1. วัตถุประสงค์และผลลัพธ์หลัก (Objectives and Key Results - OKRs)",
+  "14": "Traffy Fondue Exchange API - Documentation Overview",
+  "15": "2. API `get-issue` (ขอรายละเอียดเชิงลึกของเรื่องแจ้ง)",
+  "16": "5. API `get-org-list` (ขอโครงสร้างหน่วยงานในสังกัด)",
+  "17": "6. API `get-type-list` (ขอรายการประเภทปัญหา)",
+  "18": "7. API `get-status-list` (ขอรายการสถานะ)",
+  "19": "Technical Context & Integration Architecture",
+  "20": "ADR-006: การคงความเข้ากันได้ย้อนหลัง (Backward Compatibility) และการประกาศ Dual-Version ใน OpenAPI Spec",
+  "21": "ADR-002: การปรับปรุง Contract ของ `POST /get-auth/v1` ให้ `results` เป็น JSON Object",
+  "22": "ADR-003: การระบุคำแนะนำเชิงป้องกันสำหรับ `GET /get-org-list/v1` ให้ส่ง Parameter `org_id` เสมอ",
+  "23": "ADR-005: การรองรับบริบทการใช้งาน 2 รูปแบบใน `POST /comment/v1` (`comment` vs `chat`)",
+  "24": "ADR-007: มาตรการป้องกัน Infinite Webhook Feedback Loop ระหว่างระบบภายนอกและแพลตฟอร์ม"
+}
