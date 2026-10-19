@@ -40,6 +40,19 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 💬 Get-Issue Reporter & Chat Log Alignment Release (Version: 2026-10-20)
+- **`GET /exchange-api/get-issue/v2` Output Schema Enhancement:**
+  - เพิ่มฟิลด์ข้อมูลผู้แจ้งในระดับ `results`:
+    - `user_id`: รหัสประจำตัวของผู้แจ้ง (string)
+    - `reporter_phone`: หมายเลขโทรศัพท์ของผู้แจ้ง (string / null)
+  - เพิ่ม Array ประวัติการสนทนาระหว่างเจ้าหน้าที่และประชาชน `chat[]`:
+    - `org_id`: รหัสหน่วยงานผู้ส่ง (integer / null — เป็น `null` เมื่อผู้ส่งคือประชาชนผู้แจ้ง)
+    - `comment`: ข้อความการสนทนา (string)
+    - `user_id`: รหัสประจำตัวของผู้ส่งข้อความ (string)
+    - `timestamp`: วันเวลาที่ส่งข้อความ (string ในรูปแบบ ISO 8601)
+  - **PDPA & Privacy Enforcement:** เพิ่มคำเตือนระบุข้อห้ามอย่างชัดเจนว่า **ห้ามเผยแพร่ข้อมูลในส่วนของ `chat` สู่สาธารณะ** เนื่องจากอาจมีชื่อและเบอร์โทรศัพท์ของผู้แจ้ง เพื่อวัตถุประสงค์ให้ จนท. ติดต่อกลับเท่านั้น
+  - ซิงค์โครงสร้างฟิลด์ใหม่ครบทั้ง `docs.html`, `docs/query-apis.md`, และ `openapi.yaml` (พร้อมประกาศ `IssueChatItem` schema และแก้ไข duplicate `timeline` property)
+
 ### 🏷️ Two-Row API Header & Legal Disclaimer Release (Version: 2026-10-16)
 - **Two-Row API Header Structure & Strict Line Break:**
   - ปรับโครงสร้างหัวการ์ด API ทุกรายการ (13 Core Endpoints และ 3 Webhooks) ใน `docs.html` เป็นแบบลำดับชั้น 2 บรรทัด (Two-Row Hierarchy)
