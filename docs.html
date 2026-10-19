@@ -310,7 +310,8 @@
                     หรือพิกัดบ้านพักอาศัย</li>
                   <li><strong>ต้องทำ Data Masking / Redaction ก่อนเผยแพร่:</strong> หากมีการนำข้อมูลไปแสดงผลต่อสาธารณะ
                     <strong>ต้องเบลอภาพ เซนเซอร์ หรือตัดทอนข้อมูลส่วนบุคคลออก</strong> มิฉะนั้นอาจมีความผิดตาม พ.ร.บ.
-                    คุ้มครองข้อมูลส่วนบุคคล และ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์</li>
+                    คุ้มครองข้อมูลส่วนบุคคล และ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์
+                  </li>
                 </ul>
               </div>
             </div>
@@ -980,6 +981,8 @@
         "star": 5,
         "count_reopen": 0,
         "last_activity": "2026-10-05 19:06:29.688952",
+        "user_id": "c8b91e4a2d",
+        "reporter_phone": "0999999999",
         "orgs": [
             {
                 "timestamp": "2026-10-05 19:06:16.831069",
@@ -1089,6 +1092,32 @@
                 "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
                 "note": "ทดลองปรับสถานะด้วย Exchange API",
                 "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png"
+            }
+        ],
+        "chat": [
+            {
+                "org_id": null,
+                "comment": "ตอนนี้น้ำท่วมขังบริเวณหน้าปากซอยสูงประมาณ 15 ซม. รถเล็กสัญจรลำบากครับ",
+                "user_id": "c8b91e4a2d",
+                "timestamp": "2026-10-05T12:15:20.130997+00:00"
+            },
+            {
+                "org_id": 43152,
+                "comment": "รับเรื่องแล้วครับ ทางหน่วยงานกำลังส่งทีมเจ้าหน้าที่พร้อมเครื่องสูบน้ำเข้าตรวจสอบพื้นที่ครับ",
+                "user_id": "staff_bkk_01",
+                "timestamp": "2026-10-05T12:30:45.492847+00:00"
+            },
+            {
+                "org_id": 43152,
+                "comment": "เจ้าหน้าที่ดำเนินการสูบระบายน้ำและเก็บขยะอุดตันหน้าตะแกรงเรียบร้อย ระดับน้ำแห้งเป็นปกติแล้วครับ",
+                "user_id": "staff_bkk_01",
+                "timestamp": "2026-10-05T13:45:10.840125+00:00"
+            },
+            {
+                "org_id": null,
+                "comment": "ขอบคุณเจ้าหน้าที่มากครับ ระดับน้ำแห้งแล้ว เดินทางสะดวกขึ้นมากครับ",
+                "user_id": "c8b91e4a2d",
+                "timestamp": "2026-10-05T14:02:18.210450+00:00"
             }
         ]
     },
@@ -1227,6 +1256,16 @@
                             <td><code>2026-09-01 16:14:49</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">user_id</span></td>
+                            <td>รหัสประจำตัวของผู้แจ้ง</td>
+                            <td><code>c8b91e4a2d</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">reporter_phone</span></td>
+                            <td>เบอร์โทรศัพท์ของผู้แจ้ง (<code>null</code> หากไม่ระบุ)</td>
+                            <td><code>0999999999</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">orgs</span></td>
                             <td>Array สถานะ/ประเภทปัญหาที่แต่ละหน่วยงานได้รับ</td>
                             <td><code>(Array)</code></td>
@@ -1314,6 +1353,41 @@
                             <td><span class="param-name">photo</span></td>
                             <td>URL รูปภาพประกอบการอัปเดต</td>
                             <td><code>null</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">chat</span></td>
+                            <td>Array ของข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง <span class="param-opt"
+                                style="color:var(--danger, #ef4444); font-weight:600;">(ห้ามเผยแพร่สู่สาธารณะ)</span>
+                            </td>
+                            <td><code>(Array)</code></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" style="background:var(--bg-subtle);font-weight:600;">**** ข้อมูลที่อยู่ใน
+                              <code>chat[]</code> <span
+                                style="font-size:0.85em; font-weight:normal; color:var(--text-muted);">(ห้ามเผยแพร่ข้อมูลส่วนของ
+                                chat สู่สาธารณะ เนื่องจากอาจมีชื่อและเบอร์โทรศัพท์ของผู้แจ้ง เพื่อให้ จนท.
+                                ติดต่อกลับ)</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_id</span></td>
+                            <td>รหัสหน่วยงาน (<code>null</code> หากข้อความเป็นของผู้แจ้ง)</td>
+                            <td><code>43152</code> / <code>null</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">comment</span></td>
+                            <td>ข้อความแชท</td>
+                            <td><code>รับเรื่องแล้วครับ กำลังส่งเจ้าหน้าที่เข้าตรวจสอบพื้นที่ครับ</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">user_id</span></td>
+                            <td>รหัสผู้ส่งข้อความ (ผู้แจ้งหรือเจ้าหน้าที่)</td>
+                            <td><code>staff_bkk_01</code> / <code>c8b91e4a2d</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">timestamp</span></td>
+                            <td>วันเวลาที่ส่งข้อความ (ISO 8601)</td>
+                            <td><code>2026-10-05T12:30:45.492847+00:00</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">api_log_session_id</span></td>
@@ -3767,7 +3841,8 @@
             <article class="api-card" id="webhook-chat" data-keywords="webhook chat comment rating event post">
               <div class="api-card-header" style="flex-direction: column; align-items: flex-start;">
                 <div class="api-card-header-top">
-                  <span class="api-card-title">16. Webhook รับความคิดเห็นและแชท (เมื่อมีการแสดงความคิดเห็นหรือแชท)</span>
+                  <span class="api-card-title">16. Webhook รับความคิดเห็นและแชท
+                    (เมื่อมีการแสดงความคิดเห็นหรือแชท)</span>
                 </div>
                 <div class="api-card-header-bottom">
                   <span class="method-badge method-post">POST (Webhook)</span>

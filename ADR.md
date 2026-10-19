@@ -16,6 +16,7 @@
 * [ADR-008: การรวม Single Source of Truth สำหรับ Versioning ใน UI และการปรับปรุงความถูกต้องของ Parameter & Response Contract](#adr-008-การรวม-single-source-of-truth-สำหรับ-versioning-ใน-ui-และการปรับปรุงความถูกต้องของ-parameter--response-contract)
 * [ADR-009: การปรับปรุงโครงสร้างหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ](#adr-009-การปรับปรุงโครงสร้างหัวการ์ด-api-เป็น-2-บรรทัด-two-row-hierarchy-และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ)
 * [ADR-010: การบังคับโครงสร้างหัวการ์ด API ขึ้นบรรทัดใหม่แยกระหว่าง Title และ Endpoint URL (Strict Line-Break & Cache-Busting Fallback)](#adr-010-การบังคับโครงสร้างหัวการ์ด-api-ขึ้นบรรทัดใหม่แยกระหว่าง-title-และ-endpoint-url-strict-line-break--cache-busting-fallback)
+* [ADR-011: การเพิ่มข้อมูลผู้แจ้ง (Reporter Details) และประวัติแชท (Chat Logs) ใน Response ของ `GET /get-issue/v2` พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล (PDPA)](#adr-011-การเพิ่มข้อมูลผู้แจ้ง-reporter-details-และประวัติแชท-chat-logs-ใน-response-ของ-get-get-issuev2-พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล-pdpa)
 
 ---
 
@@ -250,5 +251,37 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **Visual Stability:** รับประกัน 100% ว่า Full URL และ Method/Auth Badges จะแสดงผลอยู่ใต้คำอธิบาย Endpoint ในบรรทัดใหม่อย่างสวยงามบนทุกอุปกรณ์
 - **Zero Cache Latency:** ผู้ใช้งานจะเห็นการจัดวางรูปแบบใหม่ทันทีโดยไม่ต้องสั่ง Hard Refresh
+
+---
+
+## ADR-011: การเพิ่มข้อมูลผู้แจ้ง (Reporter Details) และประวัติแชท (Chat Logs) ใน Response ของ `GET /get-issue/v2` พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล (PDPA)
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-10-20)
+
+### บริบท (Context)
+ในการบริหารจัดการเรื่องร้องเรียนของเจ้าหน้าที่หน่วยงาน จำเป็นต้องมีข้อมูลสำหรับติดต่อกลับประชาชนผู้แจ้งเหตุเพื่อขอข้อมูลเพิ่มเติม รวมถึงติดตามประวัติการสื่อสารโต้ตอบระหว่างเจ้าหน้าที่และประชาชนในเรื่องแจ้งนั้นๆ ฝั่ง Backend API จึงได้ปรับปรุง Response Contract ของ `GET /exchange-api/get-issue/v2` โดยเพิ่มข้อมูลผู้แจ้ง (`user_id`, `reporter_phone`) และประวัติการสนทนา (`chat[]`)
+
+อย่างไรก็ตาม เนื่องจากข้อมูลเบอร์โทรศัพท์และข้อความแชทอาจมีข้อมูลระบุตัวบุคคล (Personally Identifiable Information: PII) จึงจำเป็นต้องมีข้อตกลงและคำเตือนกำกับชัดเจนในเอกสาร API และ Schema เพื่อป้องกันการนำข้อมูลนี้ไปเปิดเผยสู่สาธารณะ
+
+### การตัดสินใจ (Decision)
+1. **Response Contract Enhancement:**
+   - เพิ่มฟิลด์ `user_id` (Id ของผู้แจ้ง) และ `reporter_phone` (เบอร์โทรศัพท์ของผู้แจ้ง) ไว้ใน `results` Object
+   - เพิ่มฟิลด์ `chat` (Array ของข้อความแชท) ไว้ใน `results` โดยแต่ละข้อความประกอบด้วย:
+     - `org_id`: รหัสหน่วยงาน (เป็น `null` หากข้อความส่งโดยผู้แจ้ง)
+     - `comment`: ข้อความการสนทนา
+     - `user_id`: รหัสประจำตัวของผู้ส่งข้อความ
+     - `timestamp`: เวลาที่ส่งข้อความ (ISO 8601)
+2. **PDPA & Privacy Protection Directive:**
+   - กำหนดข้อห้ามในเอกสาร (`docs.html`, `docs/query-apis.md`, `openapi.yaml`): **ห้ามเผยแพร่ข้อมูลในส่วนของ `chat` และ `reporter_phone` สู่สาธารณะโดยเด็ดขาด**
+   - การเข้าถึงข้อมูลนี้มีวัตถุประสงค์เพื่อให้เจ้าหน้าที่หน่วยงานใช้ติดต่อประสานงานกับผู้แจ้งเท่านั้น
+3. **Synchronized Documentation & Schema:**
+   - ปรับปรุงตัวอย่าง JSON Response และตาราง Parameter Output ใน `docs.html` และ `docs/query-apis.md`
+   - เพิ่ม schema `IssueChatItem` และฟิลด์ `user_id`, `reporter_phone`, `chat` ใน `GetIssueResponse` ของ `openapi.yaml`
+
+### ผลสืบเนื่อง (Consequences)
+- **Complete Communication Context:** หน่วยงานที่เชื่อมต่อ API สามารถดึงข้อมูลผู้แจ้งและประวัติการสนทนาไปทำงานร่วมกับระบบ CRM หรือ Helpdesk ภายในของตนเองได้อย่างสมบูรณ์
+- **PDPA Compliance Awareness:** ผู้พัฒนาระบบภายนอกตระหนักถึงความอ่อนไหวของข้อมูล และมีแนวปฏิบัติที่ชัดเจนในการปกป้องข้อมูลส่วนบุคคลของประชาชนผู้แจ้ง
+
 
 

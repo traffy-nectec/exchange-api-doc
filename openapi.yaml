@@ -609,6 +609,28 @@ components:
           nullable: true
           description: ลิงก์ URL รูปภาพผลการดำเนินงาน
 
+    IssueChatItem:
+      type: object
+      description: รายการข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง (ห้ามเผยแพร่สู่สาธารณะ)
+      properties:
+        org_id:
+          type: integer
+          nullable: true
+          description: รหัสหน่วยงาน (null หากเป็นข้อความจากผู้แจ้ง)
+          example: 43152
+        comment:
+          type: string
+          description: ข้อความแชท
+          example: "รับเรื่องแล้วครับ ทางหน่วยงานกำลังส่งทีมเจ้าหน้าที่เข้าตรวจสอบพื้นที่ครับ"
+        user_id:
+          type: string
+          description: รหัสประจำตัวของผู้ส่งข้อความ
+          example: "staff_bkk_01"
+        timestamp:
+          type: string
+          description: วันเวลาที่ส่งข้อความ (ISO 8601)
+          example: "2026-10-05T12:30:45.492847+00:00"
+
     GetIssueResponse:
       type: object
       properties:
@@ -669,6 +691,15 @@ components:
               type: integer
             last_activity:
               type: string
+            user_id:
+              type: string
+              description: รหัสประจำตัวของผู้แจ้ง
+              example: "c8b91e4a2d"
+            reporter_phone:
+              type: string
+              nullable: true
+              description: เบอร์โทรศัพท์ของผู้แจ้ง
+              example: "0999999999"
             orgs:
               type: array
               items:
@@ -677,10 +708,11 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/IssueTimelineItem"
-            timeline:
+            chat:
               type: array
+              description: รายการข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง (ห้ามเผยแพร่สู่สาธารณะ เนื่องจากอาจมีชื่อและเบอร์โทรศัพท์ของผู้แจ้ง)
               items:
-                $ref: "#/components/schemas/IssueTimelineItem"
+                $ref: "#/components/schemas/IssueChatItem"
 
     DownloadIssuesErrorResponse:
       type: object

@@ -100,6 +100,9 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
+### 2026-10-20
+- **อัปเดตฟิลด์ผลลัพธ์ของ `GET /get-issue/v2` (Reporter & Chat Log Data):** เพิ่มฟิลด์ `user_id` (Id ผู้แจ้ง), `reporter_phone` (เบอร์โทรศัพท์ผู้แจ้ง) และ `chat` (Array ข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง ประกอบด้วย `org_id`, `comment`, `user_id`, `timestamp`) ใน `results` ของ API `get-issue` บน `docs.html`, `docs/query-apis.md` และ `openapi.yaml` พร้อมเพิ่มคำเตือนมาตรการคุ้มครองข้อมูลส่วนบุคคล (PDPA) ห้ามเผยแพร่ข้อมูลแชทสู่สาธารณะ
+
 ### 2026-10-16
 - **โครงสร้างหัวการ์ด API 2 บรรทัดและการบังคับขึ้นบรรทัดใหม่ (Two-Row Hierarchy & Strict Line Break):** ปรับแก้หัวข้อของการ์ด API ทุกตัวใน `docs.html` (13 Core APIs และ 3 Webhooks) ให้เอาลำดับและคำอธิบายภาษาไทยขึ้นก่อนในบรรทัดแรก และขึ้นบรรทัดใหม่ด้วย Method Badge, Full Production URL (เช่น `https://publicapi.traffy.in.th/exchange-api/get-auth/v1`), และวิธีการ Authentication พร้อมทั้งบังคับการขึ้นบรรทัดใหม่ด้วย `!important` ใน CSS, Inline Style Fallback และ Cache-Busting เพื่อความชัดเจนและป้องกันบราวเซอร์แคชแสดงผลผิดพลาด
 - **ข้อกำหนดความรับผิดชอบและการคุ้มครองข้อมูล (Disclaimer & Data Privacy):** เพิ่มแบนเนอร์และข้อกำหนดระบุสถานะ Traffy Fondue ในฐานะแพลตฟอร์มผู้ให้บริการระบบตัวกลาง (Platform Service Provider) ความรับผิดชอบต่อเนื้อหาตกอยู่แก่ผู้แจ้งเหตุ เจ้าหน้าที่ และผู้นำข้อมูลไปใช้ต่อ พร้อมทั้งกำชับคำเตือนเรื่องข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ (Raw Uncensored Data) ให้ปฏิบัติตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) อย่างเคร่งครัด
