@@ -19,7 +19,7 @@
 | ไฟล์ / ไดเรกทอรี | รายละเอียด |
 | :--- | :--- |
 | **`index.html`** | หน้าแรก Landing Page / Developer Portal แนะนำภาพรวมและ Onboarding Flow |
-| **`docs.html`** | Interactive API Documentation แบบละเอียด ครอบคลุม 13 Endpoints + 2 Webhooks พร้อม Search & Filter, Collapsible Schemas, และ Code Copy |
+| **`docs.html`** | Interactive API Documentation แบบละเอียด ครอบคลุม 13 Endpoints + 3 Webhooks พร้อม Search & Filter, Collapsible Schemas, และ Code Copy |
 | **`css/style.css`** | Modern Responsive Design System (Clean UI, Glassmorphism, Theme Variables) |
 | **`js/app.js`** | ฟังก์ชัน Interactive (Live Search, ScrollSpy Navigation, Copy-to-Clipboard) |
 | **`README.md`** | หน้าแรกของ Repository สรุป Quick API Reference, Quickstart, และโครงสร้างโปรเจกต์ |
@@ -32,13 +32,32 @@
 | **`docs/authentication.md`**| รายละเอียดการเรียก `get-auth`, JWT Header, และการจัดการโควต้า |
 | **`docs/query-apis.md`** | เอกสาร API ดึงข้อมูล (`get-issues`, `get-issue`, `download-issues`, `search-org`, ฯลฯ) |
 | **`docs/action-apis.md`** | เอกสาร API ส่งข้อมูลและอัปเดต (`new-issue`, `update-issue`, `star`, `comment`, `join-forward`) |
-| **`docs/webhooks.md`** | เอกสาร Real-time Webhook Specification (New Issue POST & Status Update PATCH) |
+| **`docs/webhooks.md`** | เอกสาร Real-time Webhook Specification (New Issue POST, Status Update PATCH, Chat/Comment POST) |
 | **`docs/error-codes.md`** | รหัสข้อผิดพลาดและการแก้ปัญหา (Troubleshooting) |
 | **`examples/`** | ตัวอย่างโค้ดพร้อมรันสำหรับ cURL, Python Client SDK, และ Node.js Client SDK |
 
 ---
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
+
+### 🔔 Webhook Documentation & Join-Forward Contract Cleanup (Version: 2026-11-06)
+- **Webhook Payload Completeness:**
+  - เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัวใน `docs.html` ให้ครบทุกฟิลด์ตาม JSON Sample ได้แก่
+    - **New Issue (POST):** เพิ่ม `timestamp`, `type`, `type_en`, `issue_category_id`, `org_category_id`, `status`, `status_en`, `is_follow`, `is_forward`, `issue_status_id`, `org_status_id`, `status_type`, `photo`, `latitude`, `longitude`, `address`, `orgs[]` (`org`, `org_id`)
+    - **Status Update (PATCH):** เพิ่ม `timestamp`, `client_ticket_id`, `status`, `status_en`, `status_type`, `is_follow`, `is_forward`, `issue_status_id`, `org_status_id`, `tl_org_id`, `tl_org`, `tl_status`, `note`, `photo`
+    - **Chat/Comment (POST):** ตรวจสอบและคงฟิลด์ครบทั้ง 10 ฟิลด์ตาม Sample
+  - ระบุ Type ของทุกฟิลด์ตามข้อมูลจริงใน Sample (เช่น `photo` ของ New Issue เป็น `string`, `latitude`/`longitude` เป็น `string`, `photo` ของ Status Update เป็น `array[string]`)
+  - เพิ่ม **Response Example** มาตรฐานของทุก Webhook เป็น `{ "status": "success", "message": "" }` เพื่อให้ผู้เชื่อมต่อทราบรูปแบบ ACK ที่ควรตอบกลับ
+- **`POST /exchange-api/join-forward/v1` Public Contract Cleanup:**
+  - ปรับตาราง Request Body ใน `docs.html` ให้แสดงเฉพาะพารามิเตอร์ที่เปิดเผยสำหรับผู้ใช้งาน ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64`
+  - นำพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่เปิดเผยต่อสาธารณะออกจากเอกสาร: `noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin`
+  - ปรับตาราง Output ให้รวม `api_log_session_id` และ `api_log_session_id_join_forward` ไว้ในรายการเดียวกัน พร้อมนำ `results` (ข้อมูลส่งผ่านจาก internal API) ออก
+  - **ไม่มีการเปลี่ยนแปลงพฤติกรรมของเซิร์ฟเวอร์** เป็นการปรับเอกสารให้ตรงกับ Public Contract เท่านั้น
+- **Webhook Description Clarification:**
+  - ปรับคำอธิบายการ์ด Webhook รับเคสใหม่ให้ชัดเจนว่าเป็นการส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา **ออกไปยัง Webhook URL ของหน่วยงาน** แบบ HTTP POST
+- **Architecture Decision Records (ADR):**
+  - บันทึก [ADR-012](ADR.md#adr-012-มาตรฐานการทำเอกสาร-webhook-payload-และ-response-contract-ให้ครบถ้วน) เรื่องมาตรฐานการทำเอกสาร Webhook Payload และ Response Contract
+  - บันทึก [ADR-013](ADR.md#adr-013-การจำกัด-public-contract-ของ-post-join-forwardv1-ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย) เรื่องการจำกัด Public Contract ของ `POST /join-forward/v1`
 
 ### 💬 Get-Issue Reporter & Chat Log Alignment Release (Version: 2026-10-20)
 - **`GET /exchange-api/get-issue/v2` Output Schema Enhancement:**

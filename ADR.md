@@ -17,6 +17,8 @@
 * [ADR-009: การปรับปรุงโครงสร้างหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ](#adr-009-การปรับปรุงโครงสร้างหัวการ์ด-api-เป็น-2-บรรทัด-two-row-hierarchy-และการประกาศข้อกำหนดความรับผิดชอบต่อเนื้อหาและข้อมูลดิบ)
 * [ADR-010: การบังคับโครงสร้างหัวการ์ด API ขึ้นบรรทัดใหม่แยกระหว่าง Title และ Endpoint URL (Strict Line-Break & Cache-Busting Fallback)](#adr-010-การบังคับโครงสร้างหัวการ์ด-api-ขึ้นบรรทัดใหม่แยกระหว่าง-title-และ-endpoint-url-strict-line-break--cache-busting-fallback)
 * [ADR-011: การเพิ่มข้อมูลผู้แจ้ง (Reporter Details) และประวัติแชท (Chat Logs) ใน Response ของ `GET /get-issue/v2` พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล (PDPA)](#adr-011-การเพิ่มข้อมูลผู้แจ้ง-reporter-details-และประวัติแชท-chat-logs-ใน-response-ของ-get-get-issuev2-พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล-pdpa)
+* [ADR-012: มาตรฐานการทำเอกสาร Webhook Payload และ Response Contract ให้ครบถ้วน](#adr-012-มาตรฐานการทำเอกสาร-webhook-payload-และ-response-contract-ให้ครบถ้วน)
+* [ADR-013: การจำกัด Public Contract ของ `POST /join-forward/v1` ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย](#adr-013-การจำกัด-public-contract-ของ-post-join-forwardv1-ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย)
 
 ---
 
@@ -282,6 +284,44 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **Complete Communication Context:** หน่วยงานที่เชื่อมต่อ API สามารถดึงข้อมูลผู้แจ้งและประวัติการสนทนาไปทำงานร่วมกับระบบ CRM หรือ Helpdesk ภายในของตนเองได้อย่างสมบูรณ์
 - **PDPA Compliance Awareness:** ผู้พัฒนาระบบภายนอกตระหนักถึงความอ่อนไหวของข้อมูล และมีแนวปฏิบัติที่ชัดเจนในการปกป้องข้อมูลส่วนบุคคลของประชาชนผู้แจ้ง
+
+---
+
+## ADR-012: มาตรฐานการทำเอกสาร Webhook Payload และ Response Contract ให้ครบถ้วน
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-06)
+
+### บริบท (Context)
+ตาราง Incoming Payload ของ Webhook ใน `docs.html` เดิมแสดงเพียงบางฟิลด์ ไม่ครบตาม JSON Sample จริงที่ระบบส่งออกไป ทำให้ผู้เชื่อมต่ออาจพลาดฟิลด์สำคัญ เช่น `status_en`, `is_follow`, `is_forward`, `status_type` และฟิลด์ระดับหน่วยงาน นอกจากนี้ยังไม่มีตัวอย่าง Response ที่ชัดเจนว่าปลายทางควรตอบกลับอย่างไร
+
+### การตัดสินใจ (Decision)
+1. **Payload Completeness:** สำหรับ Webhook ทั้ง 3 ตัว (`new-issue`, `update-issue`, `chat/comment`) ตาราง Incoming Payload ต้องแสดงฟิลด์ครบทุกฟิลด์ที่ปรากฏใน JSON Sample พร้อมระบุ Type ตามข้อมูลจริง
+2. **Response Contract:** กำหนด Response Example มาตรฐานที่ปลายทางควรตอบกลับเป็น `{ "status": "success", "message": "" }`
+3. **Single Source of Truth:** ใช้ `docs.html` เป็นเอกสารอ้างอิงหลัก และถือมาตรฐานนี้เมื่อปรับปรุงเอกสาร Webhook ส่วนอื่นในอนาคต
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** ผู้เชื่อมต่อเห็น Contract ครบถ้วนตั้งแต่ต้น ลดปัญหาฟิลด์ตกหล่นและลดการสอบถามทีม Traffy
+- **ข้อควรระวัง:** เมื่อ Backend เพิ่มหรือเปลี่ยนฟิลด์ของ Webhook ต้องอัปเดตตารางและ Sample ใน `docs.html` ให้ตรงกันทุกครั้ง
+
+---
+
+## ADR-013: การจำกัด Public Contract ของ `POST /join-forward/v1` ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-06)
+
+### บริบท (Context)
+เอกสาร `join-forward` เดิมแสดงพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่ใช่ส่วนหนึ่งของ Public Contract เช่น `noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin` รวมถึงฟิลด์ `results` ที่ส่งผ่านมาจาก internal API `join_forward` ทำให้ผู้ใช้งานเข้าใจผิดว่าต้องส่งหรือจะได้รับฟิลด์เหล่านี้เสมอ
+
+### การตัดสินใจ (Decision)
+1. **Request Body:** แสดงเฉพาะพารามิเตอร์สาธารณะ ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64`
+2. **Output:** แสดงเฉพาะฟิลด์ผลลัพธ์สาธารณะ ได้แก่ `status`, `message`, `exec_time`, `credit_balance`, `api_log_session_id`, `api_log_session_id_join_forward` โดยนำ `results` ออก
+3. **ไม่เปลี่ยนแปลงพฤติกรรมเซิร์ฟเวอร์:** เป็นการปรับเอกสารให้สะท้อน Public Contract เท่านั้น พารามิเตอร์ภายในยังคงทำงานเหมือนเดิม
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** Contract ชัดเจนขึ้น ผู้ใช้งานไม่ต้องเดาว่าฟิลด์ใดต้องส่งหรือฟิลด์ใดเป็นข้อมูลภายใน
+- **ข้อควรระวัง:** หากในอนาคตต้องการเปิดพารามิเตอร์เพิ่มเติม ต้องผ่านการทบทวนและบันทึกเป็น Public Contract อย่างชัดเจนก่อน
 
 
 
