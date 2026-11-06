@@ -101,8 +101,8 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
 ### 2026-11-06
-- **เอกสาร Webhook ครบถ้วนขึ้น:** เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัว (`new-issue`, `update-issue`, `chat/comment`) ให้ครบทุกฟิลด์ตาม JSON Sample พร้อมระบุ Type และเพิ่ม Response Example มาตรฐาน `{ "status": "success", "message": "" }` ใน `docs.html`
-- **ปรับ Public Contract ของ `POST /join-forward/v1`:** นำพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่เปิดเผยต่อสาธารณะออกจากตาราง Request Body (`noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin`) และปรับตาราง Output ให้รวม `api_log_session_id` กับ `api_log_session_id_join_forward` พร้อมนำ `results` ที่เป็นข้อมูลภายในออก
+- **เอกสาร Webhook ครบถ้วนขึ้น:** เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัว (`new-issue`, `update-issue`, `chat/comment`) ให้ครบทุกฟิลด์ตาม JSON Sample พร้อมระบุ Type และเพิ่ม Response Example มาตรฐาน `{ "status": "success", "message": "" }` ใน `docs.html` และ `docs/webhooks.md`
+- **ปรับ Public Contract ของ `POST /join-forward/v1`:** นำพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่เปิดเผยต่อสาธารณะออกจากตาราง Request Body (`noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin`) และปรับตาราง Output ให้รวม `api_log_session_id` กับ `api_log_session_id_join_forward` พร้อมนำ `results` ที่เป็นข้อมูลภายในออก ทั้งใน `docs.html` และ `docs/action-apis.md`
 - **ปรับคำอธิบาย Webhook:** ระบุชัดเจนว่า Webhook รับเคสใหม่เป็นการส่งข้อมูลออกไปยัง Webhook URL ของหน่วยงาน
 - บันทึกการตัดสินใจเชิงสถาปัตยกรรม [ADR-012](ADR.md#adr-012-มาตรฐานการทำเอกสาร-webhook-payload-และ-response-contract-ให้ครบถ้วน) และ [ADR-013](ADR.md#adr-013-การจำกัด-public-contract-ของ-post-join-forwardv1-ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย)
 

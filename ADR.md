@@ -298,7 +298,7 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### การตัดสินใจ (Decision)
 1. **Payload Completeness:** สำหรับ Webhook ทั้ง 3 ตัว (`new-issue`, `update-issue`, `chat/comment`) ตาราง Incoming Payload ต้องแสดงฟิลด์ครบทุกฟิลด์ที่ปรากฏใน JSON Sample พร้อมระบุ Type ตามข้อมูลจริง
 2. **Response Contract:** กำหนด Response Example มาตรฐานที่ปลายทางควรตอบกลับเป็น `{ "status": "success", "message": "" }`
-3. **Single Source of Truth:** ใช้ `docs.html` เป็นเอกสารอ้างอิงหลัก และถือมาตรฐานนี้เมื่อปรับปรุงเอกสาร Webhook ส่วนอื่นในอนาคต
+3. **Synchronized Documentation:** ใช้ `docs.html` เป็นเอกสารอ้างอิงหลัก และซิงค์ตาราง/ตัวอย่าง JSON พร้อม Response Example ลง `docs/webhooks.md` ให้ตรงกัน พร้อมถือมาตรฐานนี้เมื่อปรับปรุงเอกสาร Webhook ในอนาคต
 
 ### ผลสืบเนื่อง (Consequences)
 - **ข้อดี:** ผู้เชื่อมต่อเห็น Contract ครบถ้วนตั้งแต่ต้น ลดปัญหาฟิลด์ตกหล่นและลดการสอบถามทีม Traffy
@@ -315,7 +315,7 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 เอกสาร `join-forward` เดิมแสดงพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่ใช่ส่วนหนึ่งของ Public Contract เช่น `noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin` รวมถึงฟิลด์ `results` ที่ส่งผ่านมาจาก internal API `join_forward` ทำให้ผู้ใช้งานเข้าใจผิดว่าต้องส่งหรือจะได้รับฟิลด์เหล่านี้เสมอ
 
 ### การตัดสินใจ (Decision)
-1. **Request Body:** แสดงเฉพาะพารามิเตอร์สาธารณะ ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64`
+1. **Request Body:** แสดงเฉพาะพารามิเตอร์สาธารณะ ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64` ทั้งใน `docs.html` และ `docs/action-apis.md`
 2. **Output:** แสดงเฉพาะฟิลด์ผลลัพธ์สาธารณะ ได้แก่ `status`, `message`, `exec_time`, `credit_balance`, `api_log_session_id`, `api_log_session_id_join_forward` โดยนำ `results` ออก
 3. **ไม่เปลี่ยนแปลงพฤติกรรมเซิร์ฟเวอร์:** เป็นการปรับเอกสารให้สะท้อน Public Contract เท่านั้น พารามิเตอร์ภายในยังคงทำงานเหมือนเดิม
 

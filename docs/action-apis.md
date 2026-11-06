@@ -263,16 +263,9 @@ Content-Type: application/json
 | `origin_group` | integer | OPTIONAL | รหัสหน่วยงานต้นทาง (หากไม่ระบุ ระบบจะใช้หน่วยงานของ Account โดยอัตโนมัติ) | `43152` |
 | `destination_group` | array[integer] | OPTIONAL | รหัสหน่วยงานปลายทาง | `[1302]` |
 | `scenario` | integer | **REQUIRED** | รูปแบบการดำเนินการ: `1` = เชิญร่วม, `2` = ส่งต่อ | `2` |
-| `noti` | boolean | OPTIONAL | 🆕 shorthand ตั้งค่าให้ทั้ง `noti_reporter` และ `noti_staff` พร้อมกัน | `true` |
-| `noti_staff` | boolean | OPTIONAL (default `true`) | 🆕 แจ้งเตือนเจ้าหน้าที่หรือไม่ | `true` |
-| `noti_reporter` | boolean | OPTIONAL (default `true`) | 🆕 แจ้งเตือนผู้แจ้งเรื่องหรือไม่ | `true` |
-| `skip_timeline` | boolean | OPTIONAL (default `false`) | 🆕 ข้ามการบันทึกรายการนี้ลง timeline หรือไม่ | `false` |
 | `note` | string | OPTIONAL | บันทึกข้อความประกอบการเชิญร่วม/ส่งต่อ | `"ทดสอบส่งต่อ"` |
 | `photo` | array[string] | OPTIONAL\*\* | 🆕 รูปภาพประกอบ เป็นลิงก์ URL | `["https://example.com/photo.jpg"]` |
 | `photo_base64` | string / array[string] | OPTIONAL\*\* | 🆕 รูปภาพประกอบแบบ base64 | `"iVBORw0KGgo..."` |
-| `recursive_counter` | integer | OPTIONAL | 🆕 ตัวนับการส่งต่อซ้ำ (ใช้ภายในระบบเพื่อป้องกันการวนลูป) | `0` |
-| `timestamp` | string | OPTIONAL | 🆕 เวลาที่ทำรายการ | `"2026-09-09T10:00:00"` |
-| `use_admin` | boolean | OPTIONAL | 🆕 ใช้สิทธิ์ admin ในการดำเนินการ | `true` |
 
 \* เลือกระบุอย่างใดอย่างหนึ่งจาก `ticket_id`/`client_ticket_id`/`message_id`
 \*\* เลือกส่งรูปภาพได้ทางใดทางหนึ่งจาก `photo`/`photo_base64`
@@ -283,9 +276,6 @@ Content-Type: application/json
   "ticket_id": "2026-YUXXFL",
   "destination_group": [1302],
   "scenario": 2,
-  "noti_staff": true,
-  "noti_reporter": true,
-  "skip_timeline": false,
   "note": "ทดสอบส่งต่อ"
 }
 ```
@@ -298,9 +288,7 @@ Content-Type: application/json
 | `message` | string | ข้อความอธิบายผล |
 | `exec_time` | string | เวลาที่ใช้ประมวลผล (วินาที) เช่น `"3.627s"` |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` | number | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_join_forward` | number | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
-| `results` | array / object | ส่งผ่านมาจาก internal API `join_forward` โดยตรง (เมื่อสำเร็จมักได้ `[]` หรือไม่มี key นี้) |
+| `api_log_session_id` / `api_log_session_id_join_forward` | number | รหัส log การเรียกใช้งาน (รวมถึง log ของ internal API `join_forward` เมื่อมี) |
 
 #### Example Response (Success)
 ```json
@@ -310,7 +298,6 @@ Content-Type: application/json
   "exec_time": "3.627s",
   "credit_balance": 992,
   "api_log_session_id": 1855040299,
-  "api_log_session_id_join_forward": 203539335,
-  "results": []
+  "api_log_session_id_join_forward": 203539335
 }
 ```

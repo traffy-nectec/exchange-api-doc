@@ -42,14 +42,14 @@
 
 ### 🔔 Webhook Documentation & Join-Forward Contract Cleanup (Version: 2026-11-06)
 - **Webhook Payload Completeness:**
-  - เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัวใน `docs.html` ให้ครบทุกฟิลด์ตาม JSON Sample ได้แก่
+  - เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัวใน `docs.html` และซิงค์ตาราง/ตัวอย่าง JSON พร้อม Response Example ลง `docs/webhooks.md` ให้ครบทุกฟิลด์ตาม JSON Sample ได้แก่
     - **New Issue (POST):** เพิ่ม `timestamp`, `type`, `type_en`, `issue_category_id`, `org_category_id`, `status`, `status_en`, `is_follow`, `is_forward`, `issue_status_id`, `org_status_id`, `status_type`, `photo`, `latitude`, `longitude`, `address`, `orgs[]` (`org`, `org_id`)
     - **Status Update (PATCH):** เพิ่ม `timestamp`, `client_ticket_id`, `status`, `status_en`, `status_type`, `is_follow`, `is_forward`, `issue_status_id`, `org_status_id`, `tl_org_id`, `tl_org`, `tl_status`, `note`, `photo`
     - **Chat/Comment (POST):** ตรวจสอบและคงฟิลด์ครบทั้ง 10 ฟิลด์ตาม Sample
   - ระบุ Type ของทุกฟิลด์ตามข้อมูลจริงใน Sample (เช่น `photo` ของ New Issue เป็น `string`, `latitude`/`longitude` เป็น `string`, `photo` ของ Status Update เป็น `array[string]`)
   - เพิ่ม **Response Example** มาตรฐานของทุก Webhook เป็น `{ "status": "success", "message": "" }` เพื่อให้ผู้เชื่อมต่อทราบรูปแบบ ACK ที่ควรตอบกลับ
 - **`POST /exchange-api/join-forward/v1` Public Contract Cleanup:**
-  - ปรับตาราง Request Body ใน `docs.html` ให้แสดงเฉพาะพารามิเตอร์ที่เปิดเผยสำหรับผู้ใช้งาน ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64`
+  - ปรับตาราง Request Body ใน `docs.html` และ `docs/action-apis.md` ให้แสดงเฉพาะพารามิเตอร์ที่เปิดเผยสำหรับผู้ใช้งาน ได้แก่ `ticket_id` / `client_ticket_id` / `message_id`, `origin_group`, `destination_group`, `scenario`, `note`, `photo` / `photo_base64`
   - นำพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่เปิดเผยต่อสาธารณะออกจากเอกสาร: `noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin`
   - ปรับตาราง Output ให้รวม `api_log_session_id` และ `api_log_session_id_join_forward` ไว้ในรายการเดียวกัน พร้อมนำ `results` (ข้อมูลส่งผ่านจาก internal API) ออก
   - **ไม่มีการเปลี่ยนแปลงพฤติกรรมของเซิร์ฟเวอร์** เป็นการปรับเอกสารให้ตรงกับ Public Contract เท่านั้น
