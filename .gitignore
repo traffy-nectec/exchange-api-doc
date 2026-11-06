@@ -4,3 +4,6 @@ __pycache__/
 .DS_Store
 .env
 /bruno/
+graphify-out/
+!graphify-out/GRAPH_REPORT.md
+!graphify-out/graph.json
