@@ -3466,47 +3466,11 @@
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">noti</span></td>
-                            <td>bool</td>
-                            <td>Shorthand ตั้งค่าทั้ง noti_reporter/noti_staff</td>
-                            <td><code>true</code></td>
-                            <td><span class="param-opt">OPTIONAL</span></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">noti_staff</span></td>
-                            <td>bool</td>
-                            <td>แจ้งเตือนเจ้าหน้าที่ (Default: true)</td>
-                            <td><code>true</code></td>
-                            <td><span class="param-opt">OPTIONAL</span></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">noti_reporter</span></td>
-                            <td>bool</td>
-                            <td>แจ้งเตือนผู้แจ้ง (Default: true)</td>
-                            <td><code>true</code></td>
-                            <td><span class="param-opt">OPTIONAL</span></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">skip_timeline</span></td>
-                            <td>bool</td>
-                            <td>ข้ามการบันทึกลง Timeline (Default: false)</td>
-                            <td><code>false</code></td>
-                            <td><span class="param-opt">OPTIONAL</span></td>
-                          </tr>
-                          <tr>
                             <td><span class="param-name">photo</span> / <span class="param-name">photo_base64</span>
                             </td>
                             <td>string / string</td>
                             <td>รูปภาพประกอบการส่งต่อ (ส่งได้เพียงรูปเดียว ไม่ใช่ array)</td>
                             <td><code>"https://..."</code></td>
-                            <td><span class="param-opt">OPTIONAL</span></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">recursive_counter</span> / <span
-                                class="param-name">timestamp</span> / <span class="param-name">use_admin</span></td>
-                            <td>int / string / bool</td>
-                            <td>พารามิเตอร์ภายในสำหรับการควบคุมการส่งต่อซ้ำและสิทธิ์ Admin</td>
-                            <td><code>-</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
                         </tbody>
@@ -3583,21 +3547,9 @@
                             <td><code>819</code></td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">results</span></td>
-                            <td>ส่งผ่านมาจาก internal API <code>join_forward</code> โดยตรง (ไม่มีสัญญา (contract)
-                              ที่ตายตัวเปิดเผยต่อสาธารณะ) — <b>ไม่ปรากฏ key นี้เสมอไป</b></td>
-                            <td><code>(Object, ไม่แน่นอน)</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">api_log_session_id</span></td>
+                            <td><span class="param-name">api_log_session_id</span> / <span class="param-name">api_log_session_id_join_forward</span></td>
                             <td>หมายเลข API log session สำหรับ debug ร่วมกับทีม Traffy</td>
                             <td><code>1234567890</code></td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">api_log_session_id_join_forward</span></td>
-                            <td>API log session ของการเรียก internal API <code>join_forward</code>
-                              ที่ทำงานจริงเบื้องหลัง (มีประโยชน์เวลาแจ้งทีม Traffy ตรวจสอบปัญหา)</td>
-                            <td><code>987654321</code></td>
                           </tr>
                         </tbody>
                       </table>
@@ -3636,7 +3588,7 @@
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ระบบ Traffy Fondue ส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา แบบ HTTP
+                  <p class="api-desc">ระบบ Traffy Fondue จะส่งข้อมูลเคสใหม่ พิกัด GPS รูปภาพ และหมวดหมู่ปัญหา ออกไปยัง Webhook URL แบบ HTTP
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
