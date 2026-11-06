@@ -40,6 +40,31 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 🚀 Query APIs Context Expansion, Webhook Identity & Doc Organization (Version: 2026-11-07)
+- **ขยายฟิลด์ข้อมูลบริบทใน Query APIs (`get-issues`, `download-issues`, `get-issue`):**
+  - เพิ่มฟิลด์ในผลลัพธ์ของ `get-issues` (JSON) และในคอลัมน์ของไฟล์ CSV `download-issues`:
+    - `type_reporter`: ประเภทปัญหาที่ผู้แจ้งระบุ (คู่ขนานกับ `type` ซึ่งเป็นประเภทปัญหาที่หน่วยงานเห็น)
+    - `user_id`: รหัสประจำตัวของผู้แจ้ง
+    - `is_follow`: สถานะการติดตามเรื่อง (boolean)
+    - `is_forward`: สถานะการส่งต่อเรื่อง (boolean)
+    - `status_latest`: สถานะล่าสุดในระบบ (คู่ขนานกับ `status` ซึ่งเป็นสถานะปัจจุบัน)
+  - เพิ่มฟิลด์ในผลลัพธ์ของ `get-issue/v2`:
+    - `sender_user_id` ในประวัติ `timeline[]` เพื่อระบุผู้ดำเนินการ
+    - `user_name` ในบันทึกสนทนา `chat[]` (เช่น `"ผู้แจ้ง"`, `"จนท.Traffy Fondue"`)
+- **รองรับ Wildcard Search ใน `GET /search-org/v1`:**
+  - ระบุความสามารถของพารามิเตอร์ `text` รองรับ Wildcard `*` (หลายตัวอักษร) และ `?` (1 ตัวอักษร) เช่น `Traffy*`, `เขตจตุจัก?`
+- **Webhook Identity & Client Reference Context:**
+  - เพิ่ม `client_ticket_id` ใน Incoming Payload และ Sample ของ Webhooks ทั้ง 3 รูปแบบ (`new-issue`, `update-issue`, `chat/comment`)
+  - เพิ่ม `sender_user_id` และ `sender_user_name` เพื่อระบุตัวตนของผู้ดำเนินการหรือผู้ส่งข้อความ
+  - ปรับปรุงข้อความเตือนการป้องกัน Echo Loop ให้เป็นมาตรฐานเดียวกัน
+- **จัดระเบียบตาราง Output Parameters และ Navigation ใน `docs.html`:**
+  - ถอด session log / debug fields ภายใน (`api_log_session_id*`, `exec_time`, `source`) ออกจากตารางคำอธิบายหลักของเอกสารสาธารณะทุกตัว เพื่อความสะอาดและกระชับ (โดยยังคงแสดงในตัวอย่าง JSON Response จริงสำหรับการอ้างอิง)
+  - รวมการ์ด `get-issues` และ `download-issues` เข้าด้วยกันเป็น Card 2 เพื่อแสดงตัวเลือกผลลัพธ์ทั้งแบบ JSON และ CSV
+  - เพิ่มคำอธิบายย่อยใต้ชื่อ API บนเมนู Sidebar Navigation เพื่อความสะดวกในการค้นหาและเรียกดู
+- **Architecture Decision Records (ADR):**
+  - บันทึก [ADR-014](ADR.md#adr-014-การขยายฟิลด์บริบทเรื่องแจ้งใน-query-apis-type_reporter-user_id-is_follow-is_forward-status_latest-และการรองรับ-wildcard-ใน-get-search-orgv1)
+  - บันทึก [ADR-015](ADR.md#adr-015-การปรับปรุง-webhook-event-contract-ให้ครอบคลุม-client_ticket_id-และข้อมูลผู้ส่ง-sender_user_id-sender_user_name-พร้อมการจัดระเบียบตาราง-output-parameters)
+
 ### 🔔 Webhook Documentation & Join-Forward Contract Cleanup (Version: 2026-11-06)
 - **Webhook Payload Completeness:**
   - เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัวใน `docs.html` และซิงค์ตาราง/ตัวอย่าง JSON พร้อม Response Example ลง `docs/webhooks.md` ให้ครบทุกฟิลด์ตาม JSON Sample ได้แก่

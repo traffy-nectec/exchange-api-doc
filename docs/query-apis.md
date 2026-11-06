@@ -48,29 +48,31 @@ Authorization: Bearer <token>
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
 | `message` | string | รายละเอียดข้อผิดพลาด |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล (cache หรือ live) |
 | `credit_balance` | integer / null | โควต้าคงเหลือ (null = unlimited) |
 | `org_id` | array | รายการรหัสหน่วยงานที่ใช้ค้นหา |
 | `count` | integer | จำนวนรายการที่พบ |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 | `results` | array[object] | รายการเรื่องแจ้ง (ดูฟิลด์ด้านล่าง) |
 
 #### ฟิลด์ใน `results`:
 * `ticket_id`: หมายเลขเรื่องแจ้งในระบบ Fondue (เช่น `"2023-ABCDEF"`)
-* `type`: ชื่อประเภทปัญหา
+* `type`: ประเภทปัญหาที่หน่วยงานเห็น
+* `type_reporter`: ประเภทปัญหาที่ผู้แจ้งระบุ
 * `organization`: ชื่อหน่วยงาน
 * `description`: รายละเอียดของปัญหา
 * `photo`: ลิงก์รูปภาพเริ่มต้น
 * `latitude` / `longitude`: พิกัด GPS
 * `address`: ที่อยู่สถานที่เกิดเหตุ
 * `subdistrict` / `district` / `province`: ตำบล / อำเภอ / จังหวัด
+* `user_id`: รหัสประจำตัวของผู้แจ้ง
 * `timestamp`: วันเวลาที่แจ้ง (UTC+7)
 * `photo_after`: รูปภาพหลังดำเนินการ
 * `timestamp_inprogress`: วันเวลาที่เริ่มดำเนินการ
 * `timestamp_finished`: วันเวลาที่เสร็จสิ้น
 * `org_finished`: หน่วยงานที่ดำเนินการเสร็จสิ้น
-* `status`: สถานะปัจจุบัน
+* `status`: สถานะปัจจุบันของเรื่องแจ้ง
+* `status_latest`: สถานะล่าสุดในระบบ
+* `is_follow`: มีการติดตามเรื่องหรือไม่
+* `is_forward`: มีการส่งต่อเรื่องหรือไม่
 * `confirmed`: ยืนยันปิดเรื่องแล้วหรือไม่
 * `star`: คะแนนดาวที่ได้รับ
 * `count_reopen`: จำนวนครั้งที่ถูกเปิดใหม่
@@ -90,6 +92,7 @@ Authorization: Bearer <token>
         {
             "ticket_id": "2026-B9WGC7",
             "type": "ทางเท้า",
+            "type_reporter": "ทางเท้า",
             "organization": "Traffy @ ITS Lab2, Accom Park",
             "description": "(***) ทดสอบแจ้ง",
             "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg",
@@ -99,12 +102,16 @@ Authorization: Bearer <token>
             "subdistrict": "คลองหนึ่ง",
             "district": "คลองหลวง",
             "province": "ปทุมธานี",
+            "user_id": "abcdefghijklmn",
             "timestamp": "2026-08-20 22:25:37.433959",
             "photo_after": "https://storage.googleapis.com/traffy_public_bucket/",
             "timestamp_inprogress": null,
             "timestamp_finished": null,
             "org_finished": "Accom Park",
+            "is_follow": false,
+            "is_forward": false,
             "status": "ส่งต่อ(ใหม่)",
+            "status_latest": "ส่งต่อ(ใหม่)",
             "confirmed": false,
             "star": 0,
             "count_reopen": 0,
@@ -115,6 +122,13 @@ Authorization: Bearer <token>
     "api_log_session_id": 2030246239
 }
 ```
+
+#### Example Response (CSV — ใช้ endpoint `download-issues/v2`)
+```csv
+ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
+2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952"
+```
+*(หมายเหตุ: ไฟล์ CSV จริงมี UTF-8 BOM (`\xEF\xBB\xBF`) ขึ้นต้นก่อนบรรทัด header)*
 
 ---
 
@@ -149,11 +163,8 @@ Authorization: Bearer <token>
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
 | `message` | string | รายละเอียดข้อผิดพลาด |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล (cache หรือ live) |
 | `credit_balance` | integer / null | โควต้าคงเหลือ (null = unlimited) |
 | `ticket_id` | string | หมายเลขเรื่องแจ้งที่ค้นหา |
-| `api_log_session_id` | string / integer | รหัส session สำหรับอ้างอิง log |
 | `results` | object | รายละเอียดเรื่องแจ้ง (ดูฟิลด์ด้านล่าง) |
 
 #### ฟิลด์ใน `results`:
@@ -185,10 +196,12 @@ Authorization: Bearer <token>
   * `org_id` / `org`: รหัสและชื่อหน่วยงานที่ดำเนินการ
   * `note`: รายละเอียดหรือบันทึกข้อความ
   * `photo`: ลิงก์ URL รูปภาพผลการดำเนินงาน (string / null)
+  * `sender_user_id`: รหัสประจำตัวของผู้ที่กดอัปเดตสถานะ (ผู้แจ้งหรือเจ้าหน้าที่)
 * `chat[]`: รายการข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง (**คำเตือน: ห้ามเผยแพร่ข้อมูลส่วนของ chat สู่สาธารณะ** เนื่องจากอาจมีชื่อและเบอร์โทรศัพท์ของผู้แจ้ง เพื่อให้ จนท. ติดต่อกลับ) แต่ละรายการมี:
   * `org_id`: รหัสหน่วยงาน (integer / null — เป็น `null` หากผู้ส่งคือผู้แจ้ง)
   * `comment`: ข้อความแชท (string)
   * `user_id`: รหัสประจำตัวของผู้ส่งข้อความ (string)
+  * `user_name`: ชื่อที่แสดงของผู้ส่งข้อความ (เช่น `"ผู้แจ้ง"`, `"จนท.Traffy Fondue"`)
   * `timestamp`: วันเวลาที่ส่งข้อความ (string รูปแบบ ISO 8601)
 
 #### Example Response (ผลจริงจากการทดสอบ)
@@ -247,7 +260,8 @@ Authorization: Bearer <token>
         "org_id": null,
         "org": null,
         "note": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
-        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png"
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
+        "sender_user_id": "abcdefghijklmn"
       },
       {
         "timestamp": "2026-10-05 19:06:29.571698",
@@ -256,7 +270,8 @@ Authorization: Bearer <token>
         "org_id": 43152,
         "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
         "note": "ทดลองปรับสถานะด้วย Exchange API",
-        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png"
+        "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png",
+        "sender_user_id": "zyxwvutsrqpo"
       }
     ],
     "chat": [
@@ -264,24 +279,28 @@ Authorization: Bearer <token>
         "org_id": null,
         "comment": "ตอนนี้น้ำท่วมขังบริเวณหน้าปากซอยสูงประมาณ 15 ซม. รถเล็กสัญจรลำบากครับ",
         "user_id": "c8b91e4a2d",
+        "user_name": "ผู้แจ้ง",
         "timestamp": "2026-10-05T12:15:20.130997+00:00"
       },
       {
         "org_id": 43152,
         "comment": "รับเรื่องแล้วครับ ทางหน่วยงานกำลังส่งทีมเจ้าหน้าที่พร้อมเครื่องสูบน้ำเข้าตรวจสอบพื้นที่ครับ",
         "user_id": "staff_bkk_01",
+        "user_name": "จนท.Traffy Fondue",
         "timestamp": "2026-10-05T12:30:45.492847+00:00"
       },
       {
         "org_id": 43152,
         "comment": "เจ้าหน้าที่ดำเนินการสูบระบายน้ำและเก็บขยะอุดตันหน้าตะแกรงเรียบร้อย ระดับน้ำแห้งเป็นปกติแล้วครับ",
         "user_id": "staff_bkk_01",
+        "user_name": "จนท.Traffy Fondue",
         "timestamp": "2026-10-05T13:45:10.840125+00:00"
       },
       {
         "org_id": null,
         "comment": "ขอบคุณเจ้าหน้าที่มากครับ ระดับน้ำแห้งแล้ว เดินทางสะดวกขึ้นมากครับ",
         "user_id": "c8b91e4a2d",
+        "user_name": "ผู้แจ้ง",
         "timestamp": "2026-10-05T14:02:18.210450+00:00"
       }
     ]
@@ -330,8 +349,8 @@ Authorization: Bearer <token>
 
 #### Example Response (ผลจริงจากการทดสอบ org_id=151&duration=today — header + 1 แถวแรกจากไฟล์ CSV จริง)
 ```csv
-ticket_id,type,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,status,confirmed,star,count_reopen,last_activity
-2026-B9WGC7,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
+ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
+2026-B9WGC7,ทางเท้า,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",,,ส่งต่อ(ใหม่),ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
 ```
 *(หมายเหตุ: ไฟล์จริงมีขึ้นต้นด้วย UTF-8 BOM (`\xEF\xBB\xBF`) ก่อนบรรทัด header — ปกติของ CSV export ที่เปิดกับ Excel ได้ถูกต้อง)*
 
@@ -341,12 +360,9 @@ ticket_id,type,organization,description,photo,latitude,longitude,address,subdist
 | :--- | :--- | :--- |
 | `status` | string | `fail` หรือ `warning` |
 | `message` | string | รายละเอียดข้อผิดพลาด |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
 | `org_id` | array | รายการรหัสหน่วยงานที่ใช้ค้นหา |
 | `count` | integer | จำนวนรายการ |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 | `results` | array | ว่างเปล่าในกรณี error |
 
 ---
@@ -365,7 +381,7 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example |
 | :--- | :--- | :---: | :--- | :--- |
-| `text` | string | **REQUIRED** | คำค้นหาชื่อหน่วยงาน ต้องมีความยาวอย่างน้อย 3 byte | `"บางเขน"` |
+| `text` | string | **REQUIRED** | คำค้นหาชื่อหน่วยงาน ความยาวอย่างน้อย 3 ตัวอักษร รองรับ wildcard `*` (หลายตัวอักษร) และ `?` (1 ตัวอักษร) เช่น `บางเขน`, `Traffy*`, `เขตจตุจัก?` | `"Traffy*"` |
 
 #### Example Request
 ```http
@@ -381,14 +397,10 @@ Authorization: Bearer <token>
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
 | `message` | string | รายละเอียดข้อผิดพลาด |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
 | `text` | string | คำค้นหาที่ใช้ |
 | `count` | integer | จำนวนหน่วยงานที่พบ |
 | `results` | array[object] | รายการหน่วยงาน (ดูฟิลด์ด้านล่าง) |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
-| `api_log_session_id_show_joinforward_from_hierarchy` | string | รหัส session ของ downstream (มีเฉพาะเมื่อ downstream ส่งมา) |
 
 #### ฟิลด์ใน `results`:
 * `org_id`: รหัสหน่วยงาน
@@ -415,9 +427,7 @@ Authorization: Bearer <token>
 
 | Parameter | Type | Required | Description | Example / Default |
 | :--- | :--- | :---: | :--- | :--- |
-| `org_id` | string | OPTIONAL (แนะนำให้ระบุเสมอ) | รหัสหน่วยงานที่ต้องการดึงข้อมูล คั่นด้วยคอมมาได้หลายรหัส *(หากไม่ระบุ ระบบจะใช้หน่วยงานของ Account แต่อาจเกิด PHP Warning บน Server แทรกมาก่อน JSON ดังนั้นแนะนำให้ส่งค่าเสมอ)* | `151,1302` (Default: หน่วยงานของ account) |
-
-> ⚠️ **คำแนะนำ:** ควรส่ง query parameter `?org_id={org_id}` เสมอ เพื่อป้องกันข้อผิดพลาด PHP Warning ที่อาจเกิดขึ้นเมื่อไม่ระบุค่า `org_id`
+| `org_id` | string | OPTIONAL | รหัสหน่วยงาน คั่นด้วยคอมมาได้หลายรหัส (Default: หน่วยงานของ Account) | `151` |
 
 #### Example Request
 ```http
@@ -433,13 +443,10 @@ Authorization: Bearer <token>
 | :--- | :--- | :--- |
 | `status` | string | `success`, `fail`, `warning` |
 | `message` | string | รายละเอียดข้อผิดพลาด |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
 | `org_id` | string | หมายเลขหน่วยงาน (ถ้าระบุหลายรหัสมา จะได้แค่รหัสแรกกลับมา — **ไม่ใช่ array**) |
 | `count` | integer | จำนวนหน่วยงานที่พบ |
 | `results` | array[object] | รายการหน่วยงาน (ดูฟิลด์ด้านล่าง) |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 
 #### ฟิลด์ใน `results`:
 * `org_id`: รหัสหน่วยงาน
@@ -512,10 +519,7 @@ Authorization: Bearer <token>
 | `count` | integer | จำนวนรายการประเภทปัญหาที่พบ |
 | `results` | array[object] | รายการประเภทปัญหา (ดูฟิลด์ด้านล่าง) |
 | `message` | string | รายละเอียดข้อผิดพลาด (ถ้ามี) |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 
 #### ฟิลด์ใน `results`:
 * `type`: ชื่อประเภทเรื่องภาษาไทย (เช่น `"ถนน"`)
@@ -587,10 +591,7 @@ Authorization: Bearer <token>
 | `count` | integer | จำนวนสถานะที่พบ |
 | `results` | array[object] | รายการสถานะที่ใช้งานได้ (ดูฟิลด์ด้านล่าง) |
 | `message` | string | รายละเอียดข้อผิดพลาด (ถ้ามี) |
-| `exec_time` | string | เวลาประมวลผล |
-| `source` | string | แหล่งข้อมูล |
 | `credit_balance` | integer / null | โควต้าคงเหลือ |
-| `api_log_session_id` | string | รหัส session สำหรับอ้างอิง log |
 
 #### ฟิลด์ใน `results`:
 * `issue_status_id`: รหัสสถานะกลาง (`integer`)

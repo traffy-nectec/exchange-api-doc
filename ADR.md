@@ -19,6 +19,8 @@
 * [ADR-011: การเพิ่มข้อมูลผู้แจ้ง (Reporter Details) และประวัติแชท (Chat Logs) ใน Response ของ `GET /get-issue/v2` พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล (PDPA)](#adr-011-การเพิ่มข้อมูลผู้แจ้ง-reporter-details-และประวัติแชท-chat-logs-ใน-response-ของ-get-get-issuev2-พร้อมข้อกำหนดคุ้มครองข้อมูลส่วนบุคคล-pdpa)
 * [ADR-012: มาตรฐานการทำเอกสาร Webhook Payload และ Response Contract ให้ครบถ้วน](#adr-012-มาตรฐานการทำเอกสาร-webhook-payload-และ-response-contract-ให้ครบถ้วน)
 * [ADR-013: การจำกัด Public Contract ของ `POST /join-forward/v1` ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย](#adr-013-การจำกัด-public-contract-ของ-post-join-forwardv1-ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย)
+* [ADR-014: การขยายฟิลด์บริบทเรื่องแจ้งใน Query APIs (`type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`) และการรองรับ Wildcard ใน `GET /search-org/v1`](#adr-014-การขยายฟิลด์บริบทเรื่องแจ้งใน-query-apis-type_reporter-user_id-is_follow-is_forward-status_latest-และการรองรับ-wildcard-ใน-get-search-orgv1)
+* [ADR-015: การปรับปรุง Webhook Event Contract ให้ครอบคลุม `client_ticket_id` และข้อมูลผู้ส่ง (`sender_user_id`, `sender_user_name`) พร้อมการจัดระเบียบตาราง Output Parameters](#adr-015-การปรับปรุง-webhook-event-contract-ให้ครอบคลุม-client_ticket_id-และข้อมูลผู้ส่ง-sender_user_id-sender_user_name-พร้อมการจัดระเบียบตาราง-output-parameters)
 
 ---
 
@@ -322,6 +324,53 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **ข้อดี:** Contract ชัดเจนขึ้น ผู้ใช้งานไม่ต้องเดาว่าฟิลด์ใดต้องส่งหรือฟิลด์ใดเป็นข้อมูลภายใน
 - **ข้อควรระวัง:** หากในอนาคตต้องการเปิดพารามิเตอร์เพิ่มเติม ต้องผ่านการทบทวนและบันทึกเป็น Public Contract อย่างชัดเจนก่อน
+
+---
+
+## ADR-014: การขยายฟิลด์บริบทเรื่องแจ้งใน Query APIs (`type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`) และการรองรับ Wildcard ใน `GET /search-org/v1`
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-07)
+
+### บริบท (Context)
+ผู้ใช้งาน API ที่ดึงรายการเรื่องแจ้งผ่าน `get-issues` (JSON) และ `download-issues` (CSV) ต้องการข้อมูลบริบทเรื่องแจ้งที่ละเอียดขึ้น เพื่อนำไปใช้คัดกรองและประมวลผลต่อในระบบ Helpdesk ภายใน ได้แก่:
+1. ความแตกต่างระหว่างประเภทปัญหาที่ผู้แจ้งระบุ (`type_reporter`) กับประเภทปัญหาที่หน่วยงานเห็นหรือปรับแก้ (`type`)
+2. รหัสประจำตัวของผู้แจ้ง (`user_id`) สำหรับการติดตามและเชื่อมโยงข้อมูล
+3. ตัวบ่งชี้สถานะติดตามเรื่อง (`is_follow`) และสถานะส่งต่อเรื่อง (`is_forward`)
+4. สถานะล่าสุดในระบบ (`status_latest`) คู่ขนานกับสถานะปัจจุบัน (`status`)
+นอกจากนี้ ใน API `GET /search-org/v1` ระบบ Backend รองรับการสืบค้นชื่อหน่วยงานด้วย Wildcard (`*` แทนหลายตัวอักษร และ `?` แทนหนึ่งตัวอักษร) แต่ยังไม่เคยระบุคุณสมบัตินี้ในเอกสารอย่างเป็นทางการ
+
+### การตัดสินใจ (Decision)
+1. **Query Results Fields:** เพิ่มฟิลด์ `type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest` ใน Response Object ของ `get-issues` และใน Header/คอลัมน์ของไฟล์ CSV `download-issues`
+2. **Timeline & Chat Details:** เพิ่ม `sender_user_id` ใน `timeline[]` และ `user_name` ใน `chat[]` ของ `get-issue/v2`
+3. **Wildcard Search Documentation:** ระบุคำอธิบายพารามิเตอร์ `text` ใน `search-org` ว่ารองรับ wildcard `*` และ `?` (เช่น `บางเขน`, `Traffy*`, `เขตจตุจัก?`)
+4. **Synchronized Documentation:** ซิงค์ข้อมูลทั้งหมดให้ตรงกันระหว่าง `docs.html`, `docs/query-apis.md`, และ `openapi.yaml`
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** ผู้ใช้งานสามารถแยกแยะหมวดหมู่ปัญหาและสถานะได้อย่างแม่นยำตั้งแต่ระดับรายการ โดยไม่ต้องเรียก API รายใบซ้ำซ้อน
+- **ข้อดี:** การค้นหาหน่วยงานมีความยืดหยุ่นสูงขึ้น ค้นหาได้ง่ายขึ้นแม้จำชื่อเต็มไม่ได้
+
+---
+
+## ADR-015: การปรับปรุง Webhook Event Contract ให้ครอบคลุม `client_ticket_id` และข้อมูลผู้ส่ง (`sender_user_id`, `sender_user_name`) พร้อมการจัดระเบียบตาราง Output Parameters
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-07)
+
+### บริบท (Context)
+1. ในระบบ Real-time Webhooks ข้อมูลที่ระบบส่งออกไปยัง Webhook URL ของหน่วยงานมีการแนบหมายเลขเรื่องแจ้งของหน่วยงานปลายทาง (`client_ticket_id`) รวมถึงข้อมูลระบุตัวตนของผู้กระทำเหตุการณ์ (`sender_user_id` และ `sender_user_name`) ทั้งในเหตุการณ์รับเคสใหม่ (`new-issue`), การอัปเดตสถานะ (`update-issue`), และข้อความสนทนา (`chat/comment`) การไม่มีฟิลด์เหล่านี้ในเอกสารทำให้ผู้เชื่อมต่อไม่สามารถใช้งานข้อมูลอ้างอิงได้อย่างเต็มประสิทธิภาพ
+2. ในส่วนของตาราง Output Parameters ของ API ต่างๆ ในเอกสารสาธารณะ เดิมมีการแสดง session log และ debug fields ภายใน (`api_log_session_id`, `api_log_session_id_*`, `exec_time`, `source`) ปะปน ทำให้เกิดความสับสนต่อผู้พัฒนาระบบภายนอกว่าจำเป็นต้องประมวลผลฟิลด์เหล่านี้หรือไม่
+
+### การตัดสินใจ (Decision)
+1. **Webhook Payloads:** บรรจุฟิลด์ `client_ticket_id`, `sender_user_id`, `sender_user_name` ลงในตาราง Incoming Payload และ JSON Example ของ Webhook ทั้ง 3 ตัว
+2. **Webhook Warning Standardization:** ปรับข้อความเตือนการป้องกัน Echo Loop ให้เป็นมาตรฐานเดียวกัน: `"หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API [endpoint] เพื่อป้องกันการเกิด loop"`
+3. **Public Output Table Hygiene:** จัดระเบียบตาราง Output Parameters ในเอกสารสาธารณะ โดยถอดฟิลด์ internal logging (`api_log_session_id*`) ออกจากตารางคำอธิบายหลัก แต่ยังคงแสดงไว้ในตัวอย่าง Response JSON Payload สำหรับการอ้างอิงและ debug
+4. **Synchronized Documentation:** ซิงค์ตารางและข้อกำหนดให้ตรงกันระหว่าง `docs.html`, `docs/webhooks.md`, `docs/action-apis.md`, `docs/query-apis.md`, `docs/authentication.md`, และ `openapi.yaml`
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** Webhook Contract มีความครบถ้วนสมบูรณ์ รองรับการจับคู่เคสข้ามระบบผ่าน `client_ticket_id` และทราบผู้ปฏิบัติงานทันที
+- **ข้อดี:** ตาราง Output Parameters ในเอกสารเข้าใจง่าย ชัดเจนใน Business Payload หลัก
+
 
 
 

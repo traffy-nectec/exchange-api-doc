@@ -233,7 +233,7 @@ paths:
         - name: text
           in: query
           required: true
-          description: คำค้นหาชื่อหน่วยงาน ต้องมีความยาวขั้นต่ำ 3 ตัวอักษร (นับแบบ byte ไม่ใช่จำนวนตัวอักษร)
+          description: คำค้นหาชื่อหน่วยงาน ความยาวอย่างน้อย 3 ตัวอักษร รองรับ wildcard * (หลายตัวอักษร) และ ? (1 ตัวอักษร) เช่น บางเขน, Traffy*, เขตจตุจัก?
           schema:
             type: string
           example: "เทศบาล"
@@ -467,6 +467,10 @@ components:
           type: string
         type:
           type: string
+          description: ประเภทปัญหาที่หน่วยงานเห็น
+        type_reporter:
+          type: string
+          description: ประเภทปัญหาที่ผู้แจ้งระบุ
         organization:
           type: string
         description:
@@ -487,6 +491,9 @@ components:
           type: string
         province:
           type: string
+        user_id:
+          type: string
+          description: รหัสประจำตัวของผู้แจ้ง
         timestamp:
           type: string
         photo_after:
@@ -502,8 +509,18 @@ components:
         org_finished:
           type: string
           nullable: true
+        is_follow:
+          type: boolean
+          description: มีการติดตามเรื่องหรือไม่
+        is_forward:
+          type: boolean
+          description: มีการส่งต่อเรื่องหรือไม่
         status:
           type: string
+          description: สถานะปัจจุบันของเรื่องแจ้ง
+        status_latest:
+          type: string
+          description: สถานะล่าสุดในระบบ
         confirmed:
           type: boolean
         star:
@@ -608,6 +625,10 @@ components:
           type: string
           nullable: true
           description: ลิงก์ URL รูปภาพผลการดำเนินงาน
+        sender_user_id:
+          type: string
+          nullable: true
+          description: รหัสประจำตัวของผู้ที่กดอัปเดตสถานะ (ผู้แจ้งหรือเจ้าหน้าที่)
 
     IssueChatItem:
       type: object
@@ -626,6 +647,10 @@ components:
           type: string
           description: รหัสประจำตัวของผู้ส่งข้อความ
           example: "staff_bkk_01"
+        user_name:
+          type: string
+          description: ชื่อที่แสดงของผู้ส่งข้อความ
+          example: "ผู้แจ้ง"
         timestamp:
           type: string
           description: วันเวลาที่ส่งข้อความ (ISO 8601)
@@ -1238,12 +1263,10 @@ components:
           type: string
           enum: ["chat", "chat_staff_only", "comment"]
           default: "chat"
+          description: "ประเภทข้อความ: chat (จนท. คุยกับผู้แจ้ง, default), chat_staff_only (จนท. คุยกันเองภายในหน่วยงานโดยไม่ให้ผู้แจ้งเห็น), comment (ข้อความแนะนำหลังให้ดาว)"
         base64comment:
           type: string
-        noti_reporter:
-          type: boolean
-        noti_staff:
-          type: boolean
+          description: "ไฟล์รูปภาพที่ถูกเข้ารหัสแบบ base64 (มีขนาดไม่เกิน 6 MB)"
 
     CommentResponse:
       type: object
