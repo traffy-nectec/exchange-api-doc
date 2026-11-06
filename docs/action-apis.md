@@ -73,14 +73,12 @@ Content-Type: application/json
 | `message` | string | ข้อความอธิบายผล |
 | `exec_time` | number | เวลาที่ใช้ประมวลผล (วินาที) |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key (`null` = ไม่จำกัด) |
-| `api_log_session` | string | รหัส log การเรียกใช้งาน ⚠️ **สะกดไม่มี `_id`** ต่างจาก API อื่นทั้งหมด |
 | `org_id` | array | รหัสหน่วยงานปลายทางของเรื่องแจ้งนี้ |
 | `results.ticket_id` | string | รหัสเรื่องแจ้งที่ระบบสร้างขึ้น |
 | `results.password` | string | รหัสผ่านสำหรับติดตามเรื่องแจ้ง |
 | `results.smsStatus` | string | สถานะการส่ง SMS (มีเมื่อระบบส่ง SMS แจ้งเตือน) |
 | `results.emailStatus` | string | สถานะการส่งอีเมล (มีเมื่อระบบส่งอีเมลแจ้งเตือน) |
 | `results.client_ticket_id` | string | รหัสอ้างอิงที่ท่านส่งมา (มีเมื่อส่ง `client_ticket_id` มาในคำขอ) |
-| `api_log_session_id_new-issue` | string | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
 
 ---
 
@@ -148,8 +146,6 @@ Content-Type: application/json
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
 | `org_id` | string / array | รหัสหน่วยงาน |
 | `source` | string | แหล่งที่มาของข้อมูล |
-| `api_log_session_id` | string | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_update_message` | string | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
 | `results.smsStatus` | string | สถานะการส่ง SMS แจ้งเตือน (มีเมื่อแจ้งเตือนสำเร็จ) |
 | `results.emailStatus` | string | สถานะการส่งอีเมลแจ้งเตือน (มีเมื่อแจ้งเตือนสำเร็จ) |
 
@@ -192,8 +188,6 @@ Content-Type: application/json
 | `message` | string | ข้อความอธิบายผล |
 | `exec_time` | number | เวลาที่ใช้ประมวลผล (วินาที) |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` | string | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_star` | string | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
 
 ---
 
@@ -215,10 +209,8 @@ Content-Type: application/json
 | `comment` | string | **REQUIRED** | ข้อความความคิดเห็น/แชท | `"ขอบคุณสำหรับการแจ้งเรื่อง"` |
 | `ticket_id` | string | REQUIRED\* | รหัสเรื่องแจ้งของ Fondue | `"2026-YUXXFL"` |
 | `client_ticket_id` | string | REQUIRED\* | หรือรหัสอ้างอิงของหน่วยงาน (*เลือกระบุอย่างใดอย่างหนึ่ง) | `"TICKET-EXT-9988"` |
-| `comment_type` | string | OPTIONAL | ประเภทข้อความ: `chat` (จนท.คุยกันเอง/คุยกับผู้แจ้ง) / `chat_staff_only` (จนท.คุยกันเอง) / `comment` (จนท. ให้ความเห็นหลังให้ดาว แทนผู้แจ้ง) (ค่าเริ่มต้น `chat`) | `"chat"` |
-| `base64comment` | string | OPTIONAL | ข้อความความคิดเห็นแบบ base64 (ทางเลือกแทน `comment`) | `"4Kew4Kiw4KeI4Ki..."` |
-| `noti_reporter` | boolean | OPTIONAL | แจ้งเตือนผู้แจ้งเรื่องหรือไม่ | `true` |
-| `noti_staff` | boolean | OPTIONAL | แจ้งเตือนเจ้าหน้าที่หรือไม่ | `true` |
+| `comment_type` | string | OPTIONAL | ประเภทข้อความ: `chat` = จนท. คุยกับผู้แจ้ง (default)<br />`chat_staff_only` = จนท. คุยกันเองภายในหน่วยงานโดยไม่ให้ผู้แจ้งเห็น<br />`comment` = ข้อความแนะนำหลังให้ดาว | `"chat"` |
+| `base64comment` | string | OPTIONAL | ไฟล์รูปภาพที่ถูกเข้ารหัสแบบ base64 (มีขนาดไม่เกิน 6 MB) | `"data:image/jpeg;base64,iVBORw0KGgo..."` |
 
 #### Example Request
 ```json
@@ -237,8 +229,6 @@ Content-Type: application/json
 | `message` | string | ข้อความอธิบายผล |
 | `exec_time` | string | เวลาที่ใช้ประมวลผล (วินาที) เช่น `"2.366s"` |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` | number | รหัส log การเรียกใช้งาน |
-| `api_log_session_id_messagecomment` | number | รหัส log จากระบบปลายทาง (มีเมื่อ downstream ส่งค่ากลับมา) |
 
 ---
 
@@ -288,7 +278,6 @@ Content-Type: application/json
 | `message` | string | ข้อความอธิบายผล |
 | `exec_time` | string | เวลาที่ใช้ประมวลผล (วินาที) เช่น `"3.627s"` |
 | `credit_balance` | number / null | เครดิตคงเหลือของ API key |
-| `api_log_session_id` / `api_log_session_id_join_forward` | number | รหัส log การเรียกใช้งาน (รวมถึง log ของ internal API `join_forward` เมื่อมี) |
 
 #### Example Response (Success)
 ```json

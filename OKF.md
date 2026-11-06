@@ -15,6 +15,8 @@
 - **KR 1.6:** วางโครงสร้างการนำทางบนเอกสารเว็บแบบ Single Source of Truth โดยแยกเวอร์ชันออกจากเมนูนำทางด้านซ้าย เพื่อลดความซ้ำซ้อนและป้องกันข้อผิดพลาดในการดูแลรักษาเวอร์ชัน (ADR-008)
 - **KR 1.7:** พัฒนาโครงสร้างการแสดงผลหัวการ์ด API เป็น 2 บรรทัด (Two-Row Hierarchy) แยกชื่อฟังก์ชันคำอธิบายภาษาไทยและ Full Production URL ออกจากกันอย่างชัดเจน พร้อมกลไก Strict Line-Break และ Cache-Busting เพื่อความสะดวกในการอ่านและเรียกใช้งาน (ADR-009, ADR-010)
 - **KR 1.8:** กำหนดมาตรฐานเอกสาร Webhook ให้ระบุฟิลด์ครบถ้วนตาม JSON Payload จริง พร้อม Type และ Response Example มาตรฐาน (`status`, `message`) รวมถึงรักษา Public Contract ของ `POST /join-forward/v1` ให้แสดงเฉพาะพารามิเตอร์ที่เปิดเผยต่อผู้ใช้งาน (ADR-012, ADR-013)
+- **KR 1.9:** ขยายฟิลด์ผลลัพธ์ใน Query APIs (`get-issues`, `download-issues`, `get-issue`) ให้ครอบคลุม `type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`, `sender_user_id`, และ `user_name` พร้อมระบุความสามารถ Wildcard Search ใน `search-org` (ADR-014)
+- **KR 1.10:** บรรจุฟิลด์ `client_ticket_id` และข้อมูลระบุตัวตนผู้ส่ง (`sender_user_id`, `sender_user_name`) ลงใน Webhook Events ทั้ง 3 รูปแบบ พร้อมจัดระเบียบตาราง Output Parameters ของเอกสารสาธารณะให้กระชับและตรงตาม Business Payload (ADR-015)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -66,4 +68,6 @@
 10. **Data Privacy & Raw Data Governance:** ข้อมูลที่ส่งผ่าน Exchange API เป็นข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ ผู้นำข้อมูลไปใช้ต่อมีหน้าที่ต้องทำ Data Masking / Redaction ข้อมูลส่วนบุคคลตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) ก่อนการเผยแพร่ออกสู่สาธารณะโดยเด็ดขาด (ADR-009)
 11. **Webhook Payload Completeness & Response Contract:** ตาราง Incoming Payload ของ Webhook ทุกตัวต้องแสดงฟิลด์ครบตาม JSON Sample จริงพร้อม Type และต้องมี Response Example มาตรฐาน `{ "status": "success", "message": "" }` เพื่อให้ผู้เชื่อมต่อทราบรูปแบบการตอบกลับ (ADR-012)
 12. **Public Contract Hygiene:** เอกสารสาธารณะต้องแสดงเฉพาะพารามิเตอร์ที่ผู้ใช้งานภายนอกสามารถส่งได้จริง โดยไม่เปิดเผยพารามิเตอร์ภายในหรือข้อมูลส่งผ่านจาก internal API เช่น กรณีของ `POST /join-forward/v1` (ADR-013)
+13. **Rich Context Retrieval:** เอกสาร Query APIs ต้องสะท้อนฟิลด์บริบทเรื่องแจ้งที่จำเป็น เช่น `type_reporter` (ประเภทปัญหาที่ผู้แจ้งระบุ), `is_follow`, `is_forward`, และ `status_latest` เพื่อให้ระบบภายนอกประมวลผลข้อมูลได้ลึกซึ้งโดยไม่ต้องยิง query ซ้ำซ้อน (ADR-014)
+14. **Full Webhook Identity Context:** Webhook Payload ทุกเหตุการณ์ต้องแสดง `client_ticket_id` สำหรับจับคู่กับระบบปลายทาง และระบุตัวตนของผู้ดำเนินการผ่าน `sender_user_id` และ `sender_user_name` เสมอ (ADR-015)
 

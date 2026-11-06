@@ -100,6 +100,13 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
+### 2026-11-07
+- **ขยายฟิลด์ข้อมูลบริบทใน Query APIs (`get-issues`, `download-issues`, `get-issue`):** เพิ่มฟิลด์ `type_reporter` (ประเภทปัญหาที่ผู้แจ้งระบุ), `user_id` (รหัสประจำตัวผู้แจ้ง), `is_follow` (มีการติดตามเรื่องหรือไม่), `is_forward` (มีการส่งต่อเรื่องหรือไม่), และ `status_latest` (สถานะล่าสุดในระบบ) ในผลลัพธ์ของ `get-issues` (ทั้ง JSON และ CSV `download-issues`) พร้อมเพิ่ม `sender_user_id` ใน timeline และ `user_name` ใน chat ของ `get-issue/v2`
+- **รองรับ Wildcard Search ใน `GET /search-org/v1`:** ระบุความสามารถของพารามิเตอร์ `text` ในการค้นหาแบบ wildcard ด้วย `*` (หลายตัวอักษร) และ `?` (1 ตัวอักษร) เช่น `Traffy*`, `เขตจตุจัก?`
+- **ปรับปรุง Webhook Payloads & Identity Context:** เพิ่ม `client_ticket_id` และข้อมูลผู้ส่ง (`sender_user_id`, `sender_user_name`) ลงในตาราง Incoming Payload และ JSON Example ของ Webhooks ทั้ง 3 รูปแบบ (`new-issue`, `update-issue`, `chat/comment`)
+- **จัดระเบียบตาราง Output Parameters และ Navigation ใน `docs.html`:** ถอด session log / debug fields ภายใน (`api_log_session_id*`, `exec_time`, `source`) ออกจากตารางหลักของเอกสารสาธารณะเพื่อความกระชับชัดเจน, รวมการ์ด `get-issues` และ `download-issues` เข้าด้วยกันเป็นจุดเดียว, และเพิ่มคำอธิบายใต้ชื่อ API บนเมนู Sidebar Navigation
+- บันทึกการตัดสินใจเชิงสถาปัตยกรรม [ADR-014](ADR.md#adr-014-การขยายฟิลด์บริบทเรื่องแจ้งใน-query-apis-type_reporter-user_id-is_follow-is_forward-status_latest-และการรองรับ-wildcard-ใน-get-search-orgv1) และ [ADR-015](ADR.md#adr-015-การปรับปรุง-webhook-event-contract-ให้ครอบคลุม-client_ticket_id-และข้อมูลผู้ส่ง-sender_user_id-sender_user_name-พร้อมการจัดระเบียบตาราง-output-parameters)
+
 ### 2026-11-06
 - **เอกสาร Webhook ครบถ้วนขึ้น:** เติมฟิลด์ในตาราง Incoming Payload ของ Webhook ทั้ง 3 ตัว (`new-issue`, `update-issue`, `chat/comment`) ให้ครบทุกฟิลด์ตาม JSON Sample พร้อมระบุ Type และเพิ่ม Response Example มาตรฐาน `{ "status": "success", "message": "" }` ใน `docs.html` และ `docs/webhooks.md`
 - **ปรับ Public Contract ของ `POST /join-forward/v1`:** นำพารามิเตอร์ภายในและพารามิเตอร์เดิมที่ไม่เปิดเผยต่อสาธารณะออกจากตาราง Request Body (`noti`, `noti_staff`, `noti_reporter`, `skip_timeline`, `recursive_counter`, `timestamp`, `use_admin`) และปรับตาราง Output ให้รวม `api_log_session_id` กับ `api_log_session_id_join_forward` พร้อมนำ `results` ที่เป็นข้อมูลภายในออก ทั้งใน `docs.html` และ `docs/action-apis.md`

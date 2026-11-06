@@ -52,7 +52,6 @@ Content-Type: application/json
 | `quota_limit` | integer | โควต้าการใช้งานทั้งหมดต่อเดือน | `1000` |
 | `permissions` | array[string] | สิทธิ์การเข้าถึงของ Account (`["read", "write"]`) | `["read", "write"]` |
 | `results` | object | ข้อมูล Token ที่ได้ | *ดูตารางด้านล่าง* |
-| `api_log_session_id` | integer | หมายเลข API log session สำหรับใช้ debug การทำงานของ API ร่วมกับทีม Traffy | `2122913957` |
 
 #### ฟิลด์ใน `results`:
 | Parameter | Type | Description | Example |
