@@ -3657,7 +3657,12 @@
                           <tr>
                             <td><span class="param-name">event</span></td>
                             <td>string</td>
-                            <td>ประเภทของข้อความ</td>
+                            <td>new-issue</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">timestamp</span></td>
+                            <td>string</td>
+                            <td>วันเวลาที่เกิดเหตุการณ์ (UTC+7)</td>
                           </tr>
                           <tr>
                             <td><span class="param-name">ticket_id</span></td>
@@ -3670,20 +3675,89 @@
                             <td>ข้อความรายละเอียดปัญหา</td>
                           </tr>
                           <tr>
-                            <td><span class="param-name">latitude</span> / <span class="param-name">longitude</span>
-                            </td>
-                            <td>number</td>
-                            <td>พิกัด GPS (WGS84)</td>
+                            <td><span class="param-name">type</span></td>
+                            <td>string</td>
+                            <td>ประเภทปัญหา (ภาษาไทย)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">type_en</span></td>
+                            <td>string</td>
+                            <td>ประเภทปัญหา (ภาษาอังกฤษ)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_category_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสหมวดหมู่ปัญหา</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_category_id</span></td>
+                            <td>integer | null</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status</span></td>
+                            <td>string</td>
+                            <td>สถานะ (ภาษาไทย)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_en</span></td>
+                            <td>string</td>
+                            <td>สถานะ (ภาษาอังกฤษ)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span></td>
+                            <td>boolean</td>
+                            <td>สถานะการติดตามเรื่อง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_forward</span></td>
+                            <td>boolean</td>
+                            <td>สถานะการส่งต่อเรื่อง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_status_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสสถานะของเรื่องแจ้ง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_status_id</span></td>
+                            <td>integer | null</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_type</span></td>
+                            <td>string</td>
+                            <td></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">photo</span></td>
-                            <td>array[str]</td>
+                            <td>string</td>
                             <td>ลิงก์ภาพประกอบการแจ้ง</td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">latitude</span>,<span class="param-name">longitude</span></td>
+                            <td>string</td>
+                            <td>ละติจูด,ลองจิจูด พิกัด GPS (WGS84)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">address</span></td>
+                            <td>string</td>
+                            <td>ที่อยู่สถานที่เกิดเหตุ</td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">orgs</span></td>
-                            <td>array[obj]</td>
-                            <td>หน่วยงานที่รับผิดชอบ</td>
+                            <td>array[object]</td>
+                            <td>รายชื่อหน่วยงานที่รับผิดชอบ</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">orgs[].org</span></td>
+                            <td>string</td>
+                            <td>ชื่อหน่วยงาน</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">orgs[].org_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงาน</td>
                           </tr>
                         </tbody>
                       </table>
@@ -3721,6 +3795,16 @@
       "org_id": 151
     }
   ]
+}</code></pre>
+                    </div>
+                  </div>
+                  <div class="code-block-wrap">
+                    <div class="code-header"><span class="code-title">Response Example</span><button
+                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-content">
+                      <pre><code>{
+  "status": "success",
+  "message": ""
 }</code></pre>
                     </div>
                   </div>
@@ -3764,17 +3848,72 @@
                           <tr>
                             <td><span class="param-name">event</span></td>
                             <td>string</td>
-                            <td>ประเภทของข้อความ</td>
+                            <td>update-issue</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">timestamp</span></td>
+                            <td>string</td>
+                            <td>วันเวลาที่เกิดเหตุการณ์ (UTC+7)</td>
                           </tr>
                           <tr>
                             <td><span class="param-name">ticket_id</span></td>
                             <td>string</td>
-                            <td>หมายเลขเรื่องแจ้ง Fondue</td>
+                            <td>หมายเลขเรื่องแจ้งในระบบ Fondue</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">client_ticket_id</span></td>
+                            <td>string | null</td>
+                            <td>หมายเลขเรื่องแจ้งฝั่งผู้เรียก (ถ้ามี)</td>
                           </tr>
                           <tr>
                             <td><span class="param-name">status</span></td>
                             <td>string</td>
-                            <td>สถานะที่อัปเดต เช่น <code>เสร็จสิ้น</code></td>
+                            <td>สถานะที่อัปเดต (ภาษาไทย)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_en</span></td>
+                            <td>string</td>
+                            <td>สถานะที่อัปเดต (ภาษาอังกฤษ)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">status_type</span></td>
+                            <td>string</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_follow</span></td>
+                            <td>boolean</td>
+                            <td>สถานะการติดตามเรื่อง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">is_forward</span></td>
+                            <td>boolean</td>
+                            <td>สถานะการส่งต่อเรื่อง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">issue_status_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสสถานะของเรื่องแจ้ง</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">org_status_id</span></td>
+                            <td>integer | null</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">tl_org_id</span></td>
+                            <td>integer</td>
+                            <td>รหัสหน่วยงานผู้ดำเนินการ (ถ้าเป็นผู้แจ้งจะเป็น NULL)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">tl_org</span></td>
+                            <td>string</td>
+                            <td>ชื่อหน่วยงานผู้ดำเนินการ (ถ้าเป็นผู้แจ้งจะเป็น NULL)</td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">tl_status</span></td>
+                            <td>string</td>
+                            <td>สถานะที่ถูกบันทึกลง time line (รวมถึง "ติดตามเรื่อง" และ "ส่งต่อ" ด้วย)</td>
                           </tr>
                           <tr>
                             <td><span class="param-name">note</span></td>
@@ -3783,23 +3922,8 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">photo</span></td>
-                            <td>array[str]</td>
+                            <td>array[string]</td>
                             <td>ภาพถ่ายหลังการแก้ไข (ถ้าไม่มีการแนบรูป จะเป็น null)</td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">tl_org_id</span></td>
-                            <td>integer</td>
-                            <td>หมายเลขหน่วยงานผู้ดำเนินการ</td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">tl_org</span></td>
-                            <td>string</td>
-                            <td>ชื่อหน่วยงานผู้ดำเนินการ</td>
-                          </tr>
-                          <tr>
-                            <td><span class="param-name">tl_status</span></td>
-                            <td>string</td>
-                            <td>สถานะที่ถูกบันทึกลง time line (รวมถึง "ติดตามเรื่อง" และ "ส่งต่อ" ด้วย)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -3830,6 +3954,16 @@
   "photo": [
     "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/5b2aeca91541bff9d5515e6bb194f40a.jpg"
   ]
+}</code></pre>
+                    </div>
+                  </div>
+                  <div class="code-block-wrap">
+                    <div class="code-header"><span class="code-title">Response Example</span><button
+                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-content">
+                      <pre><code>{
+  "status": "success",
+  "message": ""
 }</code></pre>
                     </div>
                   </div>
@@ -3943,6 +4077,16 @@
   "sender_org": "Traffy @ ITS Lab2",
   "sender_user_id": 1234,
   "sender_username": "Traffy staff"
+}</code></pre>
+                    </div>
+                  </div>
+                  <div class="code-block-wrap">
+                    <div class="code-header"><span class="code-title">Response Example</span><button
+                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-content">
+                      <pre><code>{
+  "status": "success",
+  "message": ""
 }</code></pre>
                     </div>
                   </div>
