@@ -140,17 +140,23 @@
           <div class="sidebar-group">
             <a href="#sec-query" class="sidebar-group-title">2. Data Retrieval (6)</a>
             <ul class="sidebar-links">
-              <li><a href="#get-issues" class="sidebar-link"><span class="link-name">/get-issues<br />/download-issues<br /><i>ขอรายการเรื่องแจ้ง</i></span><span
+              <li><a href="#get-issues" class="sidebar-link"><span
+                    class="link-name">/get-issues<br />/download-issues<br /><i>ขอรายการเรื่องแจ้ง</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-issue" class="sidebar-link"><span class="link-name">/get-issue<br /><i>ขอรายละเอียดรายเคส</i></span><span
+              <li><a href="#get-issue" class="sidebar-link"><span
+                    class="link-name">/get-issue<br /><i>ขอรายละเอียดรายเคส</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#search-org" class="sidebar-link"><span class="link-name">/search-org<br /><i>ค้นหาหน่วยงานจากชื่อ</i></span><span
+              <li><a href="#search-org" class="sidebar-link"><span
+                    class="link-name">/search-org<br /><i>ค้นหาหน่วยงานจากชื่อ</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-org-list" class="sidebar-link"><span class="link-name">/get-org-list<br /><i>ขอผังโครงสร้างหน่วยงานในสังกัด</i></span><span
+              <li><a href="#get-org-list" class="sidebar-link"><span
+                    class="link-name">/get-org-list<br /><i>ขอผังโครงสร้างหน่วยงานในสังกัด</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-type-list" class="sidebar-link"><span class="link-name">/get-type-list<br /><i>ขอรายการประเภทปัญหาที่มีให้ใช้</i></span><span
+              <li><a href="#get-type-list" class="sidebar-link"><span
+                    class="link-name">/get-type-list<br /><i>ขอรายการประเภทปัญหาที่มีให้ใช้</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
-              <li><a href="#get-status-list" class="sidebar-link"><span class="link-name">/get-status-list<br /><i>ขอรายการสถานะที่มีให้ใช้</i></span><span
+              <li><a href="#get-status-list" class="sidebar-link"><span
+                    class="link-name">/get-status-list<br /><i>ขอรายการสถานะที่มีให้ใช้</i></span><span
                     class="method-badge method-get badge-mini">GET</span></a></li>
             </ul>
           </div>
@@ -159,16 +165,19 @@
           <div class="sidebar-group">
             <a href="#sec-action" class="sidebar-group-title">3. Data Submission (5)</a>
             <ul class="sidebar-links">
-              <li><a href="#new-issue" class="sidebar-link"><span class="link-name">/new-issue<br /><i>ส่งเรื่องแจ้งใหม่เข้า Fondue</i></span><span
+              <li><a href="#new-issue" class="sidebar-link"><span
+                    class="link-name">/new-issue<br /><i>ส่งเรื่องแจ้งใหม่เข้า Fondue</i></span><span
                     class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#update-issue" class="sidebar-link"><span class="link-name">/update-issue<br /><i>อัปเดตสถานะเรื่องแจ้ง</i></span><span
+              <li><a href="#update-issue" class="sidebar-link"><span
+                    class="link-name">/update-issue<br /><i>อัปเดตสถานะเรื่องแจ้ง</i></span><span
                     class="method-badge method-patch badge-mini">PATCH</span></a></li>
-              <li><a href="#star" class="sidebar-link"><span class="link-name">/star<br /><i>ประเมินความพึงพอใจ (ดาว)</i></span><span
-                    class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#comment" class="sidebar-link"><span class="link-name">/comment<br /><i>ส่งความเห็น / ข้อความแชต</i></span><span
-                    class="method-badge method-post badge-mini">POST</span></a></li>
-              <li><a href="#join-forward" class="sidebar-link"><span class="link-name">/join-forward<br /><i>เชิญร่วม &amp; ส่งต่อเรื่องแจ้ง</i></span><span
-                    class="method-badge method-post badge-mini">POST</span></a></li>
+              <li><a href="#star" class="sidebar-link"><span class="link-name">/star<br /><i>ประเมินความพึงพอใจ
+                      (ดาว)</i></span><span class="method-badge method-post badge-mini">POST</span></a></li>
+              <li><a href="#comment" class="sidebar-link"><span class="link-name">/comment<br /><i>ส่งความเห็น /
+                      ข้อความแชต</i></span><span class="method-badge method-post badge-mini">POST</span></a></li>
+              <li><a href="#join-forward" class="sidebar-link"><span class="link-name">/join-forward<br /><i>เชิญร่วม
+                      &amp; ส่งต่อเรื่องแจ้ง</i></span><span class="method-badge method-post badge-mini">POST</span></a>
+              </li>
             </ul>
           </div>
 
@@ -530,7 +539,8 @@
               data-keywords="get-issues issues list search filter query date range pagination">
               <div class="api-card-header" style="flex-direction: column; align-items: flex-start;">
                 <div class="api-card-header-top">
-                  <span class="api-card-title">2. <code>/get-issues</code> <code>/download-issues</code> ขอรายการเรื่องแจ้ง</span>
+                  <span class="api-card-title">2. <code>/get-issues</code> <code>/download-issues</code>
+                    ขอรายการเรื่องแจ้ง</span>
                 </div>
                 <div class="api-card-header-bottom">
                   <span class="method-badge method-get">GET</span>
@@ -578,8 +588,10 @@
                           <tr>
                             <td><span class="param-name">duration</span></td>
                             <td>string</td>
-                            <td><code>today</code> : ดึงเฉพาะเคสที่เคลื่อนไหวล่าสุด 1 วัน (default)<br /><code>3days</code>
-                              หรือ <code>3day</code> : ย้อนหลัง 3 วัน<br /><code>all</code> : ดึงทั้งหมดโดยไม่จำกัดช่วงเวลา
+                            <td><code>today</code> : ดึงเฉพาะเคสที่เคลื่อนไหวล่าสุด 1 วัน
+                              (default)<br /><code>3days</code>
+                              หรือ <code>3day</code> : ย้อนหลัง 3 วัน<br /><code>all</code> :
+                              ดึงทั้งหมดโดยไม่จำกัดช่วงเวลา
                               (ไม่เกิน 5,000 รายการ)</td>
                             <td><code>today</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
@@ -644,8 +656,8 @@
                   <details class="param-section">
                     <summary class="param-title">Response Example (200 OK)</summary>
                     <div class="code-block-wrap">
-                      <div class="code-header"><span class="code-title">JSON Response (200 OK)</span><button class="btn-copy"
-                          onclick="copyCode(this)">Copy</button></div>
+                      <div class="code-header"><span class="code-title">JSON Response (200 OK)</span><button
+                          class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
                         <pre><code>{
     "status": "success",
@@ -725,9 +737,9 @@
                       <div class="code-header"><span class="code-title">CSV Response (200 OK)</span><button
                           class="btn-copy" onclick="copyCode(this)">Copy</button></div>
                       <div class="code-content">
-                        <pre><code>ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
-2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952"
-2026-GHIJKL,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue","ทดสอบการแจ้ง 27/04/2569 ครั้งที่ 1 น้ำท่วม\n#SoSafe",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-04/d18444b2e7dd0979b6c9362c2219056e.jpg,13.750072,100.491292,"แขวงพระบรมมหาราชวัง เขตพระนคร กรุงเทพมหานคร",พระบรมมหาราชวัง,พระนคร,กรุงเทพมหานคร,"2026-04-27 15:32:24.316164",,,,,,,รอรับเรื่อง,รอรับเรื่อง,,0,0,"2026-04-27 15:32:24.316164"
+                        <pre><code>ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity,user_id
+2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952",abcdefghijklmn
+2026-GHIJKL,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue","ทดสอบการแจ้ง 27/04/2569 ครั้งที่ 1 น้ำท่วม\n#SoSafe",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-04/d18444b2e7dd0979b6c9362c2219056e.jpg,13.750072,100.491292,"แขวงพระบรมมหาราชวัง เขตพระนคร กรุงเทพมหานคร",พระบรมมหาราชวัง,พระนคร,กรุงเทพมหานคร,"2026-04-27 15:32:24.316164",,,,,,,รอรับเรื่อง,รอรับเรื่อง,,0,0,"2026-04-27 15:32:24.316164",abcdefghijklmn
 </code></pre>
                       </div>
                     </div>
@@ -1024,7 +1036,8 @@
                 "org": null,
                 "note": "ทดสอบการแจ้ง 2026-10-05 19:06\n#Test",
                 "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
-                "sender_user_id": "abcdefghijklmn"
+                "user_id": "abcdefghijklmn",
+                "user_name": "ผู้แจ้ง"
             },
             {
                 "timestamp": "2026-10-05 19:06:21.519541",
@@ -1034,7 +1047,8 @@
                 "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
                 "note": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย) ส่งต่อไปยัง !@฿\r\nเนื่องจาก ทดสอบส่งต่อ\n( ⓘ และ ทดสอบการใช้งานระบบ Fondue ก็เป็นส่งต่อด้วยโดยอัตโนมัติ)",
                 "photo": null,
-                "sender_user_id": "zyxwvutsrqpo"
+                "user_id": "zyxwvutsrqpo",
+                "user_name": "จนท. Traffy Fondue"
             },
             {
                 "timestamp": "2026-10-05 19:06:29.571698",
@@ -1044,12 +1058,14 @@
                 "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
                 "note": "ทดลองปรับสถานะด้วย Exchange API",
                 "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png",
-                "sender_user_id": "zyxwvutsrqpo"
+                "user_id": "zyxwvutsrqpo",
+                "user_name": "จนท. Traffy Fondue"
             }
         ],
         "chat": [
             {
                 "org_id": null,
+                "comment_type": "chat",
                 "comment": "ตอนนี้น้ำท่วมขังบริเวณหน้าปากซอยสูงประมาณ 15 ซม. รถเล็กสัญจรลำบากครับ",
                 "user_id": "abcdefghijklmn",
                 "user_name": "ผู้แจ้ง",
@@ -1057,20 +1073,23 @@
             },
             {
                 "org_id": 43152,
+                "comment_type": "chat",
                 "comment": "รับเรื่องแล้วครับ ทางหน่วยงานกำลังส่งทีมเจ้าหน้าที่พร้อมเครื่องสูบน้ำเข้าตรวจสอบพื้นที่ครับ",
                 "user_id": "zyxwvutsrqpo",
-                "user_name": "จนท.Traffy Fondue",
+                "user_name": "จนท. Traffy Fondue",
                 "timestamp": "2026-10-05T12:30:45.492847+00:00"
             },
             {
                 "org_id": 43152,
+                "comment_type": "chat",
                 "comment": "เจ้าหน้าที่ดำเนินการสูบระบายน้ำและเก็บขยะอุดตันหน้าตะแกรงเรียบร้อย ระดับน้ำแห้งเป็นปกติแล้วครับ",
                 "user_id": "zyxwvutsrqpo",
-                "user_name": "จนท.Traffy Fondue",
+                "user_name": "จนท. Traffy Fondue",
                 "timestamp": "2026-10-05T13:45:10.840125+00:00"
             },
             {
                 "org_id": null,
+                "comment_type": "comment",
                 "comment": "ขอบคุณเจ้าหน้าที่มากครับ ระดับน้ำแห้งแล้ว เดินทางสะดวกขึ้นมากครับ",
                 "user_id": "abcdefghijklmn",
                 "user_name": "ผู้แจ้ง",
@@ -1243,8 +1262,8 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">org_category_id</span></td>
-                            <td>หมายเลขประเภทปัญหาที่หน่วยงานกำหนดเอง (NULL=ไม่มี)<span
-                                class="param-opt">NEW</span></td>
+                            <td>หมายเลขประเภทปัญหาที่หน่วยงานกำหนดเอง (NULL=ไม่มี)<span class="param-opt">NEW</span>
+                            </td>
                             <td><code>null</code></td>
                           </tr>
                           <tr>
@@ -1259,8 +1278,7 @@
                           </tr>
                           <tr>
                             <td><span class="param-name">org_status_id</span></td>
-                            <td>หมายเลขสถานะที่หน่วยงานกำหนดเอง (NULL=ไม่มี)<span
-                                class="param-opt">NEW</span></td>
+                            <td>หมายเลขสถานะที่หน่วยงานกำหนดเอง (NULL=ไม่มี)<span class="param-opt">NEW</span></td>
                             <td><code>1219411</code></td>
                           </tr>
                           <tr>
@@ -1306,6 +1324,11 @@
                             <td><code>abcdefghijklmn</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">user_name</span></td>
+                            <td>ชื่อของ จนท. (หรือเป็นคำว่า ผู้แจ้ง)</td>
+                            <td><code>จนท. Traffy Fondue</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">note</span></td>
                             <td>คำอธิบายประกอบการอัปเดต</td>
                             <td><code>ทดสอบ</code></td>
@@ -1317,7 +1340,8 @@
                           </tr>
                           <tr>
                             <td colspan="3" style="background:var(--bg-subtle);font-weight:600;">**** ข้อมูลที่อยู่ใน
-                              <code>chat[]</code></td>
+                              <code>chat[]</code>
+                            </td>
                           </tr>
                           <tr>
                             <td><span class="param-name">org_id</span></td>
@@ -1330,9 +1354,23 @@
                             <td><code>abcdefghijklmn</code> / <code>zyxwvutsrqpo</code></td>
                           </tr>
                           <tr>
+                            <td><span class="param-name">user_name</span></td>
+                            <td>ชื่อของ จนท. (หรือเป็นคำว่า ผู้แจ้ง)</td>
+                            <td><code>จนท. Traffy Fondue</code></td>
+                          </tr>
+                          <tr>
                             <td><span class="param-name">comment</span></td>
                             <td>ข้อความแชท</td>
                             <td><code>ขอทราบหมายเลขซอยที่เกิดเหตุด้วยครับ</code></td>
+                          </tr>
+                          <tr>
+                            <td><span class="param-name">comment_type</span></td>
+                            <td>ประเภทของข้อความ<br />
+                              chat = ข้อความแชท<br />
+                              chat_staff_only = จนท. คุยกันเอง<br />
+                              rating = ประเมินความพึงพอใจ (ดาว)<br />
+                              comment = คำแนะนำหลังให้ดาว</td>
+                            <td><code>chat</code></td>
                           </tr>
                           <tr>
                             <td><span class="param-name">timestamp</span></td>
@@ -2246,7 +2284,8 @@
                     </div>
                   </details>
                   <p style="font-size:0.85rem;color:var(--text-muted);margin:8px 0 0;">
-                    💡 <strong>เงื่อนไขสำคัญ:</strong><br />* ต้องระบุให้ตรงกับ API <code>/get-type-list</code><br />** เลือกส่งอย่างใดอย่างหนึ่งเท่านั้น
+                    💡 <strong>เงื่อนไขสำคัญ:</strong><br />* ต้องระบุให้ตรงกับ API <code>/get-type-list</code><br />**
+                    เลือกส่งอย่างใดอย่างหนึ่งเท่านั้น
                   </p>
                 </div>
                 <div class="api-code-col">
@@ -2507,7 +2546,8 @@
                     </div>
                   </details>
                   <p style="font-size:0.85rem;color:var(--text-muted);margin:8px 0 0;">
-                    💡 <strong>เงื่อนไขสำคัญ:</strong><br />* เลือกระบุอย่างใดอย่างหนึ่งเท่านั้น<br />** ต้องระบุให้ตรงกับ API <code>/get-status-list</code>
+                    💡 <strong>เงื่อนไขสำคัญ:</strong><br />* เลือกระบุอย่างใดอย่างหนึ่งเท่านั้น<br />**
+                    ต้องระบุให้ตรงกับ API <code>/get-status-list</code>
                   </p>
                 </div>
                 <div class="api-code-col">
@@ -2587,7 +2627,8 @@
                           <tr>
                             <td><span class="param-name">results</span></td>
                             <td>ข้อมูลผลลัพธ์การแจ้งเตือน (object) — ปรากฏเฉพาะเมื่อ ticket มี
-                              <code>reporter_sms</code>/<code>reporter_email</code> บันทึกไว้อยู่แล้วในระบบ</td>
+                              <code>reporter_sms</code>/<code>reporter_email</code> บันทึกไว้อยู่แล้วในระบบ
+                            </td>
                             <td><code>(Object)</code></td>
                           </tr>
                           <tr>
@@ -2781,7 +2822,8 @@
                           <tr>
                             <td><span class="param-name">comment_type</span></td>
                             <td>string</td>
-                            <td>chat = จนท. คุยกับผู้แจ้ง (default)<br />chat_staff_only = จนท. คุยกันเองโดยไม่ให้ผู้แจ้งเห็น<br />comment = ข้อความแนะนำหลังให้ดาว</td>
+                            <td>chat = จนท. คุยกับผู้แจ้ง (default)<br />chat_staff_only = จนท.
+                              คุยกันเองโดยไม่ให้ผู้แจ้งเห็น<br />comment = ข้อความแนะนำหลังให้ดาว</td>
                             <td><code>chat</code></td>
                             <td><span class="param-opt">OPTIONAL</span></td>
                           </tr>
@@ -3050,7 +3092,8 @@
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ระบบ Traffy Fondue จะส่งรายละเอียดของเคสใหม่ที่หน่วยงานได้รับ ออกไปทาง Webhook URL แบบ HTTP
+                  <p class="api-desc">ระบบ Traffy Fondue จะส่งรายละเอียดของเคสใหม่ที่หน่วยงานได้รับ ออกไปยัง Webhook URL
+                    แบบ HTTP
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
@@ -3231,8 +3274,8 @@
                     </div>
                   </div>
                   <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response Example</span><button
-                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-header"><span class="code-title">Response Example</span><button class="btn-copy"
+                        onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
                       <pre><code>{
   "status": "success",
@@ -3259,7 +3302,7 @@
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ระบบ Traffy Fondue จะส่งข้อมูลการอัปเดตสถานะ ออกไปทาง Webhook URL แบบ
+                  <p class="api-desc">ระบบ Traffy Fondue จะส่งข้อมูลการอัปเดตสถานะ ออกไปยัง Webhook URL แบบ
                     HTTP PATCH ทันทีที่เรื่องแจ้งมีการอัปเดตหรือเปลี่ยนสถานะ</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
@@ -3390,7 +3433,7 @@
   "issue_status_id": 2,
   "org_status_id": null,
   "sender_user_id": "zyxwvutsrqpo",
-  "sender_user_name": "จนท.Traffy Fondue",
+  "sender_user_name": "จนท. Traffy Fondue",
   "tl_org_id": 151,
   "tl_org": "Traffy @ ITS Lab2",
   "tl_status": "กำลังดำเนินการ",
@@ -3402,8 +3445,8 @@
                     </div>
                   </div>
                   <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response Example</span><button
-                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-header"><span class="code-title">Response Example</span><button class="btn-copy"
+                        onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
                       <pre><code>{
   "status": "success",
@@ -3430,12 +3473,13 @@
               </div>
               <div class="api-card-body">
                 <div class="api-details-col">
-                  <p class="api-desc">ระบบ Traffy Fondue จะส่งข้อมูลความคิดเห็น แชท หรือการให้คะแนนแบบ ออกไปยัง Webhook URL แบบ HTTP POST
+                  <p class="api-desc">ระบบ Traffy Fondue จะส่งข้อมูลความคิดเห็น แชท หรือการให้คะแนน ออกไปยัง Webhook URL
+                    แบบ HTTP POST
                     ทันทีที่มีข้อความแชท หรือมีการประเมินโดยผู้แจ้ง</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
                     หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API
-                    messagecomment เพื่อป้องกันการเกิด loop</p>
+                    comment เพื่อป้องกันการเกิด loop</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3526,13 +3570,13 @@
   "sender_org_id": 151,
   "sender_org": "Traffy @ ITS Lab2",
   "sender_user_id": "zyxwvutsrqpo",
-  "sender_user_name": "จนท.Traffy Fondue"
+  "sender_user_name": "จนท. Traffy Fondue"
 }</code></pre>
                     </div>
                   </div>
                   <div class="code-block-wrap">
-                    <div class="code-header"><span class="code-title">Response Example</span><button
-                        class="btn-copy" onclick="copyCode(this)">Copy</button></div>
+                    <div class="code-header"><span class="code-title">Response Example</span><button class="btn-copy"
+                        onclick="copyCode(this)">Copy</button></div>
                     <div class="code-content">
                       <pre><code>{
   "status": "success",

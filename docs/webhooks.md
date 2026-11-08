@@ -107,7 +107,7 @@ Traffy Fondue สามารถส่งข้อมูลแบบ Real-time �
 | `issue_status_id` | integer | รหัสสถานะของเรื่องแจ้ง | `2` |
 | `org_status_id` | integer / null | รหัสสถานะของหน่วยงาน (null เมื่อไม่มี) | `null` |
 | `sender_user_id` | string | รหัสประจำตัวผู้อัปเดต | `"zyxwvutsrqpo"` |
-| `sender_user_name` | string | ชื่อของ จนท. (ถ้าส่งโดยผู้แจ้ง จะเป็นคำว่า "ผู้แจ้ง") | `"จนท.Traffy Fondue"` |
+| `sender_user_name` | string | ชื่อของ จนท. (ถ้าส่งโดยผู้แจ้ง จะเป็นคำว่า "ผู้แจ้ง") | `"จนท. Traffy Fondue"` |
 | `tl_org_id` | integer | รหัสหน่วยงานผู้ดำเนินการ (ถ้าเป็นผู้แจ้งจะเป็น NULL) | `151` |
 | `tl_org` | string | ชื่อหน่วยงานผู้ดำเนินการ (ถ้าเป็นผู้แจ้งจะเป็น NULL) | `"Traffy @ ITS Lab2"` |
 | `tl_status` | string | สถานะที่ถูกบันทึกลง time line (รวมถึง "ติดตามเรื่อง" และ "ส่งต่อ" ด้วย) | `"กำลังดำเนินการ"` |
@@ -129,7 +129,7 @@ Traffy Fondue สามารถส่งข้อมูลแบบ Real-time �
   "issue_status_id": 2,
   "org_status_id": null,
   "sender_user_id": "zyxwvutsrqpo",
-  "sender_user_name": "จนท.Traffy Fondue",
+  "sender_user_name": "จนท. Traffy Fondue",
   "tl_org_id": 151,
   "tl_org": "Traffy @ ITS Lab2",
   "tl_status": "กำลังดำเนินการ",
@@ -153,7 +153,7 @@ Traffy Fondue สามารถส่งข้อมูลแบบ Real-time �
 ## 3. เมื่อมีการแสดงความคิดเห็นหรือแชท (Chat/Comment Event)
 
 เมื่อมีการพิมพ์แชทโต้ตอบ หรือมีการให้คะแนนความพึงพอใจในเรื่องแจ้ง ระบบจะยิง HTTP `POST` Request ไปยัง URL ปลายทางของท่าน  
-<span style="color: red;">**หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API messagecomment เพื่อป้องกันการเกิด loop**</span>
+<span style="color: red;">**หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API comment เพื่อป้องกันการเกิด loop**</span>
 
 ### Webhook Payload (`POST`)
 
@@ -169,7 +169,7 @@ Traffy Fondue สามารถส่งข้อมูลแบบ Real-time �
 | `sender_org_id` | integer / null | รหัสหน่วยงานผู้ส่ง (ถ้ามี) | `151` |
 | `sender_org` | string / null | ชื่อหน่วยงานผู้ส่ง (ถ้ามี) | `"Traffy @ ITS Lab2"` |
 | `sender_user_id` | string | รหัสประจำตัวผู้ส่งข้อความ | `"zyxwvutsrqpo"` |
-| `sender_user_name` | string | ชื่อของ จนท. (ถ้าส่งโดยผู้แจ้ง จะเป็นคำว่า "ผู้แจ้ง") | `"จนท.Traffy Fondue"` |
+| `sender_user_name` | string | ชื่อของ จนท. (ถ้าส่งโดยผู้แจ้ง จะเป็นคำว่า "ผู้แจ้ง") | `"จนท. Traffy Fondue"` |
 
 #### Example Webhook Payload (POST)
 ```json
@@ -184,7 +184,7 @@ Traffy Fondue สามารถส่งข้อมูลแบบ Real-time �
   "sender_org_id": 151,
   "sender_org": "Traffy @ ITS Lab2",
   "sender_user_id": "zyxwvutsrqpo",
-  "sender_user_name": "จนท.Traffy Fondue"
+  "sender_user_name": "จนท. Traffy Fondue"
 }
 ```
 

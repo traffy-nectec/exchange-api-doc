@@ -40,6 +40,20 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 🛠️ Timeline & Chat Schema Realignment & CSV Column Sync (Version: 2026-11-08)
+- **ปรับโครงสร้าง `timeline[]` ใน `get-issue/v2`:**
+  - เปลี่ยนคีย์ระบุตัวตนผู้ดำเนินการให้ใช้ `user_id` และ `user_name` ตามข้อมูลจริงจากเซิร์ฟเวอร์ (เดิมระบุเป็น `sender_user_id`)
+- **เพิ่มฟิลด์ `comment_type` ใน `chat[]`:**
+  - เพิ่มฟิลด์ `comment_type` ในโครงสร้างและตัวอย่างของ `chat[]` (`chat`, `chat_staff_only`, `rating`, `comment`) เพื่อให้ผู้พัฒนาระบบสามารถแยกประเภทบทสนทนาและการประเมินความพึงพอใจได้อย่างถูกต้อง
+- **ซิงค์คอลัมน์ `user_id` ในไฟล์ CSV `download-issues/v2`:**
+  - เพิ่มคอลัมน์ `user_id` ใน header และแถวข้อมูลของไฟล์ CSV ในทุกเอกสาร (`docs.html`, `docs/query-apis.md`)
+- **ปรับปรุงข้อความเตือน Loop ป้องกันข้อผิดพลาด:**
+  - แก้ไขข้อความเตือน Loop ของ Webhook Chat ใน `docs/webhooks.md` ให้ระบุชื่อ API สาธารณะ `comment` แทนชื่อ internal endpoint เดิม
+- **มาตรฐานการจัดรูปแบบชื่อเจ้าหน้าที่:**
+  - ปรับชื่อแสดงตัวอย่างให้มีเว้นวรรคมาตรฐาน `"จนท. Traffy Fondue"` ตรงกันทุกจุด
+- **Architecture Decision Records (ADR):**
+  - บันทึก [ADR-016](ADR.md#adr-016-การปรับปรุงความถูกต้องของโครงสร้าง-timeline-user_id-user_name-ข้อมูลแชท-comment_type-คอลัมน์-csv-user_id-และข้อความเตือน-loop-ป้องกันข้อผิดพลาด)
+
 ### 🚀 Query APIs Context Expansion, Webhook Identity & Doc Organization (Version: 2026-11-07)
 - **ขยายฟิลด์ข้อมูลบริบทใน Query APIs (`get-issues`, `download-issues`, `get-issue`):**
   - เพิ่มฟิลด์ในผลลัพธ์ของ `get-issues` (JSON) และในคอลัมน์ของไฟล์ CSV `download-issues`:

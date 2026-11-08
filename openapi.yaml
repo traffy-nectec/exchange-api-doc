@@ -619,16 +619,20 @@ components:
         org:
           type: string
           nullable: true
+        user_id:
+          type: string
+          nullable: true
+          description: รหัสประจำตัวผู้แจ้งหรือ จนท. ที่กดอัปเดต
+        user_name:
+          type: string
+          nullable: true
+          description: ชื่อของ จนท. (หรือเป็นคำว่า ผู้แจ้ง)
         note:
           type: string
         photo:
           type: string
           nullable: true
           description: ลิงก์ URL รูปภาพผลการดำเนินงาน
-        sender_user_id:
-          type: string
-          nullable: true
-          description: รหัสประจำตัวของผู้ที่กดอัปเดตสถานะ (ผู้แจ้งหรือเจ้าหน้าที่)
 
     IssueChatItem:
       type: object
@@ -639,6 +643,10 @@ components:
           nullable: true
           description: รหัสหน่วยงาน (null หากเป็นข้อความจากผู้แจ้ง)
           example: 43152
+        comment_type:
+          type: string
+          description: "ประเภทข้อความ: chat (ข้อความแชท), chat_staff_only (จนท. คุยกันเอง), rating (ประเมินดาว), comment (คำแนะนำหลังให้ดาว)"
+          example: "chat"
         comment:
           type: string
           description: ข้อความแชท

@@ -100,6 +100,12 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
+### 2026-11-08
+- **ปรับปรุงความถูกต้องของโครงสร้างผลลัพธ์ใน `get-issue/v2`:** เปลี่ยนคีย์ใน `timeline[]` ให้เป็น `user_id` และ `user_name` ตามข้อมูลจริงจากเซิร์ฟเวอร์ (เดิมระบุเป็น `sender_user_id`), เพิ่มฟิลด์ `comment_type` ใน `chat[]` สำหรับจำแนกประเภทข้อความแชท/การประเมินดาว ทั้งใน `docs.html`, `docs/query-apis.md`, และ `openapi.yaml`
+- **ซิงค์คอลัมน์ไฟล์ CSV `download-issues/v2`:** เพิ่มคอลัมน์ `user_id` ใน Header และตัวอย่างข้อมูลของไฟล์ CSV ให้ตรงตามผลลัพธ์จริง
+- **ปรับปรุงข้อความเตือน Loop และตัวอย่างใน Webhooks:** แก้ไขข้อความเตือนการวน loop ของ Webhook Chat ให้ระบุชื่อ API สาธารณะ `comment` แทน `messagecomment` และปรับรูปแบบชื่อแสดงตัวอย่างเจ้าหน้าที่เป็น `"จนท. Traffy Fondue"` ให้สอดคล้องกันทุกจุด
+- บันทึกการตัดสินใจเชิงสถาปัตยกรรม [ADR-016](ADR.md#adr-016-การปรับปรุงความถูกต้องของโครงสร้าง-timeline-user_id-user_name-ข้อมูลแชท-comment_type-คอลัมน์-csv-user_id-และข้อความเตือน-loop-ป้องกันข้อผิดพลาด)
+
 ### 2026-11-07
 - **ขยายฟิลด์ข้อมูลบริบทใน Query APIs (`get-issues`, `download-issues`, `get-issue`):** เพิ่มฟิลด์ `type_reporter` (ประเภทปัญหาที่ผู้แจ้งระบุ), `user_id` (รหัสประจำตัวผู้แจ้ง), `is_follow` (มีการติดตามเรื่องหรือไม่), `is_forward` (มีการส่งต่อเรื่องหรือไม่), และ `status_latest` (สถานะล่าสุดในระบบ) ในผลลัพธ์ของ `get-issues` (ทั้ง JSON และ CSV `download-issues`) พร้อมเพิ่ม `sender_user_id` ใน timeline และ `user_name` ใน chat ของ `get-issue/v2`
 - **รองรับ Wildcard Search ใน `GET /search-org/v1`:** ระบุความสามารถของพารามิเตอร์ `text` ในการค้นหาแบบ wildcard ด้วย `*` (หลายตัวอักษร) และ `?` (1 ตัวอักษร) เช่น `Traffy*`, `เขตจตุจัก?`

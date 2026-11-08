@@ -21,6 +21,7 @@
 * [ADR-013: การจำกัด Public Contract ของ `POST /join-forward/v1` ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย](#adr-013-การจำกัด-public-contract-ของ-post-join-forwardv1-ให้เหลือเฉพาะพารามิเตอร์ที่เปิดเผย)
 * [ADR-014: การขยายฟิลด์บริบทเรื่องแจ้งใน Query APIs (`type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`) และการรองรับ Wildcard ใน `GET /search-org/v1`](#adr-014-การขยายฟิลด์บริบทเรื่องแจ้งใน-query-apis-type_reporter-user_id-is_follow-is_forward-status_latest-และการรองรับ-wildcard-ใน-get-search-orgv1)
 * [ADR-015: การปรับปรุง Webhook Event Contract ให้ครอบคลุม `client_ticket_id` และข้อมูลผู้ส่ง (`sender_user_id`, `sender_user_name`) พร้อมการจัดระเบียบตาราง Output Parameters](#adr-015-การปรับปรุง-webhook-event-contract-ให้ครอบคลุม-client_ticket_id-และข้อมูลผู้ส่ง-sender_user_id-sender_user_name-พร้อมการจัดระเบียบตาราง-output-parameters)
+* [ADR-016: การปรับปรุงความถูกต้องของโครงสร้าง Timeline (`user_id`, `user_name`), ข้อมูลแชท (`comment_type`), คอลัมน์ CSV (`user_id`), และข้อความเตือน Loop ป้องกันข้อผิดพลาด](#adr-016-การปรับปรุงความถูกต้องของโครงสร้าง-timeline-user_id-user_name-ข้อมูลแชท-comment_type-คอลัมน์-csv-user_id-และข้อความเตือน-loop-ป้องกันข้อผิดพลาด)
 
 ---
 
@@ -370,6 +371,32 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 ### ผลสืบเนื่อง (Consequences)
 - **ข้อดี:** Webhook Contract มีความครบถ้วนสมบูรณ์ รองรับการจับคู่เคสข้ามระบบผ่าน `client_ticket_id` และทราบผู้ปฏิบัติงานทันที
 - **ข้อดี:** ตาราง Output Parameters ในเอกสารเข้าใจง่าย ชัดเจนใน Business Payload หลัก
+
+---
+
+## ADR-016: การปรับปรุงความถูกต้องของโครงสร้าง Timeline (`user_id`, `user_name`), ข้อมูลแชท (`comment_type`), คอลัมน์ CSV (`user_id`), และข้อความเตือน Loop ป้องกันข้อผิดพลาด
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-08)
+
+### บริบท (Context)
+จากการตรวจสอบความถูกต้องของเอกสารเทียบกับ Payload จริงของ API บน Live Server พบประเด็นที่ต้องปรับปรุงรายละเอียดให้ตรงกัน:
+1. ใน `timeline[]` ของ `GET /get-issue/v2` คีย์ที่แท้จริงที่ระบบส่งกลับมาคือ `user_id` และ `user_name` (เดิมระบุเป็น `sender_user_id`)
+2. ใน `chat[]` ของ `GET /get-issue/v2` มีฟิลด์ `comment_type` ระบุประเภทของข้อความ (`chat`, `chat_staff_only`, `rating`, `comment`)
+3. ในไฟล์ CSV จาก `GET /download-issues/v2` มีคอลัมน์ `user_id` ต่อท้ายในแถวข้อมูลจริง
+4. ใน Webhook Chat/Comment คำเตือนเรื่องการป้องกัน Echo Loop เดิมอ้างอิงถึงชื่อ API ภายใน `messagecomment` ควรปรับเป็นชื่อ Public Endpoint `comment`
+5. การจัดรูปแบบชื่อเจ้าหน้าที่ตัวอย่างให้มีเว้นวรรคมาตรฐาน (`"จนท. Traffy Fondue"`)
+
+### การตัดสินใจ (Decision)
+1. ปรับปรุงตารางและ JSON Example ของ `timeline[]` ใน `docs.html`, `docs/query-apis.md`, และ `openapi.yaml` ให้ใช้คีย์ `user_id` และ `user_name`
+2. เพิ่มฟิลด์ `comment_type` ในตารางและโครงสร้างของ `chat[]` ใน `docs.html`, `docs/query-apis.md`, และ `openapi.yaml`
+3. เพิ่มคอลัมน์ `user_id` ในตัวอย่าง header และแถวข้อมูลของไฟล์ CSV ใน `docs.html` และ `docs/query-apis.md`
+4. ปรับข้อความเตือน Loop ใน `docs/webhooks.md` ให้ตรงกับ `docs.html` โดยระบุ `API comment`
+5. ซิงค์ชื่อแสดงตัวอย่าง `"จนท. Traffy Fondue"` ให้ตรงกันทุกไฟล์
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** ตัวอย่างโค้ดและ Response Structure ตรงกับผลลัพธ์จริงจาก Live Server 100% ลดความสับสนของนักพัฒนาเมื่อเข้าถึงคีย์ข้อมูลใน Timeline และ Chat
+
 
 
 
