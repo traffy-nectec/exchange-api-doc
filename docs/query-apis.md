@@ -125,8 +125,8 @@ Authorization: Bearer <token>
 
 #### Example Response (CSV — ใช้ endpoint `download-issues/v2`)
 ```csv
-ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
-2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952"
+ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity,user_id
+2026-ABCDEF,น้ำท่วม,น้ำท่วม,"ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย), ทดสอบการใช้งานระบบ Fondue, !@฿, Traffy @ ITS Lab ทดสอบ19/08/68, เมืองแอสการ์ด","ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png,13.754158,100.501499,"แขวงเสาชิงช้า เขตพระนคร กรุงเทพมหานคร",เสาชิงช้า,พระนคร,กรุงเทพมหานคร,"2026-10-05 19:06:16.831069",,,"2026-10-05 19:06:29.688952","ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",,,เสร็จสิ้น,เสร็จสิ้น,,5,0,"2026-10-05 19:06:29.688952",abcdefghijklmn
 ```
 *(หมายเหตุ: ไฟล์ CSV จริงมี UTF-8 BOM (`\xEF\xBB\xBF`) ขึ้นต้นก่อนบรรทัด header)*
 
@@ -194,14 +194,16 @@ Authorization: Bearer <token>
   * `status_id`: รหัสสถานะ (integer / null)
   * `status`: ชื่อสถานะ
   * `org_id` / `org`: รหัสและชื่อหน่วยงานที่ดำเนินการ
+  * `user_id`: รหัสประจำตัวผู้แจ้งหรือ จนท. ที่กดอัปเดต (string)
+  * `user_name`: ชื่อของ จนท. หรือ "ผู้แจ้ง" (string)
   * `note`: รายละเอียดหรือบันทึกข้อความ
   * `photo`: ลิงก์ URL รูปภาพผลการดำเนินงาน (string / null)
-  * `sender_user_id`: รหัสประจำตัวของผู้ที่กดอัปเดตสถานะ (ผู้แจ้งหรือเจ้าหน้าที่)
 * `chat[]`: รายการข้อความแชทระหว่างเจ้าหน้าที่กับผู้แจ้ง (**คำเตือน: ห้ามเผยแพร่ข้อมูลส่วนของ chat สู่สาธารณะ** เนื่องจากอาจมีชื่อและเบอร์โทรศัพท์ของผู้แจ้ง เพื่อให้ จนท. ติดต่อกลับ) แต่ละรายการมี:
   * `org_id`: รหัสหน่วยงาน (integer / null — เป็น `null` หากผู้ส่งคือผู้แจ้ง)
+  * `comment_type`: ประเภทของข้อความ (`chat` = ข้อความแชท, `chat_staff_only` = จนท. คุยกันเอง, `rating` = ประเมินความพึงพอใจ, `comment` = คำแนะนำหลังให้ดาว)
   * `comment`: ข้อความแชท (string)
   * `user_id`: รหัสประจำตัวของผู้ส่งข้อความ (string)
-  * `user_name`: ชื่อที่แสดงของผู้ส่งข้อความ (เช่น `"ผู้แจ้ง"`, `"จนท.Traffy Fondue"`)
+  * `user_name`: ชื่อที่แสดงของผู้ส่งข้อความ (เช่น `"ผู้แจ้ง"`, `"จนท. Traffy Fondue"`)
   * `timestamp`: วันเวลาที่ส่งข้อความ (string รูปแบบ ISO 8601)
 
 #### Example Response (ผลจริงจากการทดสอบ)
@@ -261,7 +263,8 @@ Authorization: Bearer <token>
         "org": null,
         "note": "ทดสอบการแจ้ง 2026-10-05 19:06\n#ThukTeamTraffy",
         "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/a9e049e39a9c492cf43408bed8eddf0b.png",
-        "sender_user_id": "abcdefghijklmn"
+        "user_id": "abcdefghijklmn",
+        "user_name": "ผู้แจ้ง"
       },
       {
         "timestamp": "2026-10-05 19:06:29.571698",
@@ -271,12 +274,14 @@ Authorization: Bearer <token>
         "org": "ทดสอบการใช้งานระบบ Fondue (หน่วยงานย่อย)",
         "note": "ทดลองปรับสถานะด้วย Exchange API",
         "photo": "https://storage.googleapis.com/traffy_public_bucket/attachment/2026-10/43252b17ad0ed1fd03b7cd9467bf4ca2.png",
-        "sender_user_id": "zyxwvutsrqpo"
+        "user_id": "zyxwvutsrqpo",
+        "user_name": "จนท. Traffy Fondue"
       }
     ],
     "chat": [
       {
         "org_id": null,
+        "comment_type": "chat",
         "comment": "ตอนนี้น้ำท่วมขังบริเวณหน้าปากซอยสูงประมาณ 15 ซม. รถเล็กสัญจรลำบากครับ",
         "user_id": "c8b91e4a2d",
         "user_name": "ผู้แจ้ง",
@@ -284,20 +289,23 @@ Authorization: Bearer <token>
       },
       {
         "org_id": 43152,
+        "comment_type": "chat",
         "comment": "รับเรื่องแล้วครับ ทางหน่วยงานกำลังส่งทีมเจ้าหน้าที่พร้อมเครื่องสูบน้ำเข้าตรวจสอบพื้นที่ครับ",
         "user_id": "staff_bkk_01",
-        "user_name": "จนท.Traffy Fondue",
+        "user_name": "จนท. Traffy Fondue",
         "timestamp": "2026-10-05T12:30:45.492847+00:00"
       },
       {
         "org_id": 43152,
+        "comment_type": "chat",
         "comment": "เจ้าหน้าที่ดำเนินการสูบระบายน้ำและเก็บขยะอุดตันหน้าตะแกรงเรียบร้อย ระดับน้ำแห้งเป็นปกติแล้วครับ",
         "user_id": "staff_bkk_01",
-        "user_name": "จนท.Traffy Fondue",
+        "user_name": "จนท. Traffy Fondue",
         "timestamp": "2026-10-05T13:45:10.840125+00:00"
       },
       {
         "org_id": null,
+        "comment_type": "comment",
         "comment": "ขอบคุณเจ้าหน้าที่มากครับ ระดับน้ำแห้งแล้ว เดินทางสะดวกขึ้นมากครับ",
         "user_id": "c8b91e4a2d",
         "user_name": "ผู้แจ้ง",
@@ -349,8 +357,8 @@ Authorization: Bearer <token>
 
 #### Example Response (ผลจริงจากการทดสอบ org_id=151&duration=today — header + 1 แถวแรกจากไฟล์ CSV จริง)
 ```csv
-ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity
-2026-B9WGC7,ทางเท้า,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",,,ส่งต่อ(ใหม่),ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501"
+ticket_id,type,type_reporter,organization,description,photo,latitude,longitude,address,subdistrict,district,province,timestamp,photo_after,timestamp_inprogress,timestamp_finished,org_finished,is_follow,is_forward,status,status_latest,confirmed,star,count_reopen,last_activity,user_id
+2026-B9WGC7,ทางเท้า,ทางเท้า,"Traffy @ ITS Lab2, Accom Park","(***) ทดสอบแจ้ง",https://storage.googleapis.com/traffy_public_bucket/attachment/2026-08/6eb2ed20729af8d57572c6ee3515ab72.jpeg,14.060383,100.596114,"ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี",คลองหนึ่ง,คลองหลวง,ปทุมธานี,"2026-08-20 22:25:37.433959",https://storage.googleapis.com/traffy_public_bucket/,,,"Accom Park",,,ส่งต่อ(ใหม่),ส่งต่อ(ใหม่),,0,0,"2026-09-09 14:38:19.663501",abcdefghijklmn
 ```
 *(หมายเหตุ: ไฟล์จริงมีขึ้นต้นด้วย UTF-8 BOM (`\xEF\xBB\xBF`) ก่อนบรรทัด header — ปกติของ CSV export ที่เปิดกับ Excel ได้ถูกต้อง)*
 

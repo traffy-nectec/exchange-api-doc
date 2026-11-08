@@ -17,6 +17,7 @@
 - **KR 1.8:** กำหนดมาตรฐานเอกสาร Webhook ให้ระบุฟิลด์ครบถ้วนตาม JSON Payload จริง พร้อม Type และ Response Example มาตรฐาน (`status`, `message`) รวมถึงรักษา Public Contract ของ `POST /join-forward/v1` ให้แสดงเฉพาะพารามิเตอร์ที่เปิดเผยต่อผู้ใช้งาน (ADR-012, ADR-013)
 - **KR 1.9:** ขยายฟิลด์ผลลัพธ์ใน Query APIs (`get-issues`, `download-issues`, `get-issue`) ให้ครอบคลุม `type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`, `sender_user_id`, และ `user_name` พร้อมระบุความสามารถ Wildcard Search ใน `search-org` (ADR-014)
 - **KR 1.10:** บรรจุฟิลด์ `client_ticket_id` และข้อมูลระบุตัวตนผู้ส่ง (`sender_user_id`, `sender_user_name`) ลงใน Webhook Events ทั้ง 3 รูปแบบ พร้อมจัดระเบียบตาราง Output Parameters ของเอกสารสาธารณะให้กระชับและตรงตาม Business Payload (ADR-015)
+- **KR 1.11:** ปรับปรุงความถูกต้องของโครงสร้างผลลัพธ์ใน `get-issue/v2` ให้ใช้ `user_id` และ `user_name` ใน Timeline, เพิ่ม `comment_type` ใน Chat Logs, และระบุคอลัมน์ `user_id` ในไฟล์ CSV `download-issues/v2` ให้ตรงตาม Live Server 100% (ADR-016)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -70,4 +71,5 @@
 12. **Public Contract Hygiene:** เอกสารสาธารณะต้องแสดงเฉพาะพารามิเตอร์ที่ผู้ใช้งานภายนอกสามารถส่งได้จริง โดยไม่เปิดเผยพารามิเตอร์ภายในหรือข้อมูลส่งผ่านจาก internal API เช่น กรณีของ `POST /join-forward/v1` (ADR-013)
 13. **Rich Context Retrieval:** เอกสาร Query APIs ต้องสะท้อนฟิลด์บริบทเรื่องแจ้งที่จำเป็น เช่น `type_reporter` (ประเภทปัญหาที่ผู้แจ้งระบุ), `is_follow`, `is_forward`, และ `status_latest` เพื่อให้ระบบภายนอกประมวลผลข้อมูลได้ลึกซึ้งโดยไม่ต้องยิง query ซ้ำซ้อน (ADR-014)
 14. **Full Webhook Identity Context:** Webhook Payload ทุกเหตุการณ์ต้องแสดง `client_ticket_id` สำหรับจับคู่กับระบบปลายทาง และระบุตัวตนของผู้ดำเนินการผ่าน `sender_user_id` และ `sender_user_name` เสมอ (ADR-015)
+15. **Precise Object Model Alignment:** ฟิลด์ในโมเดลย่อย (Sub-objects) เช่น `timeline[]` (`user_id`, `user_name`) และ `chat[]` (`comment_type`, `user_id`, `user_name`) ต้องตรงตาม Server Schema ล่าสุดอย่างเคร่งครัด รวมถึงข้อความเตือนความปลอดภัยต้องอ้างอิงถึง Public Endpoints (ADR-016)
 
