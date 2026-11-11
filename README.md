@@ -100,6 +100,10 @@ curl --location 'https://publicapi.traffy.in.th/exchange-api/get-issues/v2?org_i
 
 ## 📝 ประวัติการเปลี่ยนแปลง (Change Log)
 
+### 2026-11-11
+- **ปรับปรุงข้อความเตือนและเงื่อนไขการส่ง Webhook ป้องกัน Loop:** อัปเดตข้อความเตือน Loop ให้ครอบคลุมทั้ง 2 มิติ คือ (1) ระบบจะไม่ยิง Webhook ซ้ำกลับมาเมื่อเกิด event จาก Action API ฝั่งตนเอง (`/new-issue`, `/update-issue`, `/comment`) และ (2) ผู้พัฒนาระบบห้ามนำข้อมูลที่ได้รับจาก Webhook วนกลับมายิง Action API เพื่อป้องกัน Infinite Loop โดยซิงค์ตรงกันทั้งใน `docs.html` และ `docs/webhooks.md`
+- บันทึกการตัดสินใจเชิงสถาปัตยกรรม [ADR-017](ADR.md#adr-017-การปรับปรุงข้อกำหนดการป้องกัน-webhook-loop-ให้ครอบคลุม-outbound-event-suppression-และ-echo-loop-prevention)
+
 ### 2026-11-08
 - **ปรับปรุงความถูกต้องของโครงสร้างผลลัพธ์ใน `get-issue/v2`:** เปลี่ยนคีย์ใน `timeline[]` ให้เป็น `user_id` และ `user_name` ตามข้อมูลจริงจากเซิร์ฟเวอร์ (เดิมระบุเป็น `sender_user_id`), เพิ่มฟิลด์ `comment_type` ใน `chat[]` สำหรับจำแนกประเภทข้อความแชท/การประเมินดาว ทั้งใน `docs.html`, `docs/query-apis.md`, และ `openapi.yaml`
 - **ซิงค์คอลัมน์ไฟล์ CSV `download-issues/v2`:** เพิ่มคอลัมน์ `user_id` ใน Header และตัวอย่างข้อมูลของไฟล์ CSV ให้ตรงตามผลลัพธ์จริง

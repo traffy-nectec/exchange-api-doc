@@ -18,6 +18,7 @@
 - **KR 1.9:** ขยายฟิลด์ผลลัพธ์ใน Query APIs (`get-issues`, `download-issues`, `get-issue`) ให้ครอบคลุม `type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`, `sender_user_id`, และ `user_name` พร้อมระบุความสามารถ Wildcard Search ใน `search-org` (ADR-014)
 - **KR 1.10:** บรรจุฟิลด์ `client_ticket_id` และข้อมูลระบุตัวตนผู้ส่ง (`sender_user_id`, `sender_user_name`) ลงใน Webhook Events ทั้ง 3 รูปแบบ พร้อมจัดระเบียบตาราง Output Parameters ของเอกสารสาธารณะให้กระชับและตรงตาม Business Payload (ADR-015)
 - **KR 1.11:** ปรับปรุงความถูกต้องของโครงสร้างผลลัพธ์ใน `get-issue/v2` ให้ใช้ `user_id` และ `user_name` ใน Timeline, เพิ่ม `comment_type` ใน Chat Logs, และระบุคอลัมน์ `user_id` ในไฟล์ CSV `download-issues/v2` ให้ตรงตาม Live Server 100% (ADR-016)
+- **KR 1.12:** ระบุข้อกำหนดการป้องกัน Webhook Loop อย่างชัดเจนครบถ้วน ทั้งมิติ Outbound Event Suppression (ไม่ส่ง event จาก Action API ฝั่งตนเอง) และ Inbound Echo Prevention (ห้ามนำข้อมูลจาก Webhook วนกลับมายิง Action API) (ADR-017)
 
 ### 🎯 Objective 2: ลดระยะเวลาและภาระงานในการ Onboarding หน่วยงานใหม่ (Fast Integration)
 - **KR 2.1:** มี Onboarding Flow ที่ชัดเจน 4 ขั้นตอน ตั้งแต่การกรอกแบบฟอร์มขอใช้งาน การรับสิทธิ์ การแลก Token และการเริ่มยิง API
@@ -63,7 +64,7 @@
 4. **Timezone:** ข้อมูลวันเวลาในระบบใช้เวลามาตรฐานประเทศไทย (UTC+7 / `Asia/Bangkok`) รูปแบบ `YYYY-MM-DD HH:MM:SS` หรือ ISO 8601
 5. **Geo-coordinates:** พิกัดตำแหน่งใช้ระบบพิกัด WGS84 (Latitude, Longitude เป็นเลขทศนิยม)
 6. **Defensive Parameter Hygiene:** แนะนำให้ส่ง `?org_id={org_id}` สำหรับ `GET /get-org-list/v1` เสมอ เพื่อป้องกัน Backend Warning ปะปนหน้า JSON Output (ADR-003)
-7. **Webhook Loop Prevention:** ห้ามส่งต่อข้อมูลที่ได้รับจาก Traffy Fondue Webhook วนกลับเข้ามาที่ API `new-issue` หรือ `update-issue` โดยเด็ดขาด เพื่อป้องกันการเกิด Infinite Data Loop (ADR-007)
+7. **Webhook Loop Prevention:** เพื่อป้องกัน Infinite Data Loop (1) ระบบจะไม่ส่ง event ที่เกิดจาก Action API (`/new-issue`, `/update-issue`, `/comment`) วนกลับมายัง Webhook ของหน่วยงาน และ (2) หน่วยงานผู้รับ Webhook ห้ามนำข้อมูลที่ได้รับวนกลับมายิง Action API โดยเด็ดขาด (ADR-007, ADR-017)
 8. **Single Source of Truth for Endpoint Versioning:** เมนูนำทางของเอกสารอ้างอิงเฉพาะชื่อฐานของ Resource โดยกำหนดให้การ์ดรายละเอียดของแต่ละ API เป็นจุดระบุและควบคุมเวอร์ชันเพียงจุดเดียว เพื่อป้องกันการแก้ไขเวอร์ชันไม่ครบถ้วน (ADR-008)
 9. **Two-Row API Header & Full Production URL:** หัวการ์ด API แสดงชื่อ Resource พร้อมคำอธิบายในบรรทัดแรก และแสดง Full Production URL ควบคู่กับ Method Badge และ Auth Method ในบรรทัดที่สอง (ADR-009)
 10. **Data Privacy & Raw Data Governance:** ข้อมูลที่ส่งผ่าน Exchange API เป็นข้อมูลดิบที่ไม่ผ่านการเซนเซอร์ ผู้นำข้อมูลไปใช้ต่อมีหน้าที่ต้องทำ Data Masking / Redaction ข้อมูลส่วนบุคคลตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) ก่อนการเผยแพร่ออกสู่สาธารณะโดยเด็ดขาด (ADR-009)
