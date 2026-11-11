@@ -40,6 +40,15 @@
 
 ## 3. บันทึกการปรับปรุงล่าสุด (Latest Updates & Changelog)
 
+### 🔄 Webhook Loop Prevention & Event Suppression Clarification (Version: 2026-11-11)
+- **ปรับปรุงข้อความเตือนและเงื่อนไขการส่ง Webhook ป้องกัน Loop:**
+  - ระบุข้อกำหนดป้องกัน loop ใน Webhook ทั้ง 3 เหตุการณ์ (`new-issue`, `update-issue`, `chat/comment`) ให้ครอบคลุม 2 มิติ:
+    1. ระบบ Traffy Fondue จะไม่ส่ง event ที่เกิดขึ้นจากการเรียก API ต้นทาง (`/new-issue`, `/update-issue`, `/comment`) วนกลับมายัง Webhook ของหน่วยงาน
+    2. ฝั่งหน่วยงาน/ผู้รับ Webhook ห้ามนำข้อมูลจาก Webhook ส่งกลับเข้ามาที่ API (`/new-issue`, `/update-issue`, `/comment`) เพื่อป้องกันการเกิด Echo Loop
+  - ซิงค์ข้อความเตือนให้สอดคล้องกันทั้งใน `docs.html` และ `docs/webhooks.md`
+- **Architecture Decision Records (ADR):**
+  - บันทึก [ADR-017](ADR.md#adr-017-การปรับปรุงข้อกำหนดการป้องกัน-webhook-loop-ให้ครอบคลุม-outbound-event-suppression-และ-echo-loop-prevention)
+
 ### 🛠️ Timeline & Chat Schema Realignment & CSV Column Sync (Version: 2026-11-08)
 - **ปรับโครงสร้าง `timeline[]` ใน `get-issue/v2`:**
   - เปลี่ยนคีย์ระบุตัวตนผู้ดำเนินการให้ใช้ `user_id` และ `user_name` ตามข้อมูลจริงจากเซิร์ฟเวอร์ (เดิมระบุเป็น `sender_user_id`)

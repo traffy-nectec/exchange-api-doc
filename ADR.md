@@ -22,6 +22,7 @@
 * [ADR-014: การขยายฟิลด์บริบทเรื่องแจ้งใน Query APIs (`type_reporter`, `user_id`, `is_follow`, `is_forward`, `status_latest`) และการรองรับ Wildcard ใน `GET /search-org/v1`](#adr-014-การขยายฟิลด์บริบทเรื่องแจ้งใน-query-apis-type_reporter-user_id-is_follow-is_forward-status_latest-และการรองรับ-wildcard-ใน-get-search-orgv1)
 * [ADR-015: การปรับปรุง Webhook Event Contract ให้ครอบคลุม `client_ticket_id` และข้อมูลผู้ส่ง (`sender_user_id`, `sender_user_name`) พร้อมการจัดระเบียบตาราง Output Parameters](#adr-015-การปรับปรุง-webhook-event-contract-ให้ครอบคลุม-client_ticket_id-และข้อมูลผู้ส่ง-sender_user_id-sender_user_name-พร้อมการจัดระเบียบตาราง-output-parameters)
 * [ADR-016: การปรับปรุงความถูกต้องของโครงสร้าง Timeline (`user_id`, `user_name`), ข้อมูลแชท (`comment_type`), คอลัมน์ CSV (`user_id`), และข้อความเตือน Loop ป้องกันข้อผิดพลาด](#adr-016-การปรับปรุงความถูกต้องของโครงสร้าง-timeline-user_id-user_name-ข้อมูลแชท-comment_type-คอลัมน์-csv-user_id-และข้อความเตือน-loop-ป้องกันข้อผิดพลาด)
+* [ADR-017: การปรับปรุงข้อกำหนดการป้องกัน Webhook Loop ให้ครอบคลุม Outbound Event Suppression และ Echo Loop Prevention](#adr-017-การปรับปรุงข้อกำหนดการป้องกัน-webhook-loop-ให้ครอบคลุม-outbound-event-suppression-และ-echo-loop-prevention)
 
 ---
 
@@ -396,6 +397,30 @@ API `POST /exchange-api/comment/v1` มีพารามิเตอร์ `com
 
 ### ผลสืบเนื่อง (Consequences)
 - **ข้อดี:** ตัวอย่างโค้ดและ Response Structure ตรงกับผลลัพธ์จริงจาก Live Server 100% ลดความสับสนของนักพัฒนาเมื่อเข้าถึงคีย์ข้อมูลใน Timeline และ Chat
+
+---
+
+## ADR-017: การปรับปรุงข้อกำหนดการป้องกัน Webhook Loop ให้ครอบคลุม Outbound Event Suppression และ Echo Loop Prevention
+
+### สถานะ (Status)
+**Accepted** (มีผลบังคับใช้ตั้งแต่วันที่ 2026-11-11)
+
+### บริบท (Context)
+ในการเชื่อมต่อระบบผ่าน Webhook มีโอกาสเกิด Infinite Loop จาก 2 กรณี:
+1. การที่ระบบ Traffy Fondue ส่ง event ซ้ำกลับไปยังผู้ที่เพิ่งยิง Action API (`/new-issue`, `/update-issue`, `/comment`) ทำให้เกิด duplicate notification
+2. การที่ระบบของหน่วยงานภายนอกรับข้อมูลจาก Webhook แล้วนำข้อมูลชุดเดิมวนกลับมายิง Action API เข้าสู่ Traffy Fondue ซ้ำ
+
+เดิมในเอกสารมีการระบุข้อความเตือนเฉพาะกรณีที่ 2 ว่า "ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API เพื่อป้องกันการเกิด loop" ทำให้ผู้พัฒนาระบบมีความกังวลหรือสงสัยว่าระบบจะส่ง event ซ้ำกลับมาจากการยิง API ฝั่งตนเองหรือไม่
+
+### การตัดสินใจ (Decision)
+1. ปรับปรุงข้อความเตือนและเงื่อนไขการป้องกัน loop ใน Webhook ทั้ง 3 เหตุการณ์ (`new-issue`, `update-issue`, `chat/comment`) ให้ระบุอย่างชัดเจน 2 ข้อ:
+   - ระบบจะไม่ส่ง event ที่เกิดขึ้นจากการเรียก API ต้นทาง (`/new-issue`, `/update-issue`, `/comment`) วนกลับมา
+   - ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API (`/new-issue`, `/update-issue`, `/comment`) เพื่อป้องกันการเกิด loop
+2. ซิงค์ข้อความเตือนให้สอดคล้องกันทุกส่วนใน `docs.html` และ `docs/webhooks.md`
+
+### ผลสืบเนื่อง (Consequences)
+- **ข้อดี:** ชี้แจงพฤติกรรมของระบบ Traffy Fondue ในการกรอง event ฝั่งตนเอง (Outbound Event Suppression) ให้ชัดเจน ลดความสับสนของผู้พัฒนา และตอกย้ำข้อควรระวังในการป้องกัน Echo Loop ฝั่งผู้รับอย่างมีประสิทธิภาพ
+
 
 
 

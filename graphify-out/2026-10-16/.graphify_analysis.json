@@ -1,0 +1,80 @@
+{
+  "communities": {
+    "0": [
+      "any",
+      "examples_python_client_traffyexchangeclient",
+      "examples_python_client_traffyexchangeclient_authenticate",
+      "examples_python_client_traffyexchangeclient_get_headers",
+      "examples_python_client_traffyexchangeclient_get_issue",
+      "examples_python_client_traffyexchangeclient_get_issues",
+      "examples_python_client_traffyexchangeclient_init",
+      "examples_python_client_traffyexchangeclient_new_issue",
+      "examples_python_client_traffyexchangeclient_update_issue"
+    ],
+    "1": [
+      "examples_nodejs_client",
+      "examples_nodejs_client_traffyexchangeclient",
+      "examples_nodejs_client_traffyexchangeclient_authenticate",
+      "examples_nodejs_client_traffyexchangeclient_constructor",
+      "examples_nodejs_client_traffyexchangeclient_getheaders",
+      "examples_nodejs_client_traffyexchangeclient_getissue",
+      "examples_nodejs_client_traffyexchangeclient_getissues",
+      "examples_nodejs_client_traffyexchangeclient_newissue",
+      "examples_nodejs_client_traffyexchangeclient_updateissue"
+    ],
+    "2": [
+      "examples_python_client",
+      "requests",
+      "typing"
+    ],
+    "3": [
+      "examples_curl_get_auth",
+      "examples_curl_get_auth_sh__entry"
+    ],
+    "4": [
+      "examples_curl_get_issues",
+      "examples_curl_get_issues_sh__entry"
+    ],
+    "5": [
+      "js_app"
+    ]
+  },
+  "cohesion": {
+    "0": 0.4444444444444444,
+    "1": 0.3333333333333333,
+    "2": 0.6666666666666666,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0
+  },
+  "gods": [
+    {
+      "id": "examples_python_client_traffyexchangeclient",
+      "label": "TraffyExchangeClient",
+      "degree": 8
+    },
+    {
+      "id": "examples_nodejs_client_traffyexchangeclient",
+      "label": "TraffyExchangeClient",
+      "degree": 8
+    },
+    {
+      "id": "examples_curl_get_auth_sh__entry",
+      "label": "get_auth.sh script",
+      "degree": 1
+    },
+    {
+      "id": "examples_curl_get_issues_sh__entry",
+      "label": "get_issues.sh script",
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `TraffyExchangeClient` connect `TraffyExchangeClient` to `client.py`?",
+      "why": "High betweenness centrality (0.120) - this node is a cross-community bridge."
+    }
+  ]
+}

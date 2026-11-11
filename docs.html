@@ -3097,8 +3097,9 @@
                     POST ทันทีเมื่อมีเรื่องแจ้งใหม่เข้ามาในหน่วยงาน</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
-                    หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API new-issue
-                    เพื่อป้องกันการเกิด loop</p>
+                    หมายเหตุ: เพื่อป้องกันการเกิด loop<br />- จะไม่ส่ง event ที่เกิดจาก API /new-issue ด้านบนนี้<br />-
+                    ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API /new-issue
+                  </p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3306,8 +3307,9 @@
                     HTTP PATCH ทันทีที่เรื่องแจ้งมีการอัปเดตหรือเปลี่ยนสถานะ</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
-                    หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API update-issue
-                    เพื่อป้องกันการเกิด loop</p>
+                    หมายเหตุ: เพื่อป้องกันการเกิด loop<br />- จะไม่ส่ง event ที่เกิดจาก API /update-issue
+                    ด้านบนนี้<br />- ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API /update-issue
+                  </p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
@@ -3478,8 +3480,9 @@
                     ทันทีที่มีข้อความแชท หรือมีการประเมินโดยผู้แจ้ง</p>
                   <p
                     style="color: #d32f2f; font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.5;">
-                    หมายเหตุ: ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API
-                    comment เพื่อป้องกันการเกิด loop</p>
+                    หมายเหตุ: เพื่อป้องกันการเกิด loop<br />- จะไม่ส่ง event ที่เกิดจาก API /comment ด้านบนนี้<br />-
+                    ห้ามส่งข้อมูลที่ได้รับมาจาก Traffy Fondue webhook วนกลับมาที่ API
+                    /comment</p>
                   <details class="param-section" open>
                     <summary class="param-title">Incoming Payload (JSON)</summary>
                     <div class="table-wrap">
